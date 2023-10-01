@@ -72,5 +72,20 @@ public class JwtProvider {
         }
     }
 
+    //JWT 토큰에서 인증 정보 조회
+    public Authentication getAuthentication(String token) {
+        Jws<Claims> claims = Jwts.parserBuilder()
+                .setSigningKey(createKey())
+                .build()
+                .parseClaimsJws(token);
+
+        int id = (int) claims.getBody().get("id");
+        Member member = Member.builder().id(id).build();
+
+        CustomUserDetails customUserDetails = new CustomUserDetails(member);
+        //인증용 객체
+        return new UsernamePasswordAuthenticationToken(customUserDetails, customUserDetails.getPassword(),customUserDetails.getAuthorities());
+    }
+
 
 }
