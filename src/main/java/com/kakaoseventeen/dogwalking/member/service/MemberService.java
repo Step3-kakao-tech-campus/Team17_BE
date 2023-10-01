@@ -30,7 +30,7 @@ public class MemberService {
 
         //refresh token 객체를 만든다.
         RefreshToken refreshToken = RefreshToken.builder()
-                .token(loginResponseDTO.getRefresh_token())
+                .token(loginResponseDTO.getRefreshToken())
                 .email(memberPS.getEmail())
                 .build();
 
