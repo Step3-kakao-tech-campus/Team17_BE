@@ -1,9 +1,13 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
+import com.kakaoseventeen.dogwalking.member.domain.Member;
+import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -24,6 +28,30 @@ public class JwtProvider {
         byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
         return signingKey;
+    }
+
+    public static LoginResponseDTO createToken(Member member){
+
+        Claims claims = Jwts.claims().setSubject(String.valueOf(member.getEmail()));
+        claims.put("id", member.getId());
+
+        String accessToken = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setClaims(claims)
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenValidTime))
+                .setIssuedAt(new Date())
+                .signWith(createKey(),SignatureAlgorithm.HS512)
+                .compact();
+
+        String refreshToken = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis()+ refreshTokenValidTime))
+                .signWith(createKey(),SignatureAlgorithm.HS512)
+                .compact();
+
+        return new LoginResponseDTO(PREFIX + accessToken,PREFIX + refreshToken);
     }
 
     // 헤더의 access 토큰의 유효성 + 만료일자 확인
