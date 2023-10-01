@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.member.service;
 
+import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
 import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
