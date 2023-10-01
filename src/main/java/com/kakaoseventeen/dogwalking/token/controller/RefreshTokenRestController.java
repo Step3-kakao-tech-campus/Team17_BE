@@ -1,6 +1,8 @@
 package com.kakaoseventeen.dogwalking.token.controller;
 
+import com.kakaoseventeen.dogwalking._core.utils.ApiUtils;
 import com.kakaoseventeen.dogwalking.member.service.MemberService;
+import com.kakaoseventeen.dogwalking.token.dto.RefreshResponseDTO;
 import com.kakaoseventeen.dogwalking.token.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +18,9 @@ public class RefreshTokenRestController {
     //access token 만료시간 지나면 프론트가 refresh token을 헤더에 담아 요청 보내줌
     @GetMapping("/refresh")
     public ResponseEntity<?> reissue(@RequestHeader("Authorization-refresh") String refreshToken){
-        String reissueToken = refreshTokenService.refresh(refreshToken);
+        RefreshResponseDTO responseDTO = refreshTokenService.refresh(refreshToken);
         //새로운 accesstoken을 반환
-        return ResponseEntity.ok().body(reissueToken);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
+        return ResponseEntity.ok(apiResult);
     }
 }
