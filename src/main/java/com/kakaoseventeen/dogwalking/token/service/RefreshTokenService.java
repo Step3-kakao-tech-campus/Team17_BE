@@ -50,4 +50,21 @@ public class RefreshTokenService {
         return null;
     }
 
+    //refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성
+    public String recreationAccessToken(String email, Object id) {
+
+        Claims claims = Jwts.claims().setSubject(String.valueOf(email));
+        claims.put("id", id);
+
+        String accessToken = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setClaims(claims)
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenValidTime))
+                .setIssuedAt(new Date())
+                .signWith(createKey(), SignatureAlgorithm.HS512)
+                .compact();
+
+        return accessToken;
+    }
+
 }
