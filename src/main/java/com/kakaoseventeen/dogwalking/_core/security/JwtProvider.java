@@ -51,7 +51,7 @@ public class JwtProvider {
                 .signWith(createKey(),SignatureAlgorithm.HS512)
                 .compact();
 
-        return new LoginResponseDTO(PREFIX + accessToken,PREFIX + refreshToken);
+        return new LoginResponseDTO(accessToken,refreshToken);
     }
 
     // 헤더의 access 토큰의 유효성 + 만료일자 확인
