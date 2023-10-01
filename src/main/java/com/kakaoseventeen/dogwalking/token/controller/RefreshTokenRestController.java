@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.token.controller;
 
+import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class RefreshTokenRestController {
+    private final MemberService memberService;
 
     //access token 만료시간 지나면 프론트가 refresh token을 헤더에 담아 요청 보내줌
     @GetMapping("/refresh")
