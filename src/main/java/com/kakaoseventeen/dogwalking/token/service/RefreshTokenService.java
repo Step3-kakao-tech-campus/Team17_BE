@@ -1,0 +1,53 @@
+package com.kakaoseventeen.dogwalking.token.service;
+
+import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
+import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+
+import static com.kakaoseventeen.dogwalking._core.security.JwtProvider.accessTokenValidTime;
+import static com.kakaoseventeen.dogwalking._core.security.JwtProvider.createKey;
+
+@Slf4j
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
+@Service
+public class RefreshTokenService {
+
+    private final RefreshTokenJpaRepository refreshTokenJpaRepository;
+
+    public String refresh(String refreshToken){
+
+        //클라이언트에게 받은 refresh token값 db에서 찾기
+        RefreshToken refreshTokenOP = refreshTokenJpaRepository.findByToken(refreshToken).orElseThrow();
+        String token = refreshTokenOP.getToken();
+
+        try {
+            //refresh token 검증을 한다.
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(createKey())
+                    .build()
+                    .parseClaimsJws(token);
+
+            //refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성
+            if (!claims.getBody().getExpiration().before(new Date())) {
+                return recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("id"));
+            }
+        }catch (Exception e) {
+            //JWT가 올바른 형식이 아닐 경우, JWT가 올바르게 구성되지 않았을 때 등등 -> 예외처리 필요
+            return null;
+        }
+        //refresh 토큰이 만료되었을 경우, 로그인이 필요
+        log.warn("토큰이 만료되었습니다");
+        return null;
+    }
+
+}
