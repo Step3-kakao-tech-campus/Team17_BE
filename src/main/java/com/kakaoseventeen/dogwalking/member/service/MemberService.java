@@ -24,20 +24,22 @@ public class MemberService {
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
 
         //회원가입이 되어있는 유저인지 확인
-        Member memberPS = memberJpaRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow();
+        Member member = memberJpaRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow();
+
+        String email = member.getEmail();
 
         //accessToken과 refreshToken을 발급받아서 response dto에 담는다.
-        LoginResponseDTO loginResponseDTO = JwtProvider.createToken(memberPS);
+        LoginResponseDTO loginResponseDTO = JwtProvider.createToken(member);
 
         //refresh token 객체를 만든다.
         RefreshToken refreshToken = RefreshToken.builder()
                 .token(loginResponseDTO.getRefreshToken())
-                .email(memberPS.getEmail())
+                .email(email)
                 .build();
 
         //이미 로그인을 했었던 유저라면(db에 refresh token이 존재함) 기존 refresh token 삭제
-        if (refreshTokenJpaRepository.existsByEmail(memberPS.getEmail())){
-            refreshTokenJpaRepository.deleteByEmail(memberPS.getEmail());
+        if (refreshTokenJpaRepository.existsByEmail(email)){
+            refreshTokenJpaRepository.deleteByEmail(email);
         }
         // 새로 발급한 refresh token 테이블에 저장
         refreshTokenJpaRepository.save(refreshToken);
