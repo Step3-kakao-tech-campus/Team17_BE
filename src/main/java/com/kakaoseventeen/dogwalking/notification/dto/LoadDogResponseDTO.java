@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking.notification.dto;
 
-import com.kakaoseventeen.dogwalking.Dog;
+import com.kakaoseventeen.dogwalking.dog.Dog;
 import lombok.Getter;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class LoadDogResponseDTO {
 
     @Getter
     public class DogDTO{
-        private Long dogId;
+        private int dogId;
         private String dogImage;
         private String dogName;
 
