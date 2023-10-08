@@ -39,7 +39,7 @@ public class RefreshTokenService {
                     .parseClaimsJws(token);
 
             //refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성
-            if (!claims.getBody().getExpiration().before(new Date())) {
+            if (isNotExpired(claims)) {
                 String accessToken = recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("id"));
                 return new RefreshResponseDTO(accessToken);
             }
@@ -50,6 +50,10 @@ public class RefreshTokenService {
         //refresh 토큰이 만료되었을 경우, 로그인이 필요
         log.warn("토큰이 만료되었습니다");
         return null;
+    }
+
+    private static boolean isNotExpired(Jws<Claims> claims) {
+        return !claims.getBody().getExpiration().before(new Date());
     }
 
     //refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성
