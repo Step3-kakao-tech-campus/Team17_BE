@@ -2,10 +2,9 @@ package com.kakaoseventeen.dogwalking.notification.controller;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiUtils;
-import com.kakaoseventeen.dogwalking.notification.dto.LoadDogResponseDTO;
-import com.kakaoseventeen.dogwalking.notification.dto.LoadNotificationResponseDTO;
+import com.kakaoseventeen.dogwalking.notification.dto.response.LoadDogResponseDTO;
+import com.kakaoseventeen.dogwalking.notification.dto.response.LoadNotificationResponseDTO;
 import com.kakaoseventeen.dogwalking.notification.service.NotificationService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

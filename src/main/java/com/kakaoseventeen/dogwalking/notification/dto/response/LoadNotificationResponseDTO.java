@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.notification.dto;
+package com.kakaoseventeen.dogwalking.notification.dto.response;
 
 import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
