@@ -4,6 +4,12 @@ import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * WalkRoad(산책 경로) 엔티티
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
