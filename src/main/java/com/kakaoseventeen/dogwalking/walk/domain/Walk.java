@@ -46,6 +46,9 @@ public class Walk {
                 .build();
     }
 
+    /**
+     * RoomEntity의 lastSendTime을 최신화 하는 메서드
+     */
     public void updateStatus(WalkStatus walkStatus){
         this.walkStatus = walkStatus;
     }
