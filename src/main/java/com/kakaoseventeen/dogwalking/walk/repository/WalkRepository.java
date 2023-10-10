@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 /**
- * Walk(결제) 레포지토리
+ * Walk(산책 경로) 레포지토리
  *
  * @author 승건 이
  * @version 1.0
