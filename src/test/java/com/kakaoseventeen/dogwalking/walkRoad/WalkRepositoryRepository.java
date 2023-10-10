@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.walk;
+package com.kakaoseventeen.dogwalking.walkRoad;
 
 import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
@@ -6,6 +6,8 @@ import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
+import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
+import com.kakaoseventeen.dogwalking.walkRoad.repository.WalkRoadRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,14 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @DataJpaTest
-public class WalkRepositoryTest {
+public class WalkRepositoryRepository {
 
     @Autowired
-    WalkRepository repository;
+    WalkRoadRepository repository;
+
+    @Autowired
+    WalkRepository walkRepository;
 
     @Autowired
     MemberJpaRepository memberJpaRepository;
@@ -54,22 +59,25 @@ public class WalkRepositoryTest {
 
 
         Walk walk = Walk.of(dog, member);
-        repository.saveAndFlush(walk);
+        walkRepository.saveAndFlush(walk);
+
+        for (int i = 0; i < 8; i++){
+            repository.saveAndFlush(WalkRoad.of(i, 123.12312312, walk));
+        }
     }
 
     /*
-    UserId로 Walk를 조회하는 쿼리 테스트
+    WalkId로 WalkRoad를 조회하는 쿼리 테스트
      */
     @Test
-    public void test_1() {
-    // given
-    Member member = memberJpaRepository.findById(1).get();
+    void test_1(){
+        // given
 
-    // when
-    List<Walk> walks = repository.findByWalkStatus(member.getId());
+        // when
+        List<WalkRoad> walkRoads = repository.findWalkRoadsByWalk(1L);
 
-    // then
-    Assertions.assertEquals(walks.size(), 1);
-    Assertions.assertEquals(walks.get(0).getDog().getName(), "복슬이");
+        // then
+        Assertions.assertEquals(walkRoads.size(), 8);
+        Assertions.assertEquals(walkRoads.get(0).getLat(), 0.0);
     }
 }
