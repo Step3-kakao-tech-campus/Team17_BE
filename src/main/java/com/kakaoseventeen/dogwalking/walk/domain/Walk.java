@@ -31,7 +31,7 @@ public class Walk {
     private Dog dog;
 
     @Enumerated(value = EnumType.STRING)
-    private WalkStatus walkStatus = WalkStatus.READY;
+    private WalkStatus walkStatus;
 
     private LocalDateTime startTime;
 

@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     @Column(length = 45, nullable = false)
     private String nickname;
     @Column(length = 100, nullable = false, unique = true)

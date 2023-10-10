@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface DogJpaRepository extends JpaRepository<Dog, Integer> {
 
-    List<Dog> findDogsByMemberId(int memberId);
+    List<Dog> findDogsByMemberId(long memberId);
 }
