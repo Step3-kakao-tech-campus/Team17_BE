@@ -20,5 +20,11 @@ public interface WalkRepository extends JpaRepository<Walk, Long> {
     @Query("select w from Walk w where w.member.id = :userId")
     List<Walk> findByWalkStatus(Long userId);
 
+    /**
+     * UserId와 산책의 상태가 END인 Walk 엔티티를 가져오는 쿼리
+     * 본인이 지원한 공고 + 산책이 완료된 이력
+     */
+    @Query("select w from Walk w where w.member.id = :userId and w.walkStatus = 'END'")
+    List<Walk> findByWalkWithUserIdAndEndStatus(Long userId);
 
 }

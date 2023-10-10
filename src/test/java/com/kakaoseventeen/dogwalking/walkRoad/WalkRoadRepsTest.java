@@ -15,11 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @DataJpaTest
-public class WalkRepositoryRepository {
+public class WalkRoadRepsTest {
 
     @Autowired
     WalkRoadRepository repository;
