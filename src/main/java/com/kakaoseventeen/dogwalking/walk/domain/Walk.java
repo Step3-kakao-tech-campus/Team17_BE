@@ -25,10 +25,17 @@ public class Walk {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private Member walker;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member master;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Dog dog;
+
+/*    @OneToOne(fetch = FetchType.LAZY)
+    private ChatRoom chatRoom;
+    */
 
     @Enumerated(value = EnumType.STRING)
     private WalkStatus walkStatus;
@@ -37,19 +44,32 @@ public class Walk {
 
     private LocalDateTime endTime;
 
-    public static Walk of(Dog dog, Member member){
+
+    /**
+     * Walk Entity 생성, 즉 산책 허락하기시 객체 생성 메서드
+     */
+    public static Walk of(Dog dog, Member walker, Member master){
         return Walk.builder()
-                .startTime(LocalDateTime.now())
-                .walkStatus(WalkStatus.ACTIVATE)
+                .walkStatus(WalkStatus.READY)
                 .dog(dog)
-                .member(member)
+                .master(master)
+                .walker(walker)
                 .build();
     }
 
     /**
-     * RoomEntity의 lastSendTime을 최신화 하는 메서드
+     * 산책 시작하는 메서드
      */
-    public void updateStatus(WalkStatus walkStatus){
-        this.walkStatus = walkStatus;
+    public void startWalk(){
+        this.walkStatus = WalkStatus.ACTIVATE;
+        this.startTime = LocalDateTime.now();
+    }
+
+    /**
+     * 산책 종료하는 메서드
+     */
+    public void endWalk(){
+        this.walkStatus = WalkStatus.END;
+        this.endTime = LocalDateTime.now();
     }
 }

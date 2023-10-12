@@ -61,7 +61,7 @@ public class PaymentRespTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
-        Walk walk1 = Walk.of(dog, member);
+        Walk walk1 = Walk.of(dog, member, member);
         walkRepository.saveAndFlush(walk1);
 
         Payment payment = Payment.from(walk1);

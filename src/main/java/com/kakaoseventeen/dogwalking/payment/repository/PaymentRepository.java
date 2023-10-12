@@ -1,6 +1,5 @@
 package com.kakaoseventeen.dogwalking.payment.repository;
 
-import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.payment.domain.Payment;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import org.springframework.data.jpa.repository.JpaRepository;

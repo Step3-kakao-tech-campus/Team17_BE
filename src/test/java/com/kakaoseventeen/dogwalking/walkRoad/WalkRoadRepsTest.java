@@ -57,7 +57,7 @@ public class WalkRoadRepsTest {
         dogJpaRepository.saveAndFlush(dog);
 
 
-        Walk walk = Walk.of(dog, member);
+        Walk walk = Walk.of(dog, member, member);
         walkRepository.saveAndFlush(walk);
 
         for (int i = 0; i < 8; i++){

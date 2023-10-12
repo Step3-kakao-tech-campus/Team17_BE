@@ -52,15 +52,13 @@ public class WalkRespTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
-        Walk walk1 = Walk.of(dog, member);
-        walk1.updateStatus(WalkStatus.END);
+        Walk walk1 = Walk.of(dog, member, member);
         repository.saveAndFlush(walk1);
 
-        Walk walk2 = Walk.of(dog, member);
-        walk2.updateStatus(WalkStatus.END);
+        Walk walk2 = Walk.of(dog, member, member);
         repository.saveAndFlush(walk2);
 
-        Walk walk3 = Walk.of(dog, member);
+        Walk walk3 = Walk.of(dog, member, member);
         repository.saveAndFlush(walk3);
     }
 
