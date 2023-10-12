@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab57771d-c27b-4255-ae29-9f3bcd5e0d8d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/payment/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/payment/repository/PaymentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/domain/Walk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/domain/Walk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/repository/WalkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/repository/WalkRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/payment/PaymentRespTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/payment/PaymentRespTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkRespTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkRespTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walkRoad/WalkRoadRepsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walkRoad/WalkRoadRepsTest.java" afterDir="false" />
@@ -39,8 +39,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -79,7 +79,10 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Gradle.PaymentRespTest.test_2">
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RunManager" selected="Gradle.WalkRespTest.test_2">
     <configuration name="PaymentRespTest.test_1" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -152,7 +155,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="WalkRepositoryTest.findAllMentiByDefaultSorting_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WalkRespTest.test_1" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -165,7 +168,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkRepositoryTest.findAllMentiByDefaultSorting_test&quot;" />
+            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkRespTest.test_1&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -209,11 +212,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.WalkRespTest.test_2" />
+        <item itemvalue="Gradle.WalkRespTest.test_1" />
         <item itemvalue="Gradle.PaymentRespTest.test_2" />
         <item itemvalue="Gradle.PaymentRespTest.test_1" />
-        <item itemvalue="Gradle.WalkRespTest.test_2" />
         <item itemvalue="Gradle.WalkRepositoryRepository.test_1" />
-        <item itemvalue="Gradle.WalkRepositoryTest.findAllMentiByDefaultSorting_test" />
       </list>
     </recent_temporary>
   </component>
@@ -228,7 +231,7 @@
       <workItem from="1696863137274" duration="9956000" />
       <workItem from="1696873420212" duration="15005000" />
       <workItem from="1697004514433" duration="18000" />
-      <workItem from="1697007038583" duration="2563000" />
+      <workItem from="1697007038583" duration="9178000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,7 @@
 package com.kakaoseventeen.dogwalking.payment;
 
+import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
+import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -37,6 +39,9 @@ public class PaymentRespTest {
     @Autowired
     NotificationJpaRepository notificationJpaRepository;
 
+    @Autowired
+    ChatRoomRepository chatRoomRepository;
+
     @BeforeEach
     public void setUp() {
         Member member = Member.builder()
@@ -61,7 +66,10 @@ public class PaymentRespTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
-        Walk walk1 = Walk.of(dog, member, member);
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoomRepository.saveAndFlush(chatRoom);
+
+        Walk walk1 = Walk.of(dog, member, member, chatRoom);
         walkRepository.saveAndFlush(walk1);
 
         Payment payment = Payment.from(walk1);

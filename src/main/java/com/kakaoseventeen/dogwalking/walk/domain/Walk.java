@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.walk.domain;
 
+import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import jakarta.persistence.*;
@@ -33,9 +34,9 @@ public class Walk {
     @ManyToOne(fetch = FetchType.LAZY)
     private Dog dog;
 
-/*    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CHATROOM_ID")
     private ChatRoom chatRoom;
-    */
 
     @Enumerated(value = EnumType.STRING)
     private WalkStatus walkStatus;
@@ -48,12 +49,13 @@ public class Walk {
     /**
      * Walk Entity 생성, 즉 산책 허락하기시 객체 생성 메서드
      */
-    public static Walk of(Dog dog, Member walker, Member master){
+    public static Walk of(Dog dog, Member walker, Member master, ChatRoom chatRoom){
         return Walk.builder()
                 .walkStatus(WalkStatus.READY)
                 .dog(dog)
                 .master(master)
                 .walker(walker)
+                .chatRoom(chatRoom)
                 .build();
     }
 

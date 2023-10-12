@@ -1,5 +1,7 @@
 package com.kakaoseventeen.dogwalking.walkRoad;
 
+import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
+import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -32,6 +34,9 @@ public class WalkRoadRepsTest {
     @Autowired
     DogJpaRepository dogJpaRepository;
 
+    @Autowired
+    ChatRoomRepository chatRoomRepository;
+
     @BeforeEach
     public void setUp() {
         Member member = Member.builder()
@@ -56,8 +61,9 @@ public class WalkRoadRepsTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
+        ChatRoom chatRoom = chatRoomRepository.saveAndFlush(new ChatRoom());
 
-        Walk walk = Walk.of(dog, member, member);
+        Walk walk = Walk.of(dog, member, member, chatRoom);
         walkRepository.saveAndFlush(walk);
 
         for (int i = 0; i < 8; i++){

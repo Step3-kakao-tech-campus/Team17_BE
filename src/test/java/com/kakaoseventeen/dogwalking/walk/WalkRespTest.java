@@ -1,5 +1,7 @@
 package com.kakaoseventeen.dogwalking.walk;
 
+import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
+import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -28,23 +30,39 @@ public class WalkRespTest {
     @Autowired
     DogJpaRepository dogJpaRepository;
 
+    @Autowired
+    ChatRoomRepository chatRoomRepository;
+
+    private final int memberId = 1;
+
     @BeforeEach
     public void setUp() {
-        Member member = Member.builder()
+        Member member1 = Member.builder()
                 .email("yardyard@likelion.org")
                 .password("asd1111")
                 .profileContent("반갑다리요")
                 .dogBowl(50)
-                .nickname("테스트유저1")
+                .nickname("견주유저1")
                 .coin(BigDecimal.valueOf(3000))
                 .build();
 
-        memberJpaRepository.saveAndFlush(member);
+        memberJpaRepository.saveAndFlush(member1);
+
+        Member member2 = Member.builder()
+                .email("yardyard2@likelion.org")
+                .password("asd1112")
+                .profileContent("반갑다리요2")
+                .dogBowl(50)
+                .nickname("알바유저1")
+                .coin(BigDecimal.valueOf(4000))
+                .build();
+
+        memberJpaRepository.saveAndFlush(member2);
 
         Dog dog = Dog.builder()
                 .breed("요크셔테리어")
                 .sex("Male")
-                .member(member)
+                .member(member1)
                 .image("https:123123.jpeg")
                 .size("소형견")
                 .name("복슬이")
@@ -52,29 +70,33 @@ public class WalkRespTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
-        Walk walk1 = Walk.of(dog, member, member);
+        ChatRoom chatRoom1 = chatRoomRepository.saveAndFlush(new ChatRoom());
+
+        Walk walk1 = Walk.of(dog, member1, member2, chatRoom1);
         repository.saveAndFlush(walk1);
 
-        Walk walk2 = Walk.of(dog, member, member);
-        repository.saveAndFlush(walk2);
+        ChatRoom chatRoom2 = chatRoomRepository.saveAndFlush(new ChatRoom());
 
-        Walk walk3 = Walk.of(dog, member, member);
-        repository.saveAndFlush(walk3);
+        Walk walk2 = Walk.of(dog, member1, member2, chatRoom2);
+        repository.saveAndFlush(walk2);
+//
+//        Walk walk3 = Walk.of(dog, member1, member2, chatRoom);
+//        repository.saveAndFlush(walk3);
     }
 
     /*
-    UserId로 Walk를 조회하는 쿼리 테스트
+        UserId로 해당 User의 모든 Walk를 조회하는 쿼리 테스트
      */
     @Test
     public void test_1() {
     // given
-    Member member = memberJpaRepository.findById(1).get();
+    Member member = memberJpaRepository.findById(memberId).get();
 
     // when
     List<Walk> walks = repository.findByWalkStatus(member.getId());
 
     // then
-    Assertions.assertEquals(walks.size(), 1);
+    Assertions.assertEquals(walks.size(), 2);
     Assertions.assertEquals(walks.get(0).getDog().getName(), "복슬이");
     }
 
@@ -85,10 +107,12 @@ public class WalkRespTest {
     @Test
     public void test_2() {
         // given
-        Member member = memberJpaRepository.findById(1).get();
+        Member member = memberJpaRepository.findById(memberId).get();
+        List<Walk> walks = repository.findByWalkWithUserIdAndEndStatus(member.getId());
+        Walk walk1 = walks.get(0);
 
         // when
-        List<Walk> walks = repository.findByWalkWithUserIdAndEndStatus(member.getId());
+        walk1.endWalk();
 
         // then
         Assertions.assertEquals(walks.size(), 2);
