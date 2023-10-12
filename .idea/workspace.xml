@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab57771d-c27b-4255-ae29-9f3bcd5e0d8d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/_core/security/JwtProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/_core/security/JwtProvider.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/member/domain/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/member/domain/Member.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/walk/domain/Walk$WalkBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/walk/domain/Walk$WalkBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/walk/domain/Walk.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/walk/domain/Walk.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/domain/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/domain/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/repository/MemberJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/repository/MemberJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/payment/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/payment/repository/PaymentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/domain/Walk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/domain/Walk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/repository/WalkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/repository/WalkRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/payment/PaymentRespTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/payment/PaymentRespTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkRespTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkRespTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walkRoad/WalkRoadRepsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walkRoad/WalkRoadRepsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/service/WalkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/service/WalkService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +226,7 @@
       <workItem from="1696863137274" duration="9956000" />
       <workItem from="1696873420212" duration="15005000" />
       <workItem from="1697004514433" duration="18000" />
-      <workItem from="1697007038583" duration="17061000" />
+      <workItem from="1697007038583" duration="20098000" />
     </task>
     <servers />
   </component>

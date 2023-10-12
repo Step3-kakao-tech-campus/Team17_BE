@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Walk(산책 경로) 서비스
+ * Walk(산책) 서비스
  *
  * @author 승건 이
  * @version 1.0
@@ -34,7 +34,7 @@ public class WalkService {
      * 산책 허락하기 메서드
      */
     @Transactional
-    public void saveWalk(long masterId, long walkerId, Long chatRoomId) {
+    public void saveWalk(long masterId, long walkerId, Long chatRoomId) throws RuntimeException{
         Optional<Member> master = memberJpaRepository.findById(masterId);
         Optional<Member> walker = memberJpaRepository.findById(walkerId);
         Optional<ChatRoom> chatRoom = chatRoomRepository.findById(chatRoomId);
@@ -56,7 +56,7 @@ public class WalkService {
      * 산책 시작하기 메서드
      */
     @Transactional
-    public Walk startWalk(Long chatRoomId) {
+    public Walk startWalk(Long chatRoomId) throws RuntimeException{
         Optional<Walk> walk = walkRepository.findWalkByChatRoomId(chatRoomId);
 
         if (walk.isPresent()) {
@@ -91,16 +91,16 @@ public class WalkService {
      * userId를 통한 산책 조회 메서드
      */
     @Transactional(readOnly = true)
-    public WalkRespDTO.FindByUserId findAllWalkStatusByUserId(long userId) {
+    public WalkRespDTO.FindByUserId findAllWalkStatusByUserId(long userId) throws RuntimeException{
         Optional<Member> member = memberJpaRepository.findById(userId);
 
         if (member.isEmpty()) {
             throw new RuntimeException("올바르지 않은 멤버 Id입니다.");
         }
 
-        List<Walk> walk = walkRepository.findByWalkWithUserIdAndEndStatus(userId);
+        List<Walk> walks = walkRepository.findByWalkWithUserIdAndEndStatus(userId);
 
-        return new WalkRespDTO.FindByUserId(walk);
+        return new WalkRespDTO.FindByUserId(walks);
     }
 }
 
