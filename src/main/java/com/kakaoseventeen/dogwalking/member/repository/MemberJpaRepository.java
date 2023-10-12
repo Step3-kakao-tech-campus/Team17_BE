@@ -5,10 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface MemberJpaRepository extends JpaRepository<Member, Integer> {
+public interface MemberJpaRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
-
-    /**
-     * userId를 통해서 User 엔티티를 가져오는 쿼리
-     */
 }

@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 public class WalkRespTest {
@@ -33,7 +34,7 @@ public class WalkRespTest {
     @Autowired
     ChatRoomRepository chatRoomRepository;
 
-    private final int memberId = 1;
+    private final long memberId = 1;
 
     @BeforeEach
     public void setUp() {
@@ -72,12 +73,12 @@ public class WalkRespTest {
 
         ChatRoom chatRoom1 = chatRoomRepository.saveAndFlush(new ChatRoom());
 
-        Walk walk1 = Walk.of(dog, member1, member2, chatRoom1);
+        Walk walk1 = Walk.of(member1, member2, chatRoom1);
         repository.saveAndFlush(walk1);
 
         ChatRoom chatRoom2 = chatRoomRepository.saveAndFlush(new ChatRoom());
 
-        Walk walk2 = Walk.of(dog, member1, member2, chatRoom2);
+        Walk walk2 = Walk.of(member1, member2, chatRoom2);
         repository.saveAndFlush(walk2);
 //
 //        Walk walk3 = Walk.of(dog, member1, member2, chatRoom);
@@ -97,7 +98,6 @@ public class WalkRespTest {
 
     // then
     Assertions.assertEquals(walks.size(), 2);
-    Assertions.assertEquals(walks.get(0).getDog().getName(), "복슬이");
     }
 
 
@@ -117,5 +117,20 @@ public class WalkRespTest {
         // then
         Assertions.assertEquals(walks.size(), 2);
         Assertions.assertEquals(walks.get(0).getWalkStatus().toString(), "END");
+    }
+
+    /*
+        ChannelId의 외래키를 지닌 Walk 엔티티를 가져오는 쿼리
+     */
+    @Test
+    public void test_3() {
+        // given
+        Long chatRoomId = 1L;
+
+        // when
+        Optional<Walk> walk = repository.findWalkByChatRoomId(chatRoomId);
+
+        // then
+        Assertions.assertEquals(walk.get().getChatRoom().getId(), 1L);
     }
 }

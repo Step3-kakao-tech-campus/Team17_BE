@@ -32,7 +32,7 @@ public class Member {
     private BigDecimal coin;
 
     @Builder
-    public Member(int id, String nickname, String email, String password, String profileImage, String profileContent, int dogBowl, BigDecimal coin){
+    public Member(long id, String nickname, String email, String password, String profileImage, String profileContent, int dogBowl, BigDecimal coin){
         this.id = id;
         this.nickname = nickname;
         this.email = email;

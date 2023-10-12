@@ -1,0 +1,35 @@
+package com.kakaoseventeen.dogwalking.walk.dto;
+
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
+import lombok.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+public class WalkRespDTO {
+
+    @Getter @Setter
+    public static class FindByUserId {
+
+        private List<WalkStatusDTO> walkStatusDTOS;
+
+        public FindByUserId (List<Walk> walks){
+            this.walkStatusDTOS = walks.stream().map(WalkStatusDTO::new).collect(Collectors.toList());
+        }
+
+        @Getter @Setter
+        public class WalkStatusDTO {
+
+            private Long id;
+
+            private WalkStatus walkStatus;
+
+            public WalkStatusDTO(Walk walk) {
+                this.id = walk.getId();
+                this.walkStatus = walk.getWalkStatus();
+            }
+        }
+    }
+}

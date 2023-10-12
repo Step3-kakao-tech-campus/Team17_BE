@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Walk(산책 경로) 레포지토리
@@ -22,10 +23,16 @@ public interface WalkRepository extends JpaRepository<Walk, Long> {
 
 
     /**
+     * ChatRoomId를 통해서 Walk 가져오는 쿼리
+     */
+    @Query("select w from Walk w where w.chatRoom.id = :chatRoomId")
+    Optional<Walk> findWalkByChatRoomId(Long chatRoomId);
+
+    /**
      * UserId와 산책의 상태가 END인 Walk 엔티티를 가져오는 쿼리 -> User Profile에서 사용
      * 본인이 지원한 공고 + 산책이 완료된 이력
      */
     @Query("select w from Walk w where w.walker.id = :userId or w.master.id =:userId and w.walkStatus = 'END'")
-    List<Walk> findByWalkWithUserIdAndEndStatus(Long userId);
+    List<Walk> findByWalkWithUserIdAndEndStatus(long userId);
 
 }

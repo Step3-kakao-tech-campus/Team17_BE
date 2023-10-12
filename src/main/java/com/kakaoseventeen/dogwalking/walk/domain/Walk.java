@@ -31,9 +31,6 @@ public class Walk {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member master;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Dog dog;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CHATROOM_ID")
     private ChatRoom chatRoom;
@@ -49,10 +46,9 @@ public class Walk {
     /**
      * Walk Entity 생성, 즉 산책 허락하기시 객체 생성 메서드
      */
-    public static Walk of(Dog dog, Member walker, Member master, ChatRoom chatRoom){
+    public static Walk of(Member walker, Member master, ChatRoom chatRoom){
         return Walk.builder()
                 .walkStatus(WalkStatus.READY)
-                .dog(dog)
                 .master(master)
                 .walker(walker)
                 .chatRoom(chatRoom)
