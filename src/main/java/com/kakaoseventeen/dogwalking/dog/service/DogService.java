@@ -43,6 +43,9 @@ public class DogService {
         return new DogRespDTO.save(dogJpaRepository.save(dog));
     }
 
+    /**
+     * 강아지 프로필 조회 메서드
+     */
     @Transactional(readOnly = true)
     public DogRespDTO.findById findByDogId(int dogId) throws RuntimeException {
         Optional<Dog> dog = dogJpaRepository.findById(dogId);
