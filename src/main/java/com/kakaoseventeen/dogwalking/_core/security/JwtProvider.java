@@ -80,7 +80,8 @@ public class JwtProvider {
                 .parseClaimsJws(token);
 
         int id = (int) claims.getBody().get("id");
-        Member member = Member.builder().id(id).build();
+        Long idLong = Long.valueOf(id);
+        Member member = Member.builder().id(idLong).build();
 
         CustomUserDetails customUserDetails = new CustomUserDetails(member);
         //인증용 객체
