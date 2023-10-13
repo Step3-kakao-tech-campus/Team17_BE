@@ -2,12 +2,11 @@ package com.kakaoseventeen.dogwalking.walk;
 
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
-import com.kakaoseventeen.dogwalking.dog.Dog;
-import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
+import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

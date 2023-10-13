@@ -2,8 +2,8 @@ package com.kakaoseventeen.dogwalking.walkRoad;
 
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
-import com.kakaoseventeen.dogwalking.dog.Dog;
-import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
+import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
