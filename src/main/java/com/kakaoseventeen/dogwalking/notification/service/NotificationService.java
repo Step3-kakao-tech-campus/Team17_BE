@@ -4,6 +4,7 @@ import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
+import com.kakaoseventeen.dogwalking.notification.dto.request.WriteNotificationDTO;
 import com.kakaoseventeen.dogwalking.notification.dto.response.LoadDogResponseDTO;
 import com.kakaoseventeen.dogwalking.notification.dto.response.LoadNotificationResponseDTO;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Transactional(readOnly = true)
@@ -41,4 +43,21 @@ public class NotificationService {
         );
         return new LoadNotificationResponseDTO(notification, dog);
     }
+
+	@Transactional
+    public void writeNotification(WriteNotificationDTO writeNotificationDTO, Member sessionMember) throws RuntimeException {
+
+        List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember.getId());
+        //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
+        Dog dogOP = dogList.stream().filter(dog -> dog.getId() == writeNotificationDTO.getDogId()).findFirst().orElseThrow(
+                ()-> new RuntimeException("등록된 강아지가 아닙니다.")
+        );
+
+        if(sessionMember.getCoin().compareTo(writeNotificationDTO.getCoin())<0)
+            throw new RuntimeException("보유한 멍코인이 부족합니다.");
+
+        Notification notification = writeNotificationDTO.toEntity(dogOP);
+        notificationJpaRepository.save(notification);
+    }
+
 }
