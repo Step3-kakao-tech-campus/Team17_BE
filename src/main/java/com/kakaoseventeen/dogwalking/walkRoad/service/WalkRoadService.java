@@ -1,7 +1,5 @@
 package com.kakaoseventeen.dogwalking.walkRoad.service;
 
-import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
@@ -28,8 +26,6 @@ public class WalkRoadService {
     private final WalkRoadRepository walkRoadRepository;
 
     private final WalkRepository walkRepository;
-
-    private final MemberJpaRepository memberJpaRepository;
 
     /**
      * 산책 경로 저장하기 메서드

@@ -1,7 +1,6 @@
 package com.kakaoseventeen.dogwalking.walk.domain;
 
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
-import com.kakaoseventeen.dogwalking.dog.Dog;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
