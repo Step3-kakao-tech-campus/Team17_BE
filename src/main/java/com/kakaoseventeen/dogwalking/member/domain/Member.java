@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @Column(length = 45, nullable = false)
     private String nickname;
     @Column(length = 100, nullable = false, unique = true)
@@ -32,7 +32,7 @@ public class Member {
     private BigDecimal coin;
 
     @Builder
-    public Member(int id, String nickname, String email, String password, String profileImage, String profileContent, int dogBowl, BigDecimal coin){
+    public Member(Long id, String nickname, String email, String password, String profileImage, String profileContent, int dogBowl, BigDecimal coin){
         this.id = id;
         this.nickname = nickname;
         this.email = email;
