@@ -32,7 +32,7 @@ public class NotificationService {
         return new LoadDogResponseDTO(dogList);
     }
 
-    public LoadNotificationResponseDTO loadNotification(int id, Member sessionMember){
+    public LoadNotificationResponseDTO loadNotification(Long id, Member sessionMember){
         //notificationId로 notification 객체 가져오기 TODO : 에러처리
         Notification notification = notificationJpaRepository.findById(id).orElseThrow();
 

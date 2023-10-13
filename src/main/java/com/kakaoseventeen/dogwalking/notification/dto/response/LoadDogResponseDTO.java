@@ -18,7 +18,7 @@ public class LoadDogResponseDTO {
 
     @Getter
     public class DogDTO{
-        private int dogId;
+        private Long dogId;
         private String dogImage;
         private String dogName;
 

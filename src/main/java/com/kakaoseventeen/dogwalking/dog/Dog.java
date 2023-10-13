@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @Column(length = 45, nullable = false)
     private String name;
     @Column(length = 45, nullable = false)
@@ -31,7 +31,7 @@ public class Dog {
     private Member member;
 
     @Builder
-    public Dog(int id, String name, String sex, String breed, String size, String image, Member member){
+    public Dog(Long id, String name, String sex, String breed, String size, String image, Member member){
         this.id = id;
         this.name = name;
         this.sex = sex;

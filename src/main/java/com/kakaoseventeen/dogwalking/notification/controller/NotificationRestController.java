@@ -24,7 +24,7 @@ public class NotificationRestController {
     }
 
     @GetMapping("/notification/{id}")
-    public ResponseEntity<?> loadNotification(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails){
+    public ResponseEntity<?> loadNotification(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails userDetails){
         LoadNotificationResponseDTO responseDTO = notificationService.loadNotification(id, userDetails.getMember());
         ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
         return ResponseEntity.ok(apiResult);
