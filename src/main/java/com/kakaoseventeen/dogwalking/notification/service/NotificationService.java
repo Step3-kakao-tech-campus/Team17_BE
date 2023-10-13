@@ -23,26 +23,22 @@ public class NotificationService {
     private final NotificationJpaRepository notificationJpaRepository;
 
     public LoadDogResponseDTO loadDog(Member sessionMember){
-        //memberId로 dog 리스트 가져오기
         List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember.getId());
-        //등록된 강아지가 없을 때 에러
+        //등록된 강아지가 없을 때
         if(dogList.isEmpty()){
-            //TODO : 에러처리
+            new RuntimeException("등록된 강아지가 없습니다.");
         }
         return new LoadDogResponseDTO(dogList);
     }
 
     public LoadNotificationResponseDTO loadNotification(Long id, Member sessionMember){
-        //notificationId로 notification 객체 가져오기 TODO : 에러처리
-        Notification notification = notificationJpaRepository.findById(id).orElseThrow();
+        Notification notification = notificationJpaRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("해당 공고글이 존재하지 않습니다.")
+        );
 
-        //본인이 적은 공고글이 아닐 경우 에러
-        if(notification.getDog().getMember().getId() != sessionMember.getId()){
-            //TODO : 에러처리
-        }
-
-        //notification 테이블에 저장된 dogId로 dog 정보 가져오기 TODO : 에러처리
-        Dog dog = dogJpaRepository.findById(notification.getDog().getId()).orElseThrow();
+        Dog dog = dogJpaRepository.findById(notification.getDog().getId()).orElseThrow(
+                ()-> new RuntimeException("해당 강아지가 존재하지 않습니다.")
+        );
         return new LoadNotificationResponseDTO(notification, dog);
     }
 }
