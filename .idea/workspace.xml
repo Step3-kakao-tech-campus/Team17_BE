@@ -5,29 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab57771d-c27b-4255-ae29-9f3bcd5e0d8d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/dog/DogJpaRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/notification/service/NotificationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/kakaoseventeen/dogwalking/notification/service/NotificationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/dog/Dog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/dog/domain/Dog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/dog/DogJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/dog/repository/DogJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/domain/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/domain/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/dto/response/LoadDogResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/dto/response/LoadDogResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/dto/response/LoadNotificationResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/dto/response/LoadNotificationResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/repository/NotificationJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/repository/NotificationJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/service/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/notification/service/NotificationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/repository/WalkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/repository/WalkRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walkRoad/repository/WalkRoadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walkRoad/repository/WalkRoadRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/payment/PaymentRespTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/payment/PaymentRespTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkRespTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkRespTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walkRoad/WalkRoadRepsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walkRoad/WalkRoadRepsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/domain/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/domain/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/member/service/MemberService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +230,7 @@
       <workItem from="1696863137274" duration="9956000" />
       <workItem from="1696873420212" duration="15005000" />
       <workItem from="1697004514433" duration="18000" />
-      <workItem from="1697007038583" duration="31234000" />
+      <workItem from="1697007038583" duration="33578000" />
     </task>
     <servers />
   </component>

@@ -42,4 +42,13 @@ public class Member {
         this.dogBowl = dogBowl;
         this.coin = coin;
     }
+
+    public void updateProfile(String profileImage, String profileContent){
+        if (profileImage != null) {
+            this.profileImage = profileImage;
+        }
+        if (profileContent != null) {
+            this.profileContent = profileContent;
+        }
+    }
 }
