@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.notification.domain;
 import com.kakaoseventeen.dogwalking.dog.Dog;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +18,7 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Dog dog;
     @Column(length = 256, nullable = false)
     private String title;
@@ -33,5 +34,17 @@ public class Notification {
     private String significant;
     @Column(nullable = false)
     private BigDecimal coin;
+
+    @Builder
+    public Notification(Dog dog, String title, Double lat, Double lng, LocalDateTime startTime, LocalDateTime endTime, String significant, BigDecimal coin){
+        this.dog = dog;
+        this.title = title;
+        this.lat = lat;
+        this.lng = lng;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.significant = significant;
+        this.coin = coin;
+    }
 
 }
