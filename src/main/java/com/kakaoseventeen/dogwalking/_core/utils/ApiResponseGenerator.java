@@ -4,6 +4,11 @@ import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+/**
+ * ApiResponseGenerator : ApiResponse 자료구조 형식으로 클라이언트에게 Response를 보내는 책임
+ * @author 승건 이
+ * @version 1.0
+ */
 @UtilityClass
 public class ApiResponseGenerator {
 

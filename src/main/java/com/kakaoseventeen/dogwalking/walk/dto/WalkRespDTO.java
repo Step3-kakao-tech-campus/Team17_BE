@@ -11,6 +11,30 @@ import java.util.stream.Collectors;
 public class WalkRespDTO {
 
     @Getter @Setter
+    public static class StartWalk {
+        private Long id;
+
+        private WalkStatus walkStatus;
+
+        public StartWalk(Walk walk) {
+            this.id = walk.getId();
+            this.walkStatus = walk.getWalkStatus();
+        }
+    }
+
+    @Getter @Setter
+    public static class EndWalk {
+        private Long id;
+
+        private WalkStatus walkStatus;
+
+        public EndWalk(Walk walk) {
+            this.id = walk.getId();
+            this.walkStatus = walk.getWalkStatus();
+        }
+    }
+
+    @Getter @Setter
     public static class FindByUserId {
 
         private List<WalkStatusDTO> walkStatusDTOS;

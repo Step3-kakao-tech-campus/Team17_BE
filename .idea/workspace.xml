@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab57771d-c27b-4255-ae29-9f3bcd5e0d8d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/dog/DogServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/dog/DogServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/_core/utils/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/_core/utils/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/_core/utils/ApiResponseGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/_core/utils/ApiResponseGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/controller/WalkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/controller/WalkController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/dto/WalkRespDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/dto/WalkRespDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/service/WalkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/walk/service/WalkService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +92,7 @@
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
-  <component name="RunManager" selected="Gradle.DogServiceTest.test_find_By_dog">
+  <component name="RunManager" selected="Gradle.WalkRestControllerTest.end_walk_test">
     <configuration name="DogServiceTest.test_find_By_dog" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -129,7 +141,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="WalkRoadRepsTest.test_1" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WalkRestControllerTest.accept_walk_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -142,7 +154,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.kakaoseventeen.dogwalking.walkRoad.WalkRoadRepsTest.test_1&quot;" />
+            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.accept_walk_test&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -153,7 +165,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="WalkRoadServiceTest.test_save_walkRoad" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WalkRestControllerTest.end_walk_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -166,7 +178,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.kakaoseventeen.dogwalking.walkRoad.WalkRoadServiceTest.test_save_walkRoad&quot;" />
+            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.end_walk_test&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -177,7 +189,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="WalkServiceTest.test_startWalk" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WalkRestControllerTest.start_walk_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -190,7 +202,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkServiceTest.test_startWalk&quot;" />
+            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.start_walk_test&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -210,11 +222,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.WalkRestControllerTest.end_walk_test" />
+        <item itemvalue="Gradle.WalkRestControllerTest.start_walk_test" />
+        <item itemvalue="Gradle.WalkRestControllerTest.accept_walk_test" />
         <item itemvalue="Gradle.DogServiceTest.test_find_By_dog" />
         <item itemvalue="Gradle.DogServiceTest.test_save_dog" />
-        <item itemvalue="Gradle.WalkRoadRepsTest.test_1" />
-        <item itemvalue="Gradle.WalkRoadServiceTest.test_save_walkRoad" />
-        <item itemvalue="Gradle.WalkServiceTest.test_startWalk" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +241,7 @@
       <workItem from="1696863137274" duration="9956000" />
       <workItem from="1696873420212" duration="15005000" />
       <workItem from="1697004514433" duration="18000" />
-      <workItem from="1697007038583" duration="40445000" />
+      <workItem from="1697007038583" duration="44394000" />
     </task>
     <servers />
   </component>

@@ -56,13 +56,13 @@ public class WalkService {
      * 산책 시작하기 메서드
      */
     @Transactional
-    public Walk startWalk(Long chatRoomId) throws RuntimeException{
+    public WalkRespDTO.StartWalk startWalk(Long chatRoomId) throws RuntimeException{
         Optional<Walk> walk = walkRepository.findWalkByChatRoomId(chatRoomId);
 
         if (walk.isPresent()) {
             Walk walkOP = walk.get();
             walkOP.startWalk();
-            return walkOP;
+            return new WalkRespDTO.StartWalk(walkOP);
         }
 
         else {
@@ -74,12 +74,13 @@ public class WalkService {
      * 산책 종료하기 메서드
      */
     @Transactional
-    public void terminateWalk(Long chatRoomId) {
+    public WalkRespDTO.EndWalk terminateWalk(Long chatRoomId) {
         Optional<Walk> walk = walkRepository.findWalkByChatRoomId(chatRoomId);
 
         if (walk.isPresent()) {
             Walk walkOP = walk.get();
             walkOP.endWalk();
+            return new WalkRespDTO.EndWalk(walkOP);
         }
 
         else {

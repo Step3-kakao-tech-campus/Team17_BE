@@ -5,6 +5,7 @@ import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walk.service.WalkService;
 import org.junit.jupiter.api.Assertions;
@@ -105,7 +106,7 @@ public class WalkServiceTest {
                 .willReturn(Optional.ofNullable(walk));
 
         // when
-        Walk walkOP = walkService.startWalk(1L);
+        WalkRespDTO.StartWalk walkOP = walkService.startWalk(1L);
 
         // then
         Assertions.assertEquals(walkOP.getWalkStatus().toString(), "ACTIVATE");
