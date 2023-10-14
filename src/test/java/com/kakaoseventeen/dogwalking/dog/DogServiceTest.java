@@ -94,6 +94,7 @@ public class DogServiceTest {
 
         Dog dog = Dog.of(dogReqDTO, walker);
 
+
         // mocking
         given(dogJpaRepository.findById(any()))
                 .willReturn(Optional.ofNullable(dog));
