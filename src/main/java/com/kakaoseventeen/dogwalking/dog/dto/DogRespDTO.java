@@ -27,7 +27,7 @@ public class DogRespDTO {
 
         private int age;
 
-        private Member member;
+        private Long memberId;
 
         public save(Dog dog){
             this.dogId = dog.getId();
@@ -38,7 +38,7 @@ public class DogRespDTO {
             this.size = dog.getSize();
             this.specificity = dog.getSpecificity();
             this.age = dog.getAge();
-            this.member = dog.getMember();
+            this.memberId = dog.getMember().getId();
         }
     }
 
@@ -62,7 +62,7 @@ public class DogRespDTO {
 
         private int age;
 
-        private Member member;
+        private Long memberId;
 
         public findById(Dog dog){
             this.dogId = dog.getId();
@@ -73,7 +73,7 @@ public class DogRespDTO {
             this.size = dog.getSize();
             this.specificity = dog.getSpecificity();
             this.age = dog.getAge();
-            this.member = dog.getMember();
+            this.memberId = dog.getMember().getId();
         }
     }
 }

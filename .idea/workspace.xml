@@ -13,7 +13,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/kakaoseventeen/dogwalking/walk/WalkDependencyServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/dog/dto/DogRespDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kakaoseventeen/dogwalking/dog/dto/DogRespDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,32 +63,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;BE__3&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/iseung-geon/Desktop/Team17_BE&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;c83a5e97d60a1595ddd5bb4cb591a3a4&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "BE__3",
+    "last_opened_file_path": "/Users/iseung-geon/Desktop/Team17_BE",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "c83a5e97d60a1595ddd5bb4cb591a3a4",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
-  <component name="RunManager" selected="Gradle.WalkRoadControllerTest.get_walkRoad_test">
-    <configuration name="WalkRestControllerTest.end_walk_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.DogControllerTest.find_dog_test">
+    <configuration name="DogControllerTest.accept_walk_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -101,7 +104,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.end_walk_test&quot;" />
+            <option value="&quot;com.kakaoseventeen.dogwalking.dog.DogControllerTest.accept_walk_test&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -112,7 +115,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="WalkRestControllerTest.start_walk_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="DogControllerTest.find_dog_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -125,7 +128,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.start_walk_test&quot;" />
+            <option value="&quot;com.kakaoseventeen.dogwalking.dog.DogControllerTest.find_dog_test&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -136,7 +139,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="WalkRoadControllerTest.accept_walk_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="DogControllerTest.save_dog_test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -149,7 +152,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.kakaoseventeen.dogwalking.walkRoad.WalkRoadControllerTest.accept_walk_test&quot;" />
+            <option value="&quot;com.kakaoseventeen.dogwalking.dog.DogControllerTest.save_dog_test&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -217,11 +220,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.DogControllerTest.find_dog_test" />
+        <item itemvalue="Gradle.DogControllerTest.save_dog_test" />
+        <item itemvalue="Gradle.DogControllerTest.accept_walk_test" />
         <item itemvalue="Gradle.WalkRoadControllerTest.get_walkRoad_test" />
         <item itemvalue="Gradle.WalkRoadControllerTest.save_walkRoad_test" />
-        <item itemvalue="Gradle.WalkRoadControllerTest.accept_walk_test" />
-        <item itemvalue="Gradle.WalkRestControllerTest.end_walk_test" />
-        <item itemvalue="Gradle.WalkRestControllerTest.start_walk_test" />
       </list>
     </recent_temporary>
   </component>
@@ -236,7 +239,7 @@
       <workItem from="1696863137274" duration="9956000" />
       <workItem from="1696873420212" duration="15005000" />
       <workItem from="1697004514433" duration="18000" />
-      <workItem from="1697007038583" duration="46746000" />
+      <workItem from="1697007038583" duration="49156000" />
     </task>
     <servers />
   </component>
