@@ -40,7 +40,7 @@ public class NotificationRestController {
     }
 
     @PutMapping("/notification/{id}")
-    public ResponseEntity<?> editNotification(@PathVariable Long id, @RequestBody UpdateNotificationDTO requestDTO, @AuthenticationPrincipal CustomUserDetails userDetails){
+    public ResponseEntity<?> editNotification(@PathVariable Long id, @Valid @RequestBody UpdateNotificationDTO requestDTO, @AuthenticationPrincipal CustomUserDetails userDetails){
         notificationService.editNotification(id, requestDTO, userDetails.getMember());
         return ResponseEntity.ok().body(ApiUtils.success(null));
     }
