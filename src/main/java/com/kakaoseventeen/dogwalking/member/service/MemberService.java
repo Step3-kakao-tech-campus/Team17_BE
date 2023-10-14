@@ -52,7 +52,7 @@ public class MemberService {
     }
 
     @Transactional
-    public UpdateProfileRespDTO updateProfile(Long userId, UpdateProfileReqDTO reqDTO){
+    public UpdateProfileRespDTO updateProfile(UpdateProfileReqDTO reqDTO, Long userId){
         Optional<Member> member = memberJpaRepository.findById(userId);
 
         if (member.isPresent()) {
