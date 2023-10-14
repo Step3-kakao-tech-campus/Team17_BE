@@ -67,6 +67,12 @@ public class NotificationService {
                 ()-> new RuntimeException("해당 공고글이 존재하지 않습니다.")
         );
 
+        List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember.getId());
+        //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
+        Dog dogOP = dogList.stream().filter(dog -> dog.getId() == updateNotificationDTO.getDogId()).findFirst().orElseThrow(
+                ()-> new RuntimeException("등록된 강아지가 아닙니다.")
+        );
+
         if(notification.getDog().getMember().getId() != sessionMember.getId()){
             throw new RuntimeException("수정 권한이 없습니다.");
         }
@@ -74,6 +80,6 @@ public class NotificationService {
         if(sessionMember.getCoin().compareTo(updateNotificationDTO.getCoin())<0)
             throw new RuntimeException("보유한 멍코인이 부족합니다.");
 
-        notification.update(updateNotificationDTO);
+        notification.update(updateNotificationDTO, dogOP);
     }
 }
