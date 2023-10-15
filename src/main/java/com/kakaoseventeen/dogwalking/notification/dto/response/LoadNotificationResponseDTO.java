@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class LoadNotificationResponseDTO {
-    private int notificationId;
+    private Long notificationId;
     private String title;
     private DogDTO dog;
     private Double lat;
@@ -33,7 +33,7 @@ public class LoadNotificationResponseDTO {
 
     @Getter
     public static class DogDTO {
-        private int dogId;
+        private Long dogId;
         private String name;
         private String breed;
         private String image;
