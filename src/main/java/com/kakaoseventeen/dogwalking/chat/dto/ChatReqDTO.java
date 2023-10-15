@@ -3,10 +3,10 @@ package com.kakaoseventeen.dogwalking.chat.dto;
 import lombok.Builder;
 
 public record ChatReqDTO(
+        MessageTypeDTO messageType,
         Long memberId,
-        Long chatRoomId,
-        String content,
-        String contentType
+        String chatContent
+
 ) {
     @Builder
     public ChatReqDTO{
