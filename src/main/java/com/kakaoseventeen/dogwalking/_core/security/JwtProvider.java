@@ -6,6 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
+@RequiredArgsConstructor
 @Component
 public class JwtProvider {
 
@@ -22,6 +24,8 @@ public class JwtProvider {
     private static final String SECRET = "thisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkey";
     public static final Long accessTokenValidTime = 1000L * 60 * 30;
     public static final Long refreshTokenValidTime = 1000L * 60 * 60 * 24 *7;
+
+    private final CustomUserDetailsService customUserDetailsService;
 
 
     public static Key createKey(){
@@ -79,12 +83,13 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(token);
 
-        int id = (int) claims.getBody().get("id");
-        Member member = Member.builder().id(id).build();
+        Integer id = (Integer) claims.getBody().get("id");
+        Long idLong = Long.valueOf(id);
+        Member member = Member.builder().id(idLong).build();
 
-        CustomUserDetails customUserDetails = new CustomUserDetails(member);
+        CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(claims.getBody().getSubject());
         //인증용 객체
-        return new UsernamePasswordAuthenticationToken(customUserDetails, customUserDetails.getPassword(),customUserDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(customUserDetails,token,customUserDetails.getAuthorities());
     }
 
 

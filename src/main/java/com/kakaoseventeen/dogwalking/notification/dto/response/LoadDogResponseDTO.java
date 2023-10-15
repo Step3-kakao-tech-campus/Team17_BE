@@ -11,14 +11,12 @@ public class LoadDogResponseDTO {
     private List<DogDTO> dogs;
 
     public LoadDogResponseDTO(List<Dog> dogList){
-        for(Dog dog : dogList){
-            this.dogs.add(new DogDTO(dog));
-        }
+        this.dogs = dogList.stream().map(DogDTO::new).toList();
     }
 
     @Getter
     public class DogDTO{
-        private int dogId;
+        private Long dogId;
         private String dogImage;
         private String dogName;
 
