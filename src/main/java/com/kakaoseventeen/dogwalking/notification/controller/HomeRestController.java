@@ -17,8 +17,8 @@ public class HomeRestController {
 
     @GetMapping("/home")
     public ResponseEntity<?> getPosts(CursorRequest cursorRequest,
-                                      @RequestHeader("lat") Double latitude,
-                                      @RequestHeader("lng") Double longitude,
+                                      @RequestParam Double latitude,
+                                      @RequestParam Double longitude,
                                       @RequestParam List<String> size,
                                       @RequestParam List<String> breed) {
 
