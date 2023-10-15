@@ -8,7 +8,7 @@ public record ChatResDTO(
         Long chatId,
         Long userId,
         String chatContent,
-        String chatContentType,
+        MessageTypeDTO messageType,
         LocalDateTime contentTime
 ) {
     @Builder
