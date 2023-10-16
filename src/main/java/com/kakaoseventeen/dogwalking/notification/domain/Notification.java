@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking.notification.domain;
 
-import com.kakaoseventeen.dogwalking.dog.Dog;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationDTO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
