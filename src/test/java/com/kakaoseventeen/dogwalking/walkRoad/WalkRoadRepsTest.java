@@ -1,15 +1,15 @@
 package com.kakaoseventeen.dogwalking.walkRoad;
 
-import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
+import com.kakaoseventeen.dogwalking._core.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking._core.walk.repository.WalkRepository;
+import com.kakaoseventeen.dogwalking._core.walkRoad.domain.WalkRoad;
+import com.kakaoseventeen.dogwalking._core.walkRoad.repository.WalkRoadRepository;
+import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
-import com.kakaoseventeen.dogwalking.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
-import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
-import com.kakaoseventeen.dogwalking.walkRoad.repository.WalkRoadRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,7 @@ public class WalkRoadRepsTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
-        ChatRoom chatRoom = chatRoomRepository.saveAndFlush(new ChatRoom());
+        ChatRoom chatRoom = chatRoomRepository.saveAndFlush(new ChatRoom(member, member));
 
         Walk walk = Walk.of(member, member, chatRoom);
         walkRepository.saveAndFlush(walk);
