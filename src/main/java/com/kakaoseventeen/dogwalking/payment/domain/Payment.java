@@ -1,6 +1,6 @@
-package com.kakaoseventeen.dogwalking._core.payment.domain;
+package com.kakaoseventeen.dogwalking.payment.domain;
 
-import com.kakaoseventeen.dogwalking._core.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import jakarta.persistence.*;
 import lombok.*;
 

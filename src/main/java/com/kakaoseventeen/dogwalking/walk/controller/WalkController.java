@@ -1,10 +1,11 @@
-package com.kakaoseventeen.dogwalking._core.walk.controller;
+package com.kakaoseventeen.dogwalking.walk.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 
-import com.kakaoseventeen.dogwalking._core.walk.dto.WalkRespDTO;
-import com.kakaoseventeen.dogwalking._core.walk.service.WalkService;
+import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
+import com.kakaoseventeen.dogwalking.walk.service.WalkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class WalkController {
      * 산책 시작하기 메서드
      */
     @PostMapping("walk/start/{chatRoomId}")
-    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.StartWalk>> startWalk(@PathVariable("chatRoomId") Long chatRoomId) throws RuntimeException {
+    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.StartWalk>> startWalk(@PathVariable("chatRoomId") Long chatRoomId) throws WalkNotExistException {
         WalkRespDTO.StartWalk respDTO = walkService.startWalk(chatRoomId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }

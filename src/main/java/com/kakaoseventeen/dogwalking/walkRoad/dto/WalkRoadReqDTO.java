@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking._core.walkRoad.dto;
+package com.kakaoseventeen.dogwalking.walkRoad.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

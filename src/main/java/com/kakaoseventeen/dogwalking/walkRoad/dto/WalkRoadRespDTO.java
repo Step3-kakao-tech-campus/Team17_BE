@@ -1,6 +1,6 @@
-package com.kakaoseventeen.dogwalking._core.walkRoad.dto;
+package com.kakaoseventeen.dogwalking.walkRoad.dto;
 
-import com.kakaoseventeen.dogwalking._core.walkRoad.domain.WalkRoad;
+import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
 import lombok.Getter;
 import lombok.Setter;
 

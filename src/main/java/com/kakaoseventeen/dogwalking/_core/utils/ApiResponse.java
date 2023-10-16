@@ -25,6 +25,7 @@ public class ApiResponse<B> extends ResponseEntity<B> {
         this.getHeaders().setContentType(mediaType);
     }
 
+
     @Getter
     @AllArgsConstructor
     public static class CustomBody<D> implements Serializable {

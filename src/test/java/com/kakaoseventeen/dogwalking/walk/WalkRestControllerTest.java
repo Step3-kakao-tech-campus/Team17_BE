@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking.walk;
 
-import com.kakaoseventeen.dogwalking._core.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking._core.walk.repository.WalkRepository;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;

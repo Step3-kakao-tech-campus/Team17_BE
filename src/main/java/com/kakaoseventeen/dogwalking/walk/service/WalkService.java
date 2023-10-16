@@ -1,8 +1,10 @@
-package com.kakaoseventeen.dogwalking._core.walk.service;
+package com.kakaoseventeen.dogwalking.walk.service;
 
-import com.kakaoseventeen.dogwalking._core.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking._core.walk.dto.WalkRespDTO;
-import com.kakaoseventeen.dogwalking._core.walk.repository.WalkRepository;
+import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
+import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -57,36 +59,23 @@ public class WalkService {
      * 산책 시작하기 메서드
      */
     @Transactional
-    public WalkRespDTO.StartWalk startWalk(Long chatRoomId) throws RuntimeException{
-        Optional<Walk> walk = walkRepository.findWalkByChatRoomId(chatRoomId);
+    public WalkRespDTO.StartWalk startWalk(Long chatRoomId) throws WalkNotExistException{
+        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+        walk.startWalk();
 
-        if (walk.isPresent()) {
-            Walk walkOP = walk.get();
-            walkOP.startWalk();
-            return new WalkRespDTO.StartWalk(walkOP);
-        }
-
-        else {
-            throw new RuntimeException("올바르지 않은 채팅방 Id입니다.");
-        }
+        return new WalkRespDTO.StartWalk(walk);
     }
 
     /**
      * 산책 종료하기 메서드
      */
     @Transactional
-    public WalkRespDTO.EndWalk terminateWalk(Long chatRoomId) {
-        Optional<Walk> walk = walkRepository.findWalkByChatRoomId(chatRoomId);
+    public WalkRespDTO.EndWalk terminateWalk(Long chatRoomId) throws WalkNotExistException {
+        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));;
+        walk.endWalk();
 
-        if (walk.isPresent()) {
-            Walk walkOP = walk.get();
-            walkOP.endWalk();
-            return new WalkRespDTO.EndWalk(walkOP);
-        }
+        return new WalkRespDTO.EndWalk(walk);
 
-        else {
-            throw new RuntimeException("올바르지 않은 채팅방 Id입니다.");
-        }
     }
 
     /**

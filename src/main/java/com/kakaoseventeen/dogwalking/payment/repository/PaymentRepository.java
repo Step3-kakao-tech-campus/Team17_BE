@@ -1,6 +1,6 @@
-package com.kakaoseventeen.dogwalking._core.payment.repository;
+package com.kakaoseventeen.dogwalking.payment.repository;
 
-import com.kakaoseventeen.dogwalking._core.payment.domain.Payment;
+import com.kakaoseventeen.dogwalking.payment.domain.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
