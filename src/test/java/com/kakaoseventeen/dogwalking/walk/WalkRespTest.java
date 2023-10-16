@@ -71,12 +71,12 @@ public class WalkRespTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
-        ChatRoom chatRoom1 = chatRoomRepository.saveAndFlush(new ChatRoom());
+        ChatRoom chatRoom1 = chatRoomRepository.saveAndFlush(new ChatRoom(member1, member2));
 
         Walk walk1 = Walk.of(member1, member2, chatRoom1);
         repository.saveAndFlush(walk1);
 
-        ChatRoom chatRoom2 = chatRoomRepository.saveAndFlush(new ChatRoom());
+        ChatRoom chatRoom2 = chatRoomRepository.saveAndFlush(new ChatRoom(member1, member2));
 
         Walk walk2 = Walk.of(member1, member2, chatRoom2);
         repository.saveAndFlush(walk2);
