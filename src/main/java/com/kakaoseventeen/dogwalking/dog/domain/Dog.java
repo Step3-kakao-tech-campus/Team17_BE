@@ -1,16 +1,16 @@
-package com.kakaoseventeen.dogwalking.dog;
+package com.kakaoseventeen.dogwalking.dog.domain;
 
+import com.kakaoseventeen.dogwalking.dog.dto.DogReqDTO;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name="dog_tb")
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,19 +25,22 @@ public class Dog {
     private String size;
     @Column(length = 256)
     private String specificity;
+    private int age;
     @Column(length = 256)
     private String image;
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @Builder
-    public Dog(Long id, String name, String sex, String breed, String size, String image, Member member){
-        this.id = id;
-        this.name = name;
-        this.sex = sex;
-        this.breed = breed;
-        this.size = size;
-        this.image = image;
-        this.member = member;
+    public static Dog of(DogReqDTO dogReqDTO, Member member){
+        return Dog.builder()
+                .age(dogReqDTO.getAge())
+                .breed(dogReqDTO.getBreed())
+                .image(dogReqDTO.getImage())
+                .name(dogReqDTO.getName())
+                .sex(dogReqDTO.getSex())
+                .size(dogReqDTO.getSize())
+                .specificity(dogReqDTO.getSpecificity())
+                .member(member)
+                .build();
     }
 }

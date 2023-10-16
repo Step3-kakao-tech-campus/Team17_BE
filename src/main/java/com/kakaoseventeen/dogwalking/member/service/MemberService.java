@@ -4,6 +4,8 @@ import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
 import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
+import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
+import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileRespDTO;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
 import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
@@ -11,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Slf4j
 @Transactional(readOnly = true)
@@ -45,5 +49,18 @@ public class MemberService {
         refreshTokenJpaRepository.save(refreshToken);
 
         return loginResponseDTO;
+    }
+
+    @Transactional
+    public UpdateProfileRespDTO updateProfile(UpdateProfileReqDTO reqDTO, Long userId){
+        Optional<Member> member = memberJpaRepository.findById(userId);
+
+        if (member.isPresent()) {
+            member.get().updateProfile(reqDTO.getProfileImage(), reqDTO.getProfileContent());
+            return new UpdateProfileRespDTO(member.get());
+        }
+        else {
+            throw new RuntimeException("올바르지 않은 유저 ID입니다.");
+        }
     }
 }
