@@ -1,6 +1,6 @@
-package com.kakaoseventeen.dogwalking._core.walk.repository;
+package com.kakaoseventeen.dogwalking.walk.repository;
 
-import com.kakaoseventeen.dogwalking._core.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,11 +1,11 @@
-package com.kakaoseventeen.dogwalking._core.walkRoad.controller;
+package com.kakaoseventeen.dogwalking.walkRoad.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 
-import com.kakaoseventeen.dogwalking._core.walkRoad.dto.WalkRoadReqDTO;
-import com.kakaoseventeen.dogwalking._core.walkRoad.dto.WalkRoadRespDTO;
-import com.kakaoseventeen.dogwalking._core.walkRoad.service.WalkRoadService;
+import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadReqDTO;
+import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadRespDTO;
+import com.kakaoseventeen.dogwalking.walkRoad.service.WalkRoadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
