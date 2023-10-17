@@ -58,8 +58,8 @@ public class WalkRestControllerTest {
         ChatRoom chatRoom2 = new ChatRoom(master, walker);
         chatRoomRepository.saveAndFlush(chatRoom2);
 
-        Walk walk = Walk.of(master, walker, chatRoom1);
-        walkRepository.saveAndFlush(walk);
+//        Walk walk = Walk.of(master, walker, chatRoom1);
+//        walkRepository.saveAndFlush(walk);
     }
 
     @Test

@@ -25,8 +25,7 @@ public interface WalkRepository extends JpaRepository<Walk, Long> {
     /**
      * ChatRoomId를 통해서 Walk 가져오는 쿼리
      */
-    @Query("select w from Walk w join fetch w.chatRoom where w.chatRoom.id = :chatRoomId")
-    Optional<Walk> findWalkByChatRoomId(Long chatRoomId);
+
 
     /**
      * UserId와 산책의 상태가 END인 Walk 엔티티를 가져오는 쿼리 -> User Profile에서 사용

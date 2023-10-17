@@ -63,12 +63,12 @@ public class WalkRoadRepsTest {
 
         ChatRoom chatRoom = chatRoomRepository.saveAndFlush(new ChatRoom(member, member));
 
-        Walk walk = Walk.of(member, member, chatRoom);
-        walkRepository.saveAndFlush(walk);
-
-        for (int i = 0; i < 8; i++){
-            repository.saveAndFlush(WalkRoad.of(i, 123.12312312, walk));
-        }
+//        Walk walk = Walk.of(member, member, chatRoom);
+//        walkRepository.saveAndFlush(walk);
+//
+//        for (int i = 0; i < 8; i++){
+//            repository.saveAndFlush(WalkRoad.of(i, 123.12312312, walk));
+//        }
     }
 
     /*

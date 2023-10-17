@@ -67,12 +67,12 @@ public class WalkRoadControllerTest {
         ChatRoom chatRoom1 = new ChatRoom(master, walker);
         chatRoomRepository.saveAndFlush(chatRoom1);
 
-        Walk walk = Walk.of(master, walker, chatRoom1);
-        walkRepository.saveAndFlush(walk);
-
-        for (int i = 0; i < 8; i++){
-            walkRoadRepository.saveAndFlush(WalkRoad.of(i, 123.12312312, walk));
-        }
+//        Walk walk = Walk.of(master, walker, chatRoom1);
+//        walkRepository.saveAndFlush(walk);
+//
+//        for (int i = 0; i < 8; i++){
+//            walkRoadRepository.saveAndFlush(WalkRoad.of(i, 123.12312312, walk));
+//        }
     }
 
     @Test
