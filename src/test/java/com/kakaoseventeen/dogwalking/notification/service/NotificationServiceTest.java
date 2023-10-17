@@ -1,15 +1,11 @@
 package com.kakaoseventeen.dogwalking.notification.service;
 
-import com.kakaoseventeen.dogwalking.dog.Dog;
-import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
+import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
-import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.dto.response.LoadDogResponseDTO;
-import com.kakaoseventeen.dogwalking.notification.dto.response.LoadNotificationResponseDTO;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,10 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
