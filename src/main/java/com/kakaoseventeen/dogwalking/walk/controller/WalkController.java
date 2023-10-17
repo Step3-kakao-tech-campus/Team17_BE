@@ -27,7 +27,7 @@ public class WalkController {
      * 산책 허락하기 메서드
      */
     @PostMapping("walk/{walkerId}/{matchingId}")
-    public ApiResponse<ApiResponse.CustomBody<Void>> acceptWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("userId") Long userId, @PathVariable("matchingId") Long matchingId) throws RuntimeException {
+    public ApiResponse<ApiResponse.CustomBody<Void>> acceptWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("walkerId") Long userId, @PathVariable("matchingId") Long matchingId) throws RuntimeException {
         walkService.saveWalk(customUserDetails, userId, matchingId);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
@@ -35,11 +35,11 @@ public class WalkController {
     /**
      * 산책 시작하기 메서드
      */
-//    @PostMapping("walk/start/{chatRoomId}")
-//    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.StartWalk>> startWalk(@PathVariable("chatRoomId") Long chatRoomId) throws WalkNotExistException {
-//        WalkRespDTO.StartWalk respDTO = walkService.startWalk(chatRoomId);
-//        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
-//    }
+    @PostMapping("walk/start/{matchingId}")
+    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.StartWalk>> startWalk(@PathVariable("matchingId") Long matchingId) throws WalkNotExistException {
+        WalkRespDTO.StartWalk respDTO = walkService.startWalk(matchingId);
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
+    }
 
     /**
      * 산책 종료하기 메서드

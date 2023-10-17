@@ -1,6 +1,7 @@
 package com.kakaoseventeen.dogwalking.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
@@ -16,7 +17,6 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.StandardCharsets;
 
-import static com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.getMaster;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -42,7 +42,7 @@ public class MemberControllerTest {
 
     @BeforeEach
     void set_up(){
-        Member master = getMaster();
+        Member master = GetEntity.getMaster();
         memberJpaRepository.saveAndFlush(master);
     }
 

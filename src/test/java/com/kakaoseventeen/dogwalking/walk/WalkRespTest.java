@@ -1,5 +1,11 @@
 package com.kakaoseventeen.dogwalking.walk;
 
+import com.kakaoseventeen.dogwalking.application.domain.Application;
+import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
+import com.kakaoseventeen.dogwalking.match.domain.Match;
+import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.notification.domain.Notification;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
@@ -16,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,11 +41,20 @@ public class WalkRespTest {
     @Autowired
     ChatRoomRepository chatRoomRepository;
 
+    @Autowired
+    NotificationJpaRepository notificationJpaRepository;
+
+    @Autowired
+    ApplicationRepository applicationRepository;
+
+    @Autowired
+    MatchingRepository matchingRepository;
+
     private final long memberId = 1;
 
     @BeforeEach
     public void setUp() {
-        Member member1 = Member.builder()
+        Member master = Member.builder()
                 .email("yardyard@likelion.org")
                 .password("asd1111")
                 .profileContent("반갑다리요")
@@ -47,9 +63,9 @@ public class WalkRespTest {
                 .coin(BigDecimal.valueOf(3000))
                 .build();
 
-        memberJpaRepository.saveAndFlush(member1);
+        memberJpaRepository.saveAndFlush(master);
 
-        Member member2 = Member.builder()
+        Member walker = Member.builder()
                 .email("yardyard2@likelion.org")
                 .password("asd1112")
                 .profileContent("반갑다리요2")
@@ -58,12 +74,12 @@ public class WalkRespTest {
                 .coin(BigDecimal.valueOf(4000))
                 .build();
 
-        memberJpaRepository.saveAndFlush(member2);
+        memberJpaRepository.saveAndFlush(walker);
 
         Dog dog = Dog.builder()
                 .breed("요크셔테리어")
                 .sex("Male")
-                .member(member1)
+                .member(master)
                 .image("https:123123.jpeg")
                 .size("소형견")
                 .name("복슬이")
@@ -71,18 +87,35 @@ public class WalkRespTest {
 
         dogJpaRepository.saveAndFlush(dog);
 
-        ChatRoom chatRoom1 = chatRoomRepository.saveAndFlush(new ChatRoom(member1, member2));
+        Notification notification = Notification.builder()
+                .title("우리 강아지 좀 봐주세요")
+                .lat(2.123123)
+                .lng(31.12312)
+                .startTime(LocalDateTime.MIN)
+                .endTime(LocalDateTime.MAX)
+                .significant("요크 셔테리어")
+                .coin(BigDecimal.valueOf(3000))
+                .build();
 
-//        Walk walk1 = Walk.of(member1, member2, chatRoom1);
-//        repository.saveAndFlush(walk1);
-//
-//        ChatRoom chatRoom2 = chatRoomRepository.saveAndFlush(new ChatRoom(member1, member2));
-//
-//        Walk walk2 = Walk.of(member1, member2, chatRoom2);
-//        repository.saveAndFlush(walk2);
-//
-//        Walk walk3 = Walk.of(dog, member1, member2, chatRoom);
-//        repository.saveAndFlush(walk3);
+        notificationJpaRepository.saveAndFlush(notification);
+
+        Walk walk1 = Walk.of(master, walker, notification);
+        repository.saveAndFlush(walk1);
+
+        Application application = Application.builder()
+                .appMemberId(walker)
+                .aboutMe("저는 이승건입니다.")
+                .build();
+
+        applicationRepository.saveAndFlush(application);
+
+        Match match = Match.builder()
+                .applicationId(application)
+                .notificationId(notification)
+                .build();
+
+        matchingRepository.saveAndFlush(match);
+
     }
 
     /*
@@ -120,17 +153,33 @@ public class WalkRespTest {
     }
 
     /*
-        ChannelId의 외래키를 지닌 Walk 엔티티를 가져오는 쿼리
+        산책 허락하기 메서드
      */
     @Test
     public void test_3() {
         // given
-        Long chatRoomId = 1L;
+        Long matchingId = 1L;
 
         // when
-//        Optional<Walk> walk = repository.findWalkByChatRoomId(chatRoomId);
+        Notification notification = matchingRepository.findMatchById(matchingId).getNotificationId();
 
         // then
-//        Assertions.assertEquals(walk.get().getChatRoom().getChatRoomId(), 1L);
+        Assertions.assertEquals(notification.getTitle(), "우리 강아지 좀 봐주세요");
+    }
+
+
+    /*
+    산책 시작하기 메서드
+    */
+    @Test
+    public void test_4() {
+        // given
+        Long matchingId = 1L;
+
+        // when
+        Walk walk = matchingRepository.findWalkFromMatchById(matchingId).get();
+
+        // then
+        Assertions.assertEquals(walk.getId(), 1L);
     }
 }

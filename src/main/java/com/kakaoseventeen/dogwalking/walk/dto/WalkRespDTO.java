@@ -5,6 +5,7 @@ import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,9 +18,12 @@ public class WalkRespDTO {
 
         private WalkStatus walkStatus;
 
+        private LocalDateTime startTime;
+
         public StartWalk(Walk walk) {
             this.id = walk.getId();
             this.walkStatus = walk.getWalkStatus();
+            this.startTime = walk.getStartTime();
         }
     }
 

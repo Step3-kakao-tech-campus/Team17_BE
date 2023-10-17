@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.walk.repository;
 
+import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,12 +21,6 @@ public interface WalkRepository extends JpaRepository<Walk, Long> {
      */
     @Query("select w from Walk w where w.master.id = :userId or w.walker.id = :userId")
     List<Walk> findByWalkStatus(Long userId);
-
-
-    /**
-     * ChatRoomId를 통해서 Walk 가져오는 쿼리
-     */
-
 
     /**
      * UserId와 산책의 상태가 END인 Walk 엔티티를 가져오는 쿼리 -> User Profile에서 사용
