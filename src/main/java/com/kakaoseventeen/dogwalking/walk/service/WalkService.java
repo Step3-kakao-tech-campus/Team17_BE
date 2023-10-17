@@ -55,13 +55,13 @@ public class WalkService {
     /**
      * 산책 시작하기 메서드
      */
-//    @Transactional
-//    public WalkRespDTO.StartWalk startWalk(Long chatRoomId) throws WalkNotExistException{
-//        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
-//        walk.startWalk();
-//
-//        return new WalkRespDTO.StartWalk(walk);
-//    }
+    @Transactional
+    public WalkRespDTO.StartWalk startWalk(Long matchingId) throws WalkNotExistException{
+        Walk walk = matchingRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+        walk.startWalk();
+
+        return new WalkRespDTO.StartWalk(walk);
+    }
 
     /**
      * 산책 종료하기 메서드
