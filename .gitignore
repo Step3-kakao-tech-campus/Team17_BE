@@ -230,3 +230,6 @@ gradle-app.setting
 
 # Build Folder
 build/
+
+# .idea Folder
+.idea
