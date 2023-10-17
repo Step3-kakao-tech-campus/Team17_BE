@@ -1,7 +1,11 @@
 package com.kakaoseventeen.dogwalking.walk.service;
 
+import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking.match.domain.Match;
+import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
@@ -31,52 +35,45 @@ public class WalkService {
 
     private final MemberJpaRepository memberJpaRepository;
 
-    private final ChatRoomRepository chatRoomRepository;
+    private final MatchingRepository matchingRepository;
 
     /**
      * 산책 허락하기 메서드
      */
     @Transactional
-    public void saveWalk(long masterId, long walkerId, Long chatRoomId) throws RuntimeException{
-        Optional<Member> master = memberJpaRepository.findById(masterId);
-        Optional<Member> walker = memberJpaRepository.findById(walkerId);
-        Optional<ChatRoom> chatRoom = chatRoomRepository.findById(chatRoomId);
+    public void saveWalk(CustomUserDetails customUserDetails, Long userId, Long matchingId) throws RuntimeException{
+        Member master = memberJpaRepository.findById(customUserDetails.getMember().getId()).orElseThrow(() -> new RuntimeException("올바르지 않은 멤버 ID입니다."));
+        Member walker = memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("올바르지 않은 멤버 ID입니다."));;
 
-        if (chatRoom.isEmpty()) {
-            throw new RuntimeException("올바르지 않은 채팅방 Id입니다.");
-        }
 
-        if (master.isPresent() && walker.isPresent()) {
-            walkRepository.save(Walk.of(master.get(), walker.get(), chatRoom.get()));
-        }
+        Match match = matchingRepository.findMatchById(matchingId);
 
-        else {
-            throw new RuntimeException("올바르지 않은 멤버 Id입니다.");
-        }
+        Notification notification = match.getNotificationId();
+        walkRepository.save(Walk.of(master, walker, notification));
     }
 
     /**
      * 산책 시작하기 메서드
      */
-    @Transactional
-    public WalkRespDTO.StartWalk startWalk(Long chatRoomId) throws WalkNotExistException{
-        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
-        walk.startWalk();
-
-        return new WalkRespDTO.StartWalk(walk);
-    }
+//    @Transactional
+//    public WalkRespDTO.StartWalk startWalk(Long chatRoomId) throws WalkNotExistException{
+//        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+//        walk.startWalk();
+//
+//        return new WalkRespDTO.StartWalk(walk);
+//    }
 
     /**
      * 산책 종료하기 메서드
      */
-    @Transactional
-    public WalkRespDTO.EndWalk terminateWalk(Long chatRoomId) throws WalkNotExistException {
-        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));;
-        walk.endWalk();
-
-        return new WalkRespDTO.EndWalk(walk);
-
-    }
+//    @Transactional
+//    public WalkRespDTO.EndWalk terminateWalk(Long chatRoomId) throws WalkNotExistException {
+//        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));;
+//        walk.endWalk();
+//
+//        return new WalkRespDTO.EndWalk(walk);
+//
+//    }
 
     /**
      * userId를 통한 산책 조회 메서드

@@ -2,6 +2,7 @@ package com.kakaoseventeen.dogwalking.walk.domain;
 
 import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
+import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,8 +32,8 @@ public class Walk {
     private Member master;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CHATROOM_ID")
-    private ChatRoom chatRoom;
+    @JoinColumn(name = "NOTIFICATION_ID")
+    private Notification notification;
 
     @Enumerated(value = EnumType.STRING)
     private WalkStatus walkStatus;
@@ -45,12 +46,12 @@ public class Walk {
     /**
      * Walk Entity 생성, 즉 산책 허락하기시 객체 생성 메서드
      */
-    public static Walk of(Member walker, Member master, ChatRoom chatRoom){
+    public static Walk of(Member walker, Member master, Notification notification){
         return Walk.builder()
                 .walkStatus(WalkStatus.READY)
                 .master(master)
                 .walker(walker)
-                .chatRoom(chatRoom)
+                .notification(notification)
                 .build();
     }
 
@@ -58,8 +59,14 @@ public class Walk {
      * 산책 시작하는 메서드
      */
     public void startWalk(){
-        this.walkStatus = WalkStatus.ACTIVATE;
         this.startTime = LocalDateTime.now();
+    }
+
+    /**
+     * 산책 활성화하는 메서드
+     */
+    public void activateWalk(){
+        this.walkStatus = WalkStatus.ACTIVATE;
     }
 
     /**

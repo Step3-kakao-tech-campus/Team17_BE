@@ -3,9 +3,9 @@ spring:
   datasource:
     hikari:
       driver-class-name: org.h2.Driver
-      jdbc-url: jdbc:h2:mem:dotoring;
+      jdbc-url: jdbc:h2:mem:dogWalking;
       username: sa
-      password: 1234
+      password:
   jpa:
     hibernate:
       ddl-auto: create-drop

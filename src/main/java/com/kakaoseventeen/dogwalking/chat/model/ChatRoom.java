@@ -24,9 +24,6 @@ public class ChatRoom {
     @OneToOne(fetch = FetchType.LAZY)
     private Member appMemberId;
 
-    @OneToOne(mappedBy = "chatRoom")
-    private Walk walk;
-
     @CreatedDate
     private LocalDateTime createdAt;
 
