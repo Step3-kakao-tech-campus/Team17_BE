@@ -7,6 +7,9 @@ import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
+import com.kakaoseventeen.dogwalking.payment.domain.Payment;
+import com.kakaoseventeen.dogwalking.payment.repository.PaymentRepository;
+import com.kakaoseventeen.dogwalking.payment.service.PaymentService;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
@@ -15,6 +18,7 @@ import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +41,10 @@ public class WalkService {
     private final MemberJpaRepository memberJpaRepository;
 
     private final MatchingRepository matchingRepository;
+
+    private final PaymentRepository paymentRepository;
+
+    private final EntityManager em;
 
     /**
      * 산책 허락하기 메서드
@@ -80,6 +88,10 @@ public class WalkService {
         /*
             todo: walkId로 Payment를 찾고, Payment.depositFromPayment(Payment p) 호출
          */
+        Payment payment = paymentRepository.findById(walk.getId()).orElseThrow(() -> new RuntimeException("잘못된 결제 id입니다."));
+        Member walker = walk.getWalker();
+
+        PaymentService.depositFromPayment(payment, walker);
 
         return WalkRespDTO.EndWalk.of(customUserDetails.getMember(), walk, notification);
     }

@@ -25,7 +25,7 @@ public class GetEntity {
                 .profileContent("반갑다리요")
                 .dogBowl(50)
                 .nickname("견주유저1")
-                .coin(BigDecimal.valueOf(3000))
+                .coin(BigDecimal.valueOf(10000))
                 .build();
     }
 
@@ -49,7 +49,7 @@ public class GetEntity {
                 .profileContent("반갑다리요")
                 .dogBowl(50)
                 .nickname("알바유저1")
-                .coin(BigDecimal.valueOf(3000))
+                .coin(BigDecimal.valueOf(10000))
                 .build();
     }
 
