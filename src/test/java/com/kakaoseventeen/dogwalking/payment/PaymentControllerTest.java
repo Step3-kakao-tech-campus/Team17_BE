@@ -101,4 +101,31 @@ public class PaymentControllerTest {
         resultActions.andExpect(jsonPath("$.success").value("true"));
     }
 
+    @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    void save_payment_test() throws Exception {
+        // given
+        int matchingId = 1;
+        int walkId = 1;
+
+        // when
+        ResultActions resultActions = mvc.perform(
+                post(String.format("/api/payment/%d/%d", matchingId, walkId))
+        );
+
+        // eye
+        Member master = memberJpaRepository.findById(1L).get();
+        Member walker = memberJpaRepository.findById(2L).get();
+
+        System.out.println("견주에게 남아있는 돈은" + master.getCoin().toString());
+        System.out.println("알바에게 남아있는 돈은" + walker.getCoin().toString());
+
+
+        // console
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // verify
+        resultActions.andExpect(jsonPath("$.success").value("true"));
+    }
 }

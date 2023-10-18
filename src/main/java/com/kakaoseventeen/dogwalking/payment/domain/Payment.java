@@ -4,6 +4,8 @@ import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 /**
  * Payment(결제) 엔티티
  *
@@ -21,12 +23,16 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
+    @MapsId
     private Walk walk;
 
-    public static Payment from(Walk walk){
+    private BigDecimal tmpMoney;
+
+    public static Payment of(Walk walk, BigDecimal tmpMoney){
         return Payment.builder()
                 .walk(walk)
+                .tmpMoney(tmpMoney)
                 .build();
     }
 }
