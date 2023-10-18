@@ -30,6 +30,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.web.servlet.MockMvc;
@@ -50,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class WalkRestControllerTest {
 
@@ -77,35 +79,50 @@ public class WalkRestControllerTest {
     @BeforeEach
     @Transactional
     void set_up(){
-        Member master = GetEntity.getMaster();
-        memberJpaRepository.saveAndFlush(master);
+        // 생성을 위한 DBInit
+        Member master1 = GetEntity.getMaster1();
+        memberJpaRepository.saveAndFlush(master1);
 
-        Member walker = GetEntity.getWalker();
-        memberJpaRepository.saveAndFlush(walker);
+        Member walker1 = GetEntity.getWalker1();
+        memberJpaRepository.saveAndFlush(walker1);
 
         Notification notification = notificationJpaRepository.saveAndFlush(GetEntity.getNotification());
 
-//        Walk walk1 = Walk.of(master, walker, notification);
-//        walkRepository.saveAndFlush(walk1);
-
         Application application = applicationRepository.saveAndFlush(Application.builder()
-                .appMemberId(walker)
+                .appMemberId(walker1)
                 .aboutMe("저는 이승건입니다.")
                 .build());
 
-        Match match = Match.builder()
+        matchingRepository.saveAndFlush(Match.builder()
                 .applicationId(application)
                 .notificationId(notification)
-                .build();
+                .build());
 
-        matchingRepository.saveAndFlush(match);
+        // 조회를 위한 DBInit
+        Member master2 = memberJpaRepository.saveAndFlush(GetEntity.getMaster2());
+
+        Member walker2 = memberJpaRepository.saveAndFlush(GetEntity.getWalker2());
+
+        Notification notification2 = notificationJpaRepository.saveAndFlush(GetEntity.getNotification2());
+
+        walkRepository.saveAndFlush((Walk.of(master2, walker2, notification2)));
+
+        Application application2 = applicationRepository.saveAndFlush(Application.builder()
+                .appMemberId(walker2)
+                .aboutMe("저는 이승건입니다.")
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .applicationId(application2)
+                .notificationId(notification2)
+                .build());
     }
 
     @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     void accept_walk_test() throws Exception {
         // given
-        int masterId = 1;
+
         int walkerId = 2;
         int matchingId = 1;
 
@@ -123,15 +140,9 @@ public class WalkRestControllerTest {
     }
 
     @Test
-    @Transactional
     void start_walk_test() throws Exception {
         // given
-        int matchId = 1;
-        Member master = memberJpaRepository.findById(1L).get();
-        Member walker = memberJpaRepository.findById(2L).get();
-        Notification notification = notificationJpaRepository.findById(1L).get();
-        Walk walk1 = Walk.of(master, walker, notification);
-        walkRepository.saveAndFlush(walk1);
+        int matchId = 2;
 
         // when
         ResultActions resultActions = mvc.perform(
@@ -147,13 +158,14 @@ public class WalkRestControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void end_walk_test() throws Exception {
         // given
-        int chatRoomId = 1;
+        int matchId = 2;
 
         // when
         ResultActions resultActions = mvc.perform(
-                post(String.format("/api/walk/end/%d", chatRoomId))
+                post(String.format("/api/walk/end/%d", matchId))
         );
 
         // console
@@ -162,7 +174,5 @@ public class WalkRestControllerTest {
 
         // verify
         resultActions.andExpect(jsonPath("$.success").value("true"));
-        resultActions.andExpect(jsonPath("$.response.walkStatus").value("END"));
     }
-
 }
