@@ -57,10 +57,10 @@ public class WalkRoadControllerTest {
 
     @BeforeEach
     void set_up(){
-        Member master = GetEntity.getMaster();
+        Member master = GetEntity.getMaster1();
         memberJpaRepository.saveAndFlush(master);
 
-        Member walker = GetEntity.getWalker();
+        Member walker = GetEntity.getWalker1();
         memberJpaRepository.saveAndFlush(walker);
 
         ChatRoom chatRoom1 = new ChatRoom(master, walker);

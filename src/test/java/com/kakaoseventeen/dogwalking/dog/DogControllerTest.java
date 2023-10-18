@@ -48,7 +48,7 @@ public class DogControllerTest {
 
     @BeforeEach
     void set_up(){
-        Member master = GetEntity.getMaster();
+        Member master = GetEntity.getWalker1();
         memberJpaRepository.saveAndFlush(master);
 
         DogReqDTO dogReqDTO = DogReqDTO.builder()
