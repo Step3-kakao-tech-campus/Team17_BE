@@ -1,11 +1,9 @@
 package com.kakaoseventeen.dogwalking.member.service;
 
+import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
-import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
-import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
-import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileRespDTO;
+import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
 import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
@@ -62,5 +60,11 @@ public class MemberService {
         else {
             throw new RuntimeException("올바르지 않은 유저 ID입니다.");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public IsOwnerRespDTO isProfileOwner(CustomUserDetails customUserDetails, Long userId){
+        Member member =  memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 유저 ID 입니다."));
+        return new IsOwnerRespDTO(customUserDetails.getMember().getId().equals(member.getId()));
     }
 }
