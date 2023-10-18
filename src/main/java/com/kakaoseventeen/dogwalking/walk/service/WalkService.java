@@ -2,6 +2,7 @@ package com.kakaoseventeen.dogwalking.walk.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.MatchNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
@@ -46,7 +47,7 @@ public class WalkService {
         Member walker = memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("올바르지 않은 멤버 ID입니다."));;
 
 
-        Match match = matchingRepository.findMatchById(matchingId);
+        Match match = matchingRepository.findMatchById(matchingId).orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST));
 
         Notification notification = match.getNotificationId();
         walkRepository.save(Walk.of(master, walker, notification));
@@ -68,7 +69,10 @@ public class WalkService {
      */
     @Transactional
     public WalkRespDTO.EndWalk terminateWalk(CustomUserDetails customUserDetails, Long matchingId) throws WalkNotExistException {
-        Notification notification = matchingRepository.findMatchById(matchingId).getNotificationId();
+        Notification notification = matchingRepository.findMatchById(matchingId)
+                .orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST))
+                .getNotificationId();
+
         Walk walk = matchingRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
 
         walk.endWalk();
