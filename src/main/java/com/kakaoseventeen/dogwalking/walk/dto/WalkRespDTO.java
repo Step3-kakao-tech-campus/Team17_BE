@@ -1,10 +1,15 @@
 package com.kakaoseventeen.dogwalking.walk.dto;
 
+import com.kakaoseventeen.dogwalking.member.domain.Member;
+import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,21 +22,38 @@ public class WalkRespDTO {
 
         private WalkStatus walkStatus;
 
+        private LocalDateTime startTime;
+
         public StartWalk(Walk walk) {
             this.id = walk.getId();
             this.walkStatus = walk.getWalkStatus();
+            this.startTime = walk.getStartTime();
         }
     }
 
-    @Getter @Setter
+    @Getter @Setter @Builder
     public static class EndWalk {
-        private Long id;
 
-        private WalkStatus walkStatus;
+        private Long userId;
+        private String profile;
 
-        public EndWalk(Walk walk) {
-            this.id = walk.getId();
-            this.walkStatus = walk.getWalkStatus();
+        private Long walkId;
+        private LocalDateTime walkStartTIme;
+        private LocalDateTime walkEndTime;
+
+        private Long notificationId;
+        private BigDecimal coin;
+
+        public static EndWalk of(Member member, Walk walk, Notification notification){
+            return EndWalk.builder()
+                    .userId(member.getId())
+                    .profile(member.getProfileImage())
+                    .walkId(walk.getId())
+                    .walkStartTIme(walk.getStartTime())
+                    .walkEndTime(walk.getEndTime())
+                    .notificationId(notification.getId())
+                    .coin(notification.getCoin())
+                    .build();
         }
     }
 

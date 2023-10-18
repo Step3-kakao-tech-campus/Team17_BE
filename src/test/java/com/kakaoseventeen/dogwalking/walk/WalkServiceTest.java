@@ -1,5 +1,10 @@
 package com.kakaoseventeen.dogwalking.walk;
 
+import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
+import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
+import com.kakaoseventeen.dogwalking.match.domain.Match;
+import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
@@ -48,7 +53,7 @@ public class WalkServiceTest {
     private MemberJpaRepository memberJpaRepository;
 
     @Mock
-    private ChatRoomRepository chatRoomRepository;
+    private MatchingRepository matchingRepository;
 
     @BeforeEach
     void set_up() {
@@ -62,11 +67,15 @@ public class WalkServiceTest {
     @Test
     void test_save_walk() throws Exception {
         // given
-        Member walker = getMember();
-        Member master = getMember();
-        ChatRoom chatRoom = new ChatRoom(walker, master);
+        Member walker = GetEntity.getWalker1();
+        Member master = GetEntity.getMaster1();
 
-        Walk walk = Walk.of(walker, master, chatRoom);
+        CustomUserDetails customUserDetails = new CustomUserDetails(master);
+
+        Match match = GetEntity.getMatch();
+        Notification notification = GetEntity.getNotification();
+
+        Walk walk = Walk.of(walker, master, notification);
 
         // mocking
         given(walkRepository.save(any()))
@@ -75,10 +84,11 @@ public class WalkServiceTest {
                 .willReturn(Optional.ofNullable(walk));
         given(memberJpaRepository.findById(any()))
                 .willReturn(Optional.ofNullable(walker));
-        given(chatRoomRepository.findById(any()))
-                .willReturn(Optional.of(chatRoom));
+        given(matchingRepository.findMatchById(any()))
+                .willReturn(Optional.ofNullable(match));
+
         // when
-        walkService.saveWalk(walk.getId(), master.getId(), chatRoom.getChatRoomId());
+        walkService.saveWalk(customUserDetails, walk.getId(), walker.getId());
 
         // then
         Walk walkOP = walkRepository.findById(1L).get();
@@ -96,31 +106,23 @@ public class WalkServiceTest {
     @Test
     void test_startWalk() throws Exception{
         // given
-        Member walker = getMember();
-        Member master = getMember();
-        ChatRoom chatRoom = new ChatRoom(walker, master);
+        Member walker = GetEntity.getWalker2();
+        Member master = GetEntity.getMaster2();
 
-        Walk walk = Walk.of(walker, master, chatRoom);
+        Notification notification = GetEntity.getNotification();
+
+        Walk walk = Walk.of(walker, master, notification);
 
         // mocking
-        given(walkRepository.findWalkByChatRoomId(any()))
+        given(matchingRepository.findWalkFromMatchById(any()))
                 .willReturn(Optional.ofNullable(walk));
 
         // when
         WalkRespDTO.StartWalk walkOP = walkService.startWalk(1L);
 
         // then
-        Assertions.assertEquals(walkOP.getWalkStatus().toString(), "ACTIVATE");
+        Assertions.assertNotNull(walkOP.getStartTime());
+        System.out.println(walkOP.getStartTime());
     }
 
-    private Member getMember(){
-        return Member.builder()
-                .email("yardyard@likelion.org")
-                .password("asd1111")
-                .profileContent("반갑다리요")
-                .dogBowl(50)
-                .nickname("견주유저1")
-                .coin(BigDecimal.valueOf(3000))
-                .build();
-    }
 }

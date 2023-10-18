@@ -1,6 +1,7 @@
 package com.kakaoseventeen.dogwalking.dog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.dto.DogReqDTO;
 import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
@@ -18,7 +19,6 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.StandardCharsets;
 
-import static com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.getMaster;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -48,7 +48,7 @@ public class DogControllerTest {
 
     @BeforeEach
     void set_up(){
-        Member master = getMaster();
+        Member master = GetEntity.getWalker1();
         memberJpaRepository.saveAndFlush(master);
 
         DogReqDTO dogReqDTO = DogReqDTO.builder()

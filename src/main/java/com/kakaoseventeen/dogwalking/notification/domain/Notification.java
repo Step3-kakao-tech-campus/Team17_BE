@@ -2,6 +2,7 @@ package com.kakaoseventeen.dogwalking.notification.domain;
 
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationDTO;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,13 +15,16 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="NOTIFICATION_tb")
+@Table(name="notification_tb")
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CHATROOM_ID")
     private Long id;
     @ManyToOne
     private Dog dog;
+    @OneToOne(mappedBy = "notification")
+    private Walk walk;
     @Column(length = 256, nullable = false)
     private String title;
     @Column(length = 256, nullable = false)

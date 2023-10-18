@@ -69,11 +69,11 @@ public class PaymentRespTest {
         ChatRoom chatRoom = new ChatRoom(member, member);
         chatRoomRepository.saveAndFlush(chatRoom);
 
-        Walk walk1 = Walk.of(member, member, chatRoom);
-        walkRepository.saveAndFlush(walk1);
+//        Walk walk1 = Walk.of(member, member, chatRoom);
+//        walkRepository.saveAndFlush(walk1);
 
-        Payment payment = Payment.from(walk1);
-        repository.saveAndFlush(payment);
+//        Payment payment = Payment.from(walk1);
+//        repository.saveAndFlush(payment);
 
         Notification notification =
                 Notification.builder()

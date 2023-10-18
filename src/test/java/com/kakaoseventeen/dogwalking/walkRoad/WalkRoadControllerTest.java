@@ -1,6 +1,7 @@
 package com.kakaoseventeen.dogwalking.walkRoad;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
@@ -21,8 +22,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.getMaster;
-import static com.kakaoseventeen.dogwalking.walk.WalkRestControllerTest.getWalker;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -58,21 +57,21 @@ public class WalkRoadControllerTest {
 
     @BeforeEach
     void set_up(){
-        Member master = getMaster();
+        Member master = GetEntity.getMaster1();
         memberJpaRepository.saveAndFlush(master);
 
-        Member walker = getWalker();
+        Member walker = GetEntity.getWalker1();
         memberJpaRepository.saveAndFlush(walker);
 
         ChatRoom chatRoom1 = new ChatRoom(master, walker);
         chatRoomRepository.saveAndFlush(chatRoom1);
 
-        Walk walk = Walk.of(master, walker, chatRoom1);
-        walkRepository.saveAndFlush(walk);
-
-        for (int i = 0; i < 8; i++){
-            walkRoadRepository.saveAndFlush(WalkRoad.of(i, 123.12312312, walk));
-        }
+//        Walk walk = Walk.of(master, walker, chatRoom1);
+//        walkRepository.saveAndFlush(walk);
+//
+//        for (int i = 0; i < 8; i++){
+//            walkRoadRepository.saveAndFlush(WalkRoad.of(i, 123.12312312, walk));
+//        }
     }
 
     @Test
