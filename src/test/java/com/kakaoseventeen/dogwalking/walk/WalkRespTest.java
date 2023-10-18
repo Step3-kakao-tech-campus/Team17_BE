@@ -161,7 +161,7 @@ public class WalkRespTest {
         Long matchingId = 1L;
 
         // when
-        Notification notification = matchingRepository.findMatchById(matchingId).getNotificationId();
+        Notification notification = matchingRepository.findMatchById(matchingId).get().getNotificationId();
 
         // then
         Assertions.assertEquals(notification.getTitle(), "우리 강아지 좀 봐주세요");

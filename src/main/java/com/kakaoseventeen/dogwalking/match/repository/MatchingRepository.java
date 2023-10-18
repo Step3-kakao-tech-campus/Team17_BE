@@ -18,7 +18,7 @@ public interface MatchingRepository extends JpaRepository<Match, Long> {
             "join fetch m.applicationId " +
             "join fetch m.notificationId " +
             "where m.matchId = :matchId")
-    Match findMatchById(Long matchId);
+    Optional<Match> findMatchById(Long matchId);
 
     /**
      * MatchId를 통해서 Match 엔티티와 연관된 Notification.Walk join으로 가져오는 쿼리

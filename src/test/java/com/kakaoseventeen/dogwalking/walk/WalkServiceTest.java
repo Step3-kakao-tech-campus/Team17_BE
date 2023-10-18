@@ -85,7 +85,7 @@ public class WalkServiceTest {
         given(memberJpaRepository.findById(any()))
                 .willReturn(Optional.ofNullable(walker));
         given(matchingRepository.findMatchById(any()))
-                .willReturn(match);
+                .willReturn(Optional.ofNullable(match));
 
         // when
         walkService.saveWalk(customUserDetails, walk.getId(), walker.getId());
