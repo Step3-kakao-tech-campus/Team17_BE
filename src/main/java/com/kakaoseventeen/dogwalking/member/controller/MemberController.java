@@ -2,7 +2,6 @@ package com.kakaoseventeen.dogwalking.member.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking._core.utils.ApiUtils;
 import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
 import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
 import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
@@ -22,9 +21,8 @@ public class MemberRestController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO responseDTO = memberService.login(loginRequestDTO);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
-        return ResponseEntity.ok(apiResult);
+        LoginResponseDTO respDTO = memberService.login(loginRequestDTO);
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
     @PostMapping("/profile/user/{userId}")
