@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HomeRestController {
+public class HomeController {
 
     private final HomeService homeService;
 
