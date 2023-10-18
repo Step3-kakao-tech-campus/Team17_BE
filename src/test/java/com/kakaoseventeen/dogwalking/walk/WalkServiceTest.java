@@ -67,8 +67,8 @@ public class WalkServiceTest {
     @Test
     void test_save_walk() throws Exception {
         // given
-        Member walker = GetEntity.getWalker();
-        Member master = GetEntity.getMaster();
+        Member walker = GetEntity.getWalker1();
+        Member master = GetEntity.getMaster1();
 
         CustomUserDetails customUserDetails = new CustomUserDetails(master);
 
@@ -106,8 +106,8 @@ public class WalkServiceTest {
     @Test
     void test_startWalk() throws Exception{
         // given
-        Member walker = GetEntity.getWalker();
-        Member master = GetEntity.getWalker();
+        Member walker = GetEntity.getWalker2();
+        Member master = GetEntity.getMaster2();
 
         Notification notification = GetEntity.getNotification();
 

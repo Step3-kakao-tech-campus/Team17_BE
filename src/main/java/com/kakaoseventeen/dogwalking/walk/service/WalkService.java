@@ -66,14 +66,19 @@ public class WalkService {
     /**
      * 산책 종료하기 메서드
      */
-//    @Transactional
-//    public WalkRespDTO.EndWalk terminateWalk(Long chatRoomId) throws WalkNotExistException {
-//        Walk walk = walkRepository.findWalkByChatRoomId(chatRoomId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));;
-//        walk.endWalk();
-//
-//        return new WalkRespDTO.EndWalk(walk);
-//
-//    }
+    @Transactional
+    public WalkRespDTO.EndWalk terminateWalk(CustomUserDetails customUserDetails, Long matchingId) throws WalkNotExistException {
+        Notification notification = matchingRepository.findMatchById(matchingId).getNotificationId();
+        Walk walk = matchingRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+
+        walk.endWalk();
+
+        /*
+            todo: walkId로 Payment를 찾고, Payment.depositFromPayment(Payment p) 호출
+         */
+
+        return WalkRespDTO.EndWalk.of(customUserDetails.getMember(), walk, notification);
+    }
 
     /**
      * userId를 통한 산책 조회 메서드

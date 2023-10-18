@@ -44,9 +44,9 @@ public class WalkController {
     /**
      * 산책 종료하기 메서드
      */
-//    @PostMapping("walk/end/{chatRoomId}")
-//    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.EndWalk>> endWalk(@PathVariable("chatRoomId") Long chatRoomId) throws RuntimeException {
-//        WalkRespDTO.EndWalk respDTO = walkService.terminateWalk(chatRoomId);
-//        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
-//    }
+    @PostMapping("walk/end/{matchingId}")
+    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.EndWalk>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("matchingId") Long matchingId) throws WalkNotExistException {
+        WalkRespDTO.EndWalk respDTO = walkService.terminateWalk(customUserDetails, matchingId);
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
+    }
 }

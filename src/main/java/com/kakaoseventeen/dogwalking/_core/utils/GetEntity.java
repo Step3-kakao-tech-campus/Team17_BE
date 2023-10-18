@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Component
 public class GetEntity {
 
-    public static Member getMaster(){
+    public static Member getMaster1(){
         return Member.builder()
                 .email("yardyard@likelion.org")
                 .password("asd1111")
@@ -29,13 +29,37 @@ public class GetEntity {
                 .build();
     }
 
-    public static Member getWalker(){
+
+    public static Member getMaster2(){
+        return Member.builder()
+                .email("yardyard@likelion")
+                .password("asd1111")
+                .profileContent("반갑다리요")
+                .dogBowl(50)
+                .nickname("견주유저2")
+                .coin(BigDecimal.valueOf(3000))
+                .build();
+    }
+
+
+    public static Member getWalker1(){
         return Member.builder()
                 .email("yardyard@naver.com")
                 .password("asd1111")
                 .profileContent("반갑다리요")
                 .dogBowl(50)
                 .nickname("알바유저1")
+                .coin(BigDecimal.valueOf(3000))
+                .build();
+    }
+
+    public static Member getWalker2(){
+        return Member.builder()
+                .email("yardyard@daum.com")
+                .password("asd1111")
+                .profileContent("반갑다리요")
+                .dogBowl(50)
+                .nickname("알바유저2")
                 .coin(BigDecimal.valueOf(3000))
                 .build();
     }
@@ -52,9 +76,21 @@ public class GetEntity {
                 .build();
     }
 
+    public static Notification getNotification2(){
+        return Notification.builder()
+                .title("우리 강아지 좀 봐주세요")
+                .lat(2.123123)
+                .lng(31.12312)
+                .startTime(LocalDateTime.MIN)
+                .endTime(LocalDateTime.MAX)
+                .significant("요크 셔테리어")
+                .coin(BigDecimal.valueOf(3000))
+                .build();
+    }
+
     public static Application getApplication(){
         return Application.builder()
-                .appMemberId(getWalker())
+                .appMemberId(getWalker1())
                 .aboutMe("저는 이승건입니다.")
                 .build();
     }

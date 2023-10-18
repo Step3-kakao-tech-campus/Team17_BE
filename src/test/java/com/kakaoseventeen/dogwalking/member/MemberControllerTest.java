@@ -42,7 +42,7 @@ public class MemberControllerTest {
 
     @BeforeEach
     void set_up(){
-        Member master = GetEntity.getMaster();
+        Member master = GetEntity.getMaster1();
         memberJpaRepository.saveAndFlush(master);
     }
 
