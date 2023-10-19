@@ -30,7 +30,7 @@ public class WalkRoadRespDTO {
         }
 
         @Getter @Setter
-        public class WalkRoadLatLngDTO {
+        public static class WalkRoadLatLngDTO {
 
             private Long id;
             private double lat;

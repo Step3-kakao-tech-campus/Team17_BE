@@ -2,16 +2,27 @@ package com.kakaoseventeen.dogwalking.member.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
+import com.kakaoseventeen.dogwalking.application.domain.Application;
+import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
+import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.domain.Notification;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.payment.repository.PaymentRepository;
+import com.kakaoseventeen.dogwalking.review.domain.Review;
+import com.kakaoseventeen.dogwalking.review.repository.ReviewRepository;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
 import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
+import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -21,6 +32,19 @@ import java.util.Optional;
 public class MemberService {
     private final MemberJpaRepository memberJpaRepository;
     private final RefreshTokenJpaRepository refreshTokenJpaRepository;
+
+    private final PaymentRepository paymentRepository;
+
+    private final WalkRepository walkRepository;
+
+    private final DogJpaRepository dogJpaRepository;
+
+    private final ApplicationRepository applicationRepository;
+
+    private final NotificationJpaRepository notificationJpaRepository;
+
+    private final ReviewRepository reviewRepository;
+
 
     @Transactional
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
@@ -63,8 +87,26 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public IsOwnerRespDTO isProfileOwner(CustomUserDetails customUserDetails, Long userId){
+    public IsOwnerRespDTO isProfileOwner(CustomUserDetails customUserDetails, Long userId) throws RuntimeException{
         Member member =  memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 유저 ID 입니다."));
         return new IsOwnerRespDTO(customUserDetails.getMember().getId().equals(member.getId()));
+    }
+
+    /**
+     * userId를 통한 산책 조회 메서드
+     */
+    @Transactional(readOnly = true)
+    public MemberProfileRespDTO getProfile(Long userId) throws RuntimeException{
+         Member member = memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 멤버 ID 입니다."));
+
+         List<Dog> dogs = dogJpaRepository.findDogsByMemberId(userId);
+
+         List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(userId);
+
+         List<Application> applications = applicationRepository.findApplicationByMemberId(userId);
+
+         List<Review> reviews = reviewRepository.findReviewByMemberId(userId);
+
+         return MemberProfileRespDTO.of(member, notifications, dogs, applications, reviews);
     }
 }

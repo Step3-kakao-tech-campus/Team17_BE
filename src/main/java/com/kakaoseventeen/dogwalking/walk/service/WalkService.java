@@ -85,9 +85,6 @@ public class WalkService {
 
         walk.endWalk();
 
-        /*
-            todo: walkId로 Payment를 찾고, Payment.depositFromPayment(Payment p) 호출
-         */
         Payment payment = paymentRepository.findById(walk.getId()).orElseThrow(() -> new RuntimeException("잘못된 결제 id입니다."));
         Member walker = walk.getWalker();
 
