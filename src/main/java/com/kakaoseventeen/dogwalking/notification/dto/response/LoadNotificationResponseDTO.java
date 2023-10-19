@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class LoadNotificationResponseDTO {
+    private Boolean isMine;
     private Long notificationId;
     private String title;
     private DogDTO dog;
@@ -19,7 +20,8 @@ public class LoadNotificationResponseDTO {
     private BigDecimal coin;
     private String significant;
 
-    public LoadNotificationResponseDTO(Notification notification, Dog dog){
+    public LoadNotificationResponseDTO(Notification notification, Dog dog, Boolean isMine){
+        this.isMine = isMine;
         this.notificationId = notification.getId();
         this.title = notification.getTitle();
         this.dog = new DogDTO(dog);
