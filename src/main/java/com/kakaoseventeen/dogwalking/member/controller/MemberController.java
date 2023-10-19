@@ -35,4 +35,13 @@ public class MemberController {
         IsOwnerRespDTO respDTO = memberService.isProfileOwner(customUserDetails, userId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
+
+    /**
+     * 프로필 조회 메서드
+     */
+    @PostMapping("/profile/{userId}")
+    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@PathVariable("userId") Long userId) {
+        MemberProfileRespDTO respDTO = memberService.getProfile(userId);
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
+    }
 }
