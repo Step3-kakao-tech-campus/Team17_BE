@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Dog {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 45, nullable = false)
     private String name;
