@@ -2,9 +2,9 @@ package com.kakaoseventeen.dogwalking.chat.service;
 
 import com.kakaoseventeen.dogwalking.chat.dto.ChatReqDTO;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatResDTO;
-import com.kakaoseventeen.dogwalking.chat.model.ChatMessage;
-import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
-import com.kakaoseventeen.dogwalking.chat.model.MessageType;
+import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
+import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
+import com.kakaoseventeen.dogwalking.chat.domain.MessageType;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatMessageRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -26,7 +26,7 @@ public class ChatMessageWriteServiceImpl implements ChatMessageWriteService {
     public ChatResDTO save(ChatReqDTO chatReqDTO, Long roomId) {
 
         // TODO - 예외처리 수정할 것
-        Member sender = memberJpaRepository.findById(chatReqDTO.memberId().intValue()).orElseThrow(() -> new RuntimeException("사용자가 존재하지 않습니다."));
+        Member sender = memberJpaRepository.findById(chatReqDTO.memberId()).orElseThrow(() -> new RuntimeException("사용자가 존재하지 않습니다."));
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("해당 채팅방이 존재하지 않습니다."));
 
         ChatMessage chatMessage = ChatMessage.builder()

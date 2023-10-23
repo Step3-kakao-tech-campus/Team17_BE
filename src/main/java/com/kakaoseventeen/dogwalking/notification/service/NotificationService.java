@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking.notification.service;
 
-import com.kakaoseventeen.dogwalking.dog.Dog;
-import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
+import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationDTO;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Transactional(readOnly = true)
@@ -35,6 +34,7 @@ public class NotificationService {
     }
 
     public LoadNotificationResponseDTO loadNotification(Long id, Member sessionMember){
+
         Notification notification = notificationJpaRepository.findById(id).orElseThrow(
                 ()-> new RuntimeException("해당 공고글이 존재하지 않습니다.")
         );
@@ -42,7 +42,13 @@ public class NotificationService {
         Dog dog = dogJpaRepository.findById(notification.getDog().getId()).orElseThrow(
                 ()-> new RuntimeException("해당 강아지가 존재하지 않습니다.")
         );
-        return new LoadNotificationResponseDTO(notification, dog);
+
+        Boolean isMine = null;
+        if(sessionMember.getId() == dog.getMember().getId())
+            isMine = true;
+        else
+            isMine = false;
+        return new LoadNotificationResponseDTO(notification, dog, isMine);
     }
 
 	@Transactional
