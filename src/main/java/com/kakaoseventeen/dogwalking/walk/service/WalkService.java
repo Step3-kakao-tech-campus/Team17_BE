@@ -13,8 +13,6 @@ import com.kakaoseventeen.dogwalking.payment.service.PaymentService;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
-import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
-import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 

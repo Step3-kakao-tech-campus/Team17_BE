@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Table(name="notification_tb")
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CHATROOM_ID")
     private Long id;
     @ManyToOne

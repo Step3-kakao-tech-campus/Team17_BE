@@ -1,6 +1,5 @@
 package com.kakaoseventeen.dogwalking.walk;
 
-import com.kakaoseventeen.dogwalking._core.security.CustomUserDetailsService;
 import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
@@ -12,7 +11,6 @@ import com.kakaoseventeen.dogwalking.payment.domain.Payment;
 import com.kakaoseventeen.dogwalking.payment.repository.PaymentRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
-import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
@@ -23,25 +21,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.test.context.support.TestExecutionEvent;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.chat.model;
+package com.kakaoseventeen.dogwalking.chat.domain;
 
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
