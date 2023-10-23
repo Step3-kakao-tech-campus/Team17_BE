@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.chat.model;
+package com.kakaoseventeen.dogwalking.chat.domain;
 
 public enum MessageType {
     CHAT("CHAT"),

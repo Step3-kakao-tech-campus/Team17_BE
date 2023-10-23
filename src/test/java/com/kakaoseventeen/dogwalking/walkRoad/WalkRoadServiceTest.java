@@ -1,16 +1,13 @@
 package com.kakaoseventeen.dogwalking.walkRoad;
 
-import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
 import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadReqDTO;
-import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadRespDTO;
 import com.kakaoseventeen.dogwalking.walkRoad.repository.WalkRoadRepository;
 import com.kakaoseventeen.dogwalking.walkRoad.service.WalkRoadService;
-import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
+import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,12 +15,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class WalkRoadServiceTest {

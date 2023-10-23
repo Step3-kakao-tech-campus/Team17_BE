@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.chat.model;
+package com.kakaoseventeen.dogwalking.chat.domain;
 
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -23,9 +23,6 @@ public class ChatRoom {
     private Member notiMemberId;
     @OneToOne(fetch = FetchType.LAZY)
     private Member appMemberId;
-
-    @OneToOne(mappedBy = "chatRoom")
-    private Walk walk;
 
     @CreatedDate
     private LocalDateTime createdAt;
