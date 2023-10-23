@@ -2,9 +2,9 @@ package com.kakaoseventeen.dogwalking.chat.service;
 
 import com.kakaoseventeen.dogwalking.chat.dto.ChatReqDTO;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatResDTO;
-import com.kakaoseventeen.dogwalking.chat.model.ChatMessage;
-import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
-import com.kakaoseventeen.dogwalking.chat.model.MessageType;
+import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
+import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
+import com.kakaoseventeen.dogwalking.chat.domain.MessageType;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatMessageRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
