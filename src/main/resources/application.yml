@@ -5,13 +5,12 @@ spring:
       #path:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
         format_sql: true
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://${DB_url}:${DB_port}/${DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
-    username: ${DB_name}
-    password: ${DB_password}
+    url: jdbc:h2:tcp://localhost/~/dog-walking
+    username: sa
+    driver-class-name: org.h2.Driver
