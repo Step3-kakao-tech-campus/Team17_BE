@@ -11,6 +11,5 @@ spring:
         show_sql: true
         format_sql: true
   datasource:
-    url: jdbc:h2:tcp://localhost/~/dog-walking
-    username: sa
-    driver-class-name: org.h2.Driver
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${DB_url}:${DB_port}/{DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
