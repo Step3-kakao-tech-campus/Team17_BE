@@ -88,7 +88,7 @@ public class WalkService {
 
         PaymentService.depositFromPayment(payment, walker);
 
-        return WalkRespDTO.EndWalk.of(customUserDetails.getMember(), walk, notification);
+        return WalkRespDTO.EndWalk.of(customUserDetails.getMember(), walker, walk, notification);
     }
 
     /**
