@@ -1,9 +1,11 @@
 package com.kakaoseventeen.dogwalking.notification.service;
 
-import com.kakaoseventeen.dogwalking.dog.Dog;
-import com.kakaoseventeen.dogwalking.dog.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
+import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
+import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationDTO;
+import com.kakaoseventeen.dogwalking.notification.dto.request.WriteNotificationDTO;
 import com.kakaoseventeen.dogwalking.notification.dto.response.LoadDogResponseDTO;
 import com.kakaoseventeen.dogwalking.notification.dto.response.LoadNotificationResponseDTO;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
@@ -23,26 +25,67 @@ public class NotificationService {
     private final NotificationJpaRepository notificationJpaRepository;
 
     public LoadDogResponseDTO loadDog(Member sessionMember){
-        //memberId로 dog 리스트 가져오기
         List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember.getId());
-        //등록된 강아지가 없을 때 에러
+        //등록된 강아지가 없을 때
         if(dogList.isEmpty()){
-            //TODO : 에러처리
+            new RuntimeException("등록된 강아지가 없습니다.");
         }
         return new LoadDogResponseDTO(dogList);
     }
 
-    public LoadNotificationResponseDTO loadNotification(int id, Member sessionMember){
-        //notificationId로 notification 객체 가져오기 TODO : 에러처리
-        Notification notification = notificationJpaRepository.findById(id).orElseThrow();
+    public LoadNotificationResponseDTO loadNotification(Long id, Member sessionMember){
 
-        //본인이 적은 공고글이 아닐 경우 에러
+        Notification notification = notificationJpaRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("해당 공고글이 존재하지 않습니다.")
+        );
+
+        Dog dog = dogJpaRepository.findById(notification.getDog().getId()).orElseThrow(
+                ()-> new RuntimeException("해당 강아지가 존재하지 않습니다.")
+        );
+
+        Boolean isMine = null;
+        if(sessionMember.getId() == dog.getMember().getId())
+            isMine = true;
+        else
+            isMine = false;
+        return new LoadNotificationResponseDTO(notification, dog, isMine);
+    }
+
+	@Transactional
+    public void writeNotification(WriteNotificationDTO writeNotificationDTO, Member sessionMember) throws RuntimeException {
+
+        List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember.getId());
+        //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
+        Dog dogOP = dogList.stream().filter(dog -> dog.getId() == writeNotificationDTO.getDogId()).findFirst().orElseThrow(
+                ()-> new RuntimeException("등록된 강아지가 아닙니다.")
+        );
+
+        if(sessionMember.getCoin().compareTo(writeNotificationDTO.getCoin())<0)
+            throw new RuntimeException("보유한 멍코인이 부족합니다.");
+
+        Notification notification = writeNotificationDTO.toEntity(dogOP);
+        notificationJpaRepository.save(notification);
+    }
+
+    @Transactional
+    public void editNotification(Long id, UpdateNotificationDTO updateNotificationDTO, Member sessionMember) throws RuntimeException {
+        Notification notification = notificationJpaRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("해당 공고글이 존재하지 않습니다.")
+        );
+
+        List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember.getId());
+        //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
+        Dog dogOP = dogList.stream().filter(dog -> dog.getId() == updateNotificationDTO.getDogId()).findFirst().orElseThrow(
+                ()-> new RuntimeException("등록된 강아지가 아닙니다.")
+        );
+
         if(notification.getDog().getMember().getId() != sessionMember.getId()){
-            //TODO : 에러처리
+            throw new RuntimeException("수정 권한이 없습니다.");
         }
 
-        //notification 테이블에 저장된 dogId로 dog 정보 가져오기 TODO : 에러처리
-        Dog dog = dogJpaRepository.findById(notification.getDog().getId()).orElseThrow();
-        return new LoadNotificationResponseDTO(notification, dog);
+        if(sessionMember.getCoin().compareTo(updateNotificationDTO.getCoin())<0)
+            throw new RuntimeException("보유한 멍코인이 부족합니다.");
+
+        notification.update(updateNotificationDTO, dogOP);
     }
 }

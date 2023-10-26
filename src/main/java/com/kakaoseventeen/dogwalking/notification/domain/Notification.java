@@ -1,9 +1,11 @@
 package com.kakaoseventeen.dogwalking.notification.domain;
 
-import com.kakaoseventeen.dogwalking.dog.Dog;
-import com.kakaoseventeen.dogwalking.member.domain.Member;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
+import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationDTO;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,10 +18,13 @@ import java.time.LocalDateTime;
 @Table(name="notification_tb")
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @OneToOne
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CHATROOM_ID")
+    private Long id;
+    @ManyToOne
     private Dog dog;
+    @OneToOne(mappedBy = "notification")
+    private Walk walk;
     @Column(length = 256, nullable = false)
     private String title;
     @Column(length = 256, nullable = false)
@@ -34,5 +39,28 @@ public class Notification {
     private String significant;
     @Column(nullable = false)
     private BigDecimal coin;
+
+    @Builder
+    public Notification(Dog dog, String title, Double lat, Double lng, LocalDateTime startTime, LocalDateTime endTime, String significant, BigDecimal coin){
+        this.dog = dog;
+        this.title = title;
+        this.lat = lat;
+        this.lng = lng;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.significant = significant;
+        this.coin = coin;
+    }
+
+    public void update(UpdateNotificationDTO updateNotificationDTO, Dog dog){
+        this.title = updateNotificationDTO.getTitle();
+        this.dog = dog;
+        this.lat = updateNotificationDTO.getLat();
+        this.lng = updateNotificationDTO.getLng();
+        this.startTime = updateNotificationDTO.getStart();
+        this.endTime = updateNotificationDTO.getEnd();
+        this.significant = updateNotificationDTO.getSignificant();
+        this.coin = updateNotificationDTO.getCoin();
+    }
 
 }

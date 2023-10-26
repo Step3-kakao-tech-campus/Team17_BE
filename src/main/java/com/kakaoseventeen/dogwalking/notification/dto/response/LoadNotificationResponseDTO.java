@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking.notification.dto.response;
 
-import com.kakaoseventeen.dogwalking.dog.Dog;
+import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import lombok.Getter;
 
@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 @Getter
 public class LoadNotificationResponseDTO {
-    private int notificationId;
+    private Boolean isMine;
+    private Long notificationId;
     private String title;
     private DogDTO dog;
     private Double lat;
@@ -19,7 +20,8 @@ public class LoadNotificationResponseDTO {
     private BigDecimal coin;
     private String significant;
 
-    public LoadNotificationResponseDTO(Notification notification, Dog dog){
+    public LoadNotificationResponseDTO(Notification notification, Dog dog, Boolean isMine){
+        this.isMine = isMine;
         this.notificationId = notification.getId();
         this.title = notification.getTitle();
         this.dog = new DogDTO(dog);
@@ -33,7 +35,7 @@ public class LoadNotificationResponseDTO {
 
     @Getter
     public static class DogDTO {
-        private int dogId;
+        private Long dogId;
         private String name;
         private String breed;
         private String image;

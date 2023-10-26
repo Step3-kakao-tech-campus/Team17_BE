@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name="refreshtoken_tb")
 public class RefreshToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
     private String token;
