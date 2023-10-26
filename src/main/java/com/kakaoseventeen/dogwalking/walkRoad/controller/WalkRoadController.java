@@ -20,9 +20,9 @@ public class WalkRoadController {
     /**
      * 산책 경로 저장 메서드
      */
-    @PostMapping("/walkRoad/{walkId}")
-    public ApiResponse<ApiResponse.CustomBody<WalkRoadRespDTO.SaveWalkResp>> saveWalkRoad(@RequestBody WalkRoadReqDTO walkRoadReqDTO, @PathVariable("walkId") Long walkId) throws RuntimeException {
-        WalkRoadRespDTO.SaveWalkResp respDTO = walkRoadService.saveWalkRoad(walkRoadReqDTO, walkId);
+    @PostMapping("/walkRoad/{matchId}")
+    public ApiResponse<ApiResponse.CustomBody<WalkRoadRespDTO.SaveWalkResp>> saveWalkRoad(@RequestBody WalkRoadReqDTO walkRoadReqDTO, @PathVariable("matchId") Long matchId) throws RuntimeException {
+        WalkRoadRespDTO.SaveWalkResp respDTO = walkRoadService.saveWalkRoad(walkRoadReqDTO, matchId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
@@ -30,9 +30,9 @@ public class WalkRoadController {
     /**
      * 산책 경로 조회 메서드
      */
-    @GetMapping("/walkRoad/{walkId}")
-    public ApiResponse<ApiResponse.CustomBody<WalkRoadRespDTO.FindByWalkId>> findAllByWalkId(@PathVariable("walkId") Long walkId) throws RuntimeException {
-        WalkRoadRespDTO.FindByWalkId respDTO = walkRoadService.findAllByWalkId(walkId);
+    @GetMapping("/walkRoad/{matchId}")
+    public ApiResponse<ApiResponse.CustomBody<WalkRoadRespDTO.FindByWalkId>> findAllByWalkId(@PathVariable("matchId") Long matchId) throws RuntimeException {
+        WalkRoadRespDTO.FindByWalkId respDTO = walkRoadService.findAllByWalkId(matchId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 }
