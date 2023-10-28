@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
+import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
 import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,6 +47,25 @@ public class MemberControllerTest {
         memberJpaRepository.saveAndFlush(master);
     }
 
+    @Test
+    void login_success_test() throws Exception {
+        // given
+
+        LoginRequestDTO reqDTO = new LoginRequestDTO();
+        reqDTO.setEmail("mkwak1125@gmail.com");
+        reqDTO.setPassword("kwak!6038");
+
+        String requestBody = om.writeValueAsString(reqDTO);
+
+        ResultActions resultActions = mvc.perform(
+                post(String.format("/api/member/login"))
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        );
+
+        resultActions.andExpect(jsonPath("$.success").value("true"));
+
+    }
     @Test
     void save_walkRoad_test() throws Exception {
         // given
