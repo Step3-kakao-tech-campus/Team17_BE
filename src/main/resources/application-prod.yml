@@ -1,0 +1,14 @@
+spring:
+  config.activate.on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${DB_url}:${DB_port}/${DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${DB_name}
+    password: ${DB_password}
