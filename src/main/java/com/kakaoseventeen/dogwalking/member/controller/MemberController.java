@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,8 +19,14 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
+/*    @PostMapping("/member/join")
+    public ResponseEntity<?> join(@RequestBody @Valid JoinReqDTO joinRequestDTO) {
+        JoinReqDTO respDTO = memberService.join(joinRequestDTO);
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
+    }*/
+
+    @PostMapping("/member/login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO, Errors error) {
         LoginResponseDTO respDTO = memberService.login(loginRequestDTO);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
