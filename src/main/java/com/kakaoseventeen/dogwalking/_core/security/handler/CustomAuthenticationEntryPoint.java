@@ -1,7 +1,5 @@
-package com.kakaoseventeen.dogwalking._core.security;
+package com.kakaoseventeen.dogwalking._core.security.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
