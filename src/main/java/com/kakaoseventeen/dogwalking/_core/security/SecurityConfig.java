@@ -61,43 +61,12 @@ public class SecurityConfig {
         http.apply(new CustomSecurityFilterManager());
         //토큰을 활용하는 경우 아래 요청에 대해 '인가'에 대해서 사용.
 
-/*        http.authorizeHttpRequests(authorize ->
+        http.authorizeHttpRequests(authorize ->
                 authorize
                         .requestMatchers(new AntPathRequestMatcher("/api/member/**"), new AntPathRequestMatcher("/api/home"), new AntPathRequestMatcher("/init"))
                         .permitAll()
                         .anyRequest().authenticated()
-        );*/
-
-        http.authorizeHttpRequests(authorize ->
-                authorize
-                        .requestMatchers(new AntPathRequestMatcher("/notification/**")) // /notification/** 엔드포인트에 대한 권한 설정
-                        .authenticated()
-                        .anyRequest().permitAll()
-
         );
-
-
-        /*http.authorizeHttpRequests(requests -> requests
-                .requestMatchers(HttpMethod.POST,"/api/member/**").permitAll()
-                .requestMatchers(HttpMethod.GET,"/api/home").permitAll()
-                .requestMatchers("/h2-console/*").permitAll()
-                .anyRequest().authenticated());
-*/
-
-
-    /*    // 인증 실패 처리
-        http.exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint((request, response, authException) ->
-                                ApiResponseGenerator.fail("인증에 실패하였습니다", HttpStatus.UNAUTHORIZED))
-        );
-
-
-
-        // 권한 실패 처리
-        http.exceptionHandling(exceptionHandling ->
-                        exceptionHandling.accessDeniedHandler((request, response, authException) ->
-	                                ApiResponseGenerator.fail("권한이 없습니다", HttpStatus.FORBIDDEN))
-        );*/
 
         http.exceptionHandling(exceptionHandling->
                 exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()).accessDeniedHandler(new CustomAccessDeniedHandler())
