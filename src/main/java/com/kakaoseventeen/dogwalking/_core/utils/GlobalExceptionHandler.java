@@ -23,6 +23,9 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MessageCode.MEMBER_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
     }
 
-
+    @ExceptionHandler(ValidationException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(ValidationException e){
+        return ApiResponseGenerator.fail(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
 }
