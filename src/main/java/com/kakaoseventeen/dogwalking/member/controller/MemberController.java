@@ -26,8 +26,8 @@ public class MemberController {
     }*/
 
     @PostMapping("/member/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO, Errors error) {
-        LoginResponseDTO respDTO = memberService.login(loginRequestDTO);
+    public ResponseEntity<?> login(@RequestBody @Valid LoginReqDTO loginReqDTO, Errors error) {
+        LoginRespDTO respDTO = memberService.login(loginReqDTO);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 

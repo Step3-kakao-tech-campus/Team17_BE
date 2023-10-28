@@ -3,7 +3,7 @@ package com.kakaoseventeen.dogwalking.member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
+import com.kakaoseventeen.dogwalking.member.dto.LoginReqDTO;
 import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +51,7 @@ public class MemberControllerTest {
     void login_success_test() throws Exception {
         // given
 
-        LoginRequestDTO reqDTO = new LoginRequestDTO();
+        LoginReqDTO reqDTO = new LoginReqDTO();
         reqDTO.setEmail("mkwak1125@gmail.com");
         reqDTO.setPassword("kwak!6038");
 

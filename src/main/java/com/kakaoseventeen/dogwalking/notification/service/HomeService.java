@@ -3,9 +3,8 @@ package com.kakaoseventeen.dogwalking.notification.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.CursorRequest;
-import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.dto.response.HomeResponse;
+import com.kakaoseventeen.dogwalking.notification.dto.response.HomeRespDTO;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ import java.util.List;
 public class HomeService {
     private final NotificationJpaRepository notificationJpaRepository;
 
-    public HomeResponse home(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, CustomUserDetails customUserDetails) {
+    public HomeRespDTO home(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, CustomUserDetails customUserDetails) {
         String image;
         if(customUserDetails == null){
             image = null;
@@ -36,7 +35,7 @@ public class HomeService {
 
         System.out.println("lastKey = " + lastKey);
 
-        return HomeResponse.of(cursorRequest.next(lastKey, 20), notifications, image);
+        return HomeRespDTO.of(cursorRequest.next(lastKey, 20), notifications, image);
     }
 
     private List<Notification> findPosts(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search) {

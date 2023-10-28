@@ -21,7 +21,6 @@ import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,14 +44,14 @@ public class MemberService {
 
 
     @Transactional
-    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
+    public LoginRespDTO login(LoginReqDTO loginReqDTO){
         //회원가입이 되어있는 유저인지 확인
-        Member member = memberJpaRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow(
+        Member member = memberJpaRepository.findByEmail(loginReqDTO.getEmail()).orElseThrow(
                 () -> new MemberNotExistException(MessageCode.MEMBER_NOT_EXIST)
         );
 
 		//패스워드가 일치하는지 확인
-        if(!Objects.equals(loginRequestDTO.getPassword(), member.getPassword())){
+        if(!Objects.equals(loginReqDTO.getPassword(), member.getPassword())){
             throw new MemberNotExistException(MessageCode.MEMBER_NOT_EXIST);
         }
         /*if(!passwordEncoder.matches(loginRequestDTO.getPassword(), member.getPassword())){
@@ -62,11 +61,11 @@ public class MemberService {
         String email = member.getEmail();
 
         //accessToken과 refreshToken을 발급받아서 response dto에 담는다.
-        LoginResponseDTO loginResponseDTO = JwtProvider.createToken(member);
+        LoginRespDTO loginRespDTO = JwtProvider.createToken(member);
 
         //refresh token 객체를 만든다.
         RefreshToken refreshToken = RefreshToken.builder()
-                .token(loginResponseDTO.getRefreshToken())
+                .token(loginRespDTO.getRefreshToken())
                 .email(email)
                 .build();
 
@@ -77,7 +76,7 @@ public class MemberService {
         // 새로 발급한 refresh token 테이블에 저장
         refreshTokenJpaRepository.save(refreshToken);
 
-        return loginResponseDTO;
+        return loginRespDTO;
     }
 
     @Transactional

@@ -6,11 +6,11 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class LoadDogResponseDTO {
+public class LoadDogRespDTO {
 
     private List<DogDTO> dogs;
 
-    public LoadDogResponseDTO(List<Dog> dogList){
+    public LoadDogRespDTO(List<Dog> dogList){
         this.dogs = dogList.stream().map(DogDTO::new).toList();
     }
 

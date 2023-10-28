@@ -7,23 +7,23 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class HomeResponse {
+public class HomeRespDTO {
 
     private CursorRequest nextCursorRequest;
     private List<NotificationDTO> notifications;
     private String image;
 
-    public HomeResponse(CursorRequest nextCursorRequest, List<NotificationDTO> notifications, String image) {
+    public HomeRespDTO(CursorRequest nextCursorRequest, List<NotificationDTO> notifications, String image) {
         this.nextCursorRequest = nextCursorRequest;
         this.notifications = notifications;
         this.image = image;
     }
 
-    public static HomeResponse of(CursorRequest nextCursorRequest, List<Notification> notifications, String image) {
+    public static HomeRespDTO of(CursorRequest nextCursorRequest, List<Notification> notifications, String image) {
         List<NotificationDTO> notificationDTOs = notifications.stream()
                 .map(NotificationDTO::new)
                 .toList();
-        return new HomeResponse(nextCursorRequest, notificationDTOs, image);
+        return new HomeRespDTO(nextCursorRequest, notificationDTOs, image);
     }
 
     @Getter
