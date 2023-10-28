@@ -1,13 +1,19 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
+import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,6 +26,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
 	private final JwtProvider jwtProvider;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
     public class CustomSecurityFilterManager extends AbstractHttpConfigurer<CustomSecurityFilterManager, HttpSecurity> {
         @Override
@@ -49,7 +60,14 @@ public class SecurityConfig {
         //커스텀 필터 적용
         http.apply(new CustomSecurityFilterManager());
         //토큰을 활용하는 경우 아래 요청에 대해 '인가'에 대해서 사용.
-        //더 추가 해야함
+
+/*        http.authorizeHttpRequests(authorize ->
+                authorize
+                        .requestMatchers(new AntPathRequestMatcher("/api/member/**"), new AntPathRequestMatcher("/api/home"), new AntPathRequestMatcher("/init"))
+                        .permitAll()
+                        .anyRequest().authenticated()
+        );*/
+
         http.authorizeHttpRequests(authorize ->
                 authorize
                         .requestMatchers(new AntPathRequestMatcher("/notification/**")) // /notification/** 엔드포인트에 대한 권한 설정
@@ -58,19 +76,34 @@ public class SecurityConfig {
 
         );
 
-        // 인증 실패 처리
+
+        /*http.authorizeHttpRequests(requests -> requests
+                .requestMatchers(HttpMethod.POST,"/api/member/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/api/home").permitAll()
+                .requestMatchers("/h2-console/*").permitAll()
+                .anyRequest().authenticated());
+*/
+
+
+    /*    // 인증 실패 처리
         http.exceptionHandling(exceptionHandling ->
                         exceptionHandling.authenticationEntryPoint((request, response, authException) ->
-                                log.error("인증되지 않은 사용자가 자원에 접근하려 합니다 : "+authException.getMessage()))
-                //      FilterResponseUtils.unAuthorized(response, new Exception401("인증되지 않았습니다")))
+                                ApiResponseGenerator.fail("인증에 실패하였습니다", HttpStatus.UNAUTHORIZED))
         );
+
+
 
         // 권한 실패 처리
         http.exceptionHandling(exceptionHandling ->
                         exceptionHandling.accessDeniedHandler((request, response, authException) ->
-                                log.error("권한이 없는 사용자가 자원에 접근하려 합니다 : "+authException.getMessage()))
-                //        FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다")))
+	                                ApiResponseGenerator.fail("권한이 없습니다", HttpStatus.FORBIDDEN))
+        );*/
+
+        http.exceptionHandling(exceptionHandling->
+                exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()).accessDeniedHandler(new CustomAccessDeniedHandler())
         );
+
+
 
         return http.build();
     }

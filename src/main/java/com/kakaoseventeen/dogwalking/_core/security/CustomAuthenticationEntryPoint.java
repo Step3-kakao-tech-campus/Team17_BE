@@ -59,7 +59,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().println("{ \"success\": false, \"response\": null, \"error\": { \"message\": \"" +
                 errorCode.getValue() + "\", \"status\": \"" + HttpStatus.UNAUTHORIZED  + "\" } }");
-
     }
 
 }
