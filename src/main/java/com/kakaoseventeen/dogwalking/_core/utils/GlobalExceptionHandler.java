@@ -1,7 +1,6 @@
 package com.kakaoseventeen.dogwalking._core.utils;
 
-import com.kakaoseventeen.dogwalking._core.utils.exception.MatchNotExistException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,6 +17,12 @@ public class GlobalExceptionHandler {
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(MatchNotExistException e){
         return ApiResponseGenerator.fail(MessageCode.MATCH_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(MemberNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(MemberNotExistException e){
+        return ApiResponseGenerator.fail(MessageCode.MEMBER_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
 
 
 }
