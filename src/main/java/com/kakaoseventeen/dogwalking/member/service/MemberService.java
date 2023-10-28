@@ -2,6 +2,8 @@ package com.kakaoseventeen.dogwalking.member.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
+import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistException;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
@@ -19,10 +21,12 @@ import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -32,25 +36,28 @@ import java.util.Optional;
 public class MemberService {
     private final MemberJpaRepository memberJpaRepository;
     private final RefreshTokenJpaRepository refreshTokenJpaRepository;
-
     private final PaymentRepository paymentRepository;
-
     private final WalkRepository walkRepository;
-
     private final DogJpaRepository dogJpaRepository;
-
     private final ApplicationRepository applicationRepository;
-
     private final NotificationJpaRepository notificationJpaRepository;
-
     private final ReviewRepository reviewRepository;
 
 
     @Transactional
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
-
         //회원가입이 되어있는 유저인지 확인
-        Member member = memberJpaRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow();
+        Member member = memberJpaRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow(
+                () -> new MemberNotExistException(MessageCode.MEMBER_NOT_EXIST)
+        );
+
+		//패스워드가 일치하는지 확인
+        if(!Objects.equals(loginRequestDTO.getPassword(), member.getPassword())){
+            throw new MemberNotExistException(MessageCode.MEMBER_NOT_EXIST);
+        }
+        /*if(!passwordEncoder.matches(loginRequestDTO.getPassword(), member.getPassword())){
+            throw new RuntimeException("패스워드가 잘못입력되었습니다 ");
+        }*/
 
         String email = member.getEmail();
 
