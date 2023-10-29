@@ -28,21 +28,21 @@ public class InitController {
 
         Member member1 = Member.builder()
                 .id(1L)
-                .nickname("닉네임")
+                .nickname("민주")
                 .email("mkwak1125@gmail.com")
                 .password("kwak!6038")
-                .dogBowl(55)
                 .profileImage("1번 이미지")
-                .coin(BigDecimal.valueOf(3000))
+                .profileContent("나는 1번 멤버")
                 .build();
 
         Member member2 = Member.builder()
                 .id(2L)
-                .nickname("닉네임")
+                .nickname("승건")
                 .email("asfd@gmail.com")
                 .password("kwak!6038")
-                .dogBowl(55)
-                .coin(BigDecimal.valueOf(3000))
+                .profileContent("나는 2번 멤버")
+                .dogBowl(80)
+                .coin(BigDecimal.valueOf(500000))
                 .build();
 
         Dog dog1 = Dog.builder()
@@ -51,6 +51,9 @@ public class InitController {
                 .name("강아지이름1")
                 .sex("수컷")
                 .size("대형견")
+                .specificity("알러지있음")
+                .image("1번 강아지 이미지")
+                .age(3)
                 .member(member1)
                 .build();
 
@@ -60,6 +63,9 @@ public class InitController {
                 .name("강아지이름2")
                 .sex("암컷")
                 .size("소형견")
+                .specificity("알러지있음")
+                .image("2번 강아지 이미지")
+                .age(6)
                 .member(member1)
                 .build();
 
@@ -68,7 +74,10 @@ public class InitController {
                 .breed("시바견")
                 .name("강아지이름3")
                 .sex("암컷")
-                .size("소형견")
+                .size("중형견")
+                .specificity("알러지있음")
+                .image("3번 강아지 이미지")
+                .age(10)
                 .member(member2)
                 .build();
 
@@ -78,6 +87,9 @@ public class InitController {
                 .name("강아지이름4")
                 .sex("수컷")
                 .size("대형견")
+                .specificity("알러지있음")
+                .image("4번 강아지 이미지")
+                .age(1)
                 .member(member1)
                 .build();
 
@@ -87,7 +99,10 @@ public class InitController {
                 .name("강아지이름5")
                 .sex("수컷")
                 .size("대형견")
-                .member(member1)
+                .specificity("알러지있음")
+                .image("5번 강아지 이미지")
+                .age(15)
+                .member(member2)
                 .build();
 
         Dog dog6 = Dog.builder()
@@ -96,6 +111,9 @@ public class InitController {
                 .name("강아지이름6")
                 .sex("수컷")
                 .size("중형견")
+                .specificity("알러지있음")
+                .image("6번 강아지 이미지")
+                .age(12)
                 .member(member1)
                 .build();
 
@@ -104,10 +122,10 @@ public class InitController {
                 .title("제목1 공통")
                 .lat(34.25)
                 .lng(40.1)
-                .coin(BigDecimal.valueOf(40000))
+                .coin(BigDecimal.valueOf(400))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
-                .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 검색1 착해용 ")
+                .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 26, 36))
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification2 = Notification.builder()
@@ -115,10 +133,10 @@ public class InitController {
                 .title("제목2 공통")
                 .lat(34.25)
                 .lng(50.1)
-                .coin(BigDecimal.valueOf(3500))
+                .coin(BigDecimal.valueOf(350))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 검색2 착해용ㅋㅋㅋ ")
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification3 = Notification.builder()
@@ -126,21 +144,21 @@ public class InitController {
                 .title("제목3 공통")
                 .lat(34.25)
                 .lng(60.1)
-                .coin(BigDecimal.valueOf(3000))
+                .coin(BigDecimal.valueOf(300))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용ㅋㅋㅋㅋㅋㅋㅋ")
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification4 = Notification.builder()
                 .dog(dog3)
-                .title("제목4")
+                .title("제목4 호호")
                 .lat(34.25)
                 .lng(70.1)
                 .coin(BigDecimal.valueOf(500))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용ㅋㅋㅋㅋㅋㅋㅋ")
+                .significant("우리 아이는 착해용")
                 .build();
 
 
@@ -149,7 +167,7 @@ public class InitController {
                 .title("제목5 호호")
                 .lat(34.25)
                 .lng(80.1)
-                .coin(BigDecimal.valueOf(40000))
+                .coin(BigDecimal.valueOf(400))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
                 .significant("우리 아이는 착해용")
@@ -157,24 +175,24 @@ public class InitController {
 
         Notification notification6 = Notification.builder()
                 .dog(dog6)
-                .title("제목6 호호")
+                .title("제목6 검색 테스트")
                 .lat(34.25)
                 .lng(90.1)
-                .coin(BigDecimal.valueOf(40000))
+                .coin(BigDecimal.valueOf(400))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용 공통")
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification7 = Notification.builder()
                 .dog(dog4)
-                .title("제목7")
+                .title("제목7 검색 테스트")
                 .lat(34.25)
                 .lng(100.1)
-                .coin(BigDecimal.valueOf(40000))
+                .coin(BigDecimal.valueOf(400))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용 공통")
+                .significant("우리 아이는 착해용")
                 .build();
 
 
