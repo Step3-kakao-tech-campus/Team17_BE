@@ -123,8 +123,8 @@ public class InitController {
                 .lat(34.25)
                 .lng(40.1)
                 .coin(BigDecimal.valueOf(400))
-                .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
-                .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 26, 36))
+                .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 20, 36))
+                .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .significant("우리 아이는 착해용")
                 .build();
 
