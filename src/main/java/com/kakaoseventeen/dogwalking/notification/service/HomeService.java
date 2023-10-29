@@ -33,8 +33,6 @@ public class HomeService {
 
         Double lastKey = getLastKey(notifications,lat,lng);
 
-        System.out.println("lastKey = " + lastKey);
-
         return HomeRespDTO.of(cursorRequest.next(lastKey, 20), notifications, image);
     }
 
