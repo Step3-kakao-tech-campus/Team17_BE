@@ -3,8 +3,6 @@ package com.kakaoseventeen.dogwalking.notification.controller;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 import com.kakaoseventeen.dogwalking._core.utils.CursorRequest;
-import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.ParameterException;
 import com.kakaoseventeen.dogwalking.notification.dto.response.HomeRespDTO;
 import com.kakaoseventeen.dogwalking.notification.service.HomeService;
 import lombok.RequiredArgsConstructor;

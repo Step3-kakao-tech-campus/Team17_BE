@@ -67,8 +67,9 @@ public class JwtProvider {
             // 토큰의 만료 시간을 현재 시간과 비교하여 유효성을 확인
             // 만료 시간이 현재 시간 이후라면 토큰은 유효함
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (ExpiredJwtException e) {
-        //    e.printStackTrace();
+        }
+        catch (ExpiredJwtException e) {
+            e.printStackTrace();
             request.setAttribute("exception", MessageCode.EXPIRED_TOKEN.getValue());
         } catch (JwtException e) {
             e.printStackTrace();
