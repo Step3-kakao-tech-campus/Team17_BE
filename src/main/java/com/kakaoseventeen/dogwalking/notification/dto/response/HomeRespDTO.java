@@ -1,6 +1,7 @@
 package com.kakaoseventeen.dogwalking.notification.dto.response;
 
 import com.kakaoseventeen.dogwalking._core.utils.CursorRequest;
+import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import lombok.Getter;
 
@@ -28,6 +29,7 @@ public class HomeRespDTO {
 
     @Getter
     public static class NotificationDTO {
+        private String userImage;
         private Long notificationId;
         private String title;
         private Double lat;
@@ -35,7 +37,8 @@ public class HomeRespDTO {
         private DogInfo dogInfo;
         private int dogBowl;
 
-        public NotificationDTO(Long notificationId, String title, Double lat, Double lng, DogInfo dogInfo, int dogBowl) {
+        public NotificationDTO(String userImage, Long notificationId, String title, Double lat, Double lng, DogInfo dogInfo, int dogBowl) {
+            this.userImage = userImage;
             this.notificationId = notificationId;
             this.title = title;
             this.lat = lat;
@@ -46,6 +49,7 @@ public class HomeRespDTO {
 
         public NotificationDTO(Notification post) {
             this(
+                    post.getDog().getMember().getProfileImage(),
                     post.getId(),
                     post.getTitle(),
                     post.getLat(),
