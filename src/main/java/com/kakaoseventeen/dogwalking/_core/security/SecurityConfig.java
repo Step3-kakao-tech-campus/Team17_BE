@@ -68,10 +68,12 @@ public class SecurityConfig {
         );
 
         http.exceptionHandling(exceptionHandling->
-                exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()).accessDeniedHandler(new CustomAccessDeniedHandler())
+                exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
         );
 
-
+        http.exceptionHandling(exceptionHandling->
+                exceptionHandling.accessDeniedHandler(new CustomAccessDeniedHandler())
+        );
 
         return http.build();
     }
