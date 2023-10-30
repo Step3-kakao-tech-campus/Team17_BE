@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,7 +44,7 @@ public class NotificationController {
      * 공고글 작성하기 메서드
      */
     @PostMapping("/notification")
-    public ResponseEntity<?> writeNotification(@AuthenticationPrincipal CustomUserDetails userDetails, @Valid @RequestBody WriteNotificationReqDTO requestDTO){
+    public ResponseEntity<?> writeNotification(@AuthenticationPrincipal CustomUserDetails userDetails, @Valid @RequestBody WriteNotificationReqDTO requestDTO, Errors errors){
         notificationService.writeNotification(requestDTO, userDetails.getMember());
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
@@ -53,7 +54,7 @@ public class NotificationController {
      * 공고글 수정하기 메서드
      */
     @PutMapping("/notification/{notificationId}")
-    public ResponseEntity<?> editNotification(@PathVariable Long notificationId, @Valid @RequestBody UpdateNotificationReqDTO requestDTO, @AuthenticationPrincipal CustomUserDetails userDetails){
+    public ResponseEntity<?> editNotification(@PathVariable Long notificationId, @Valid @RequestBody UpdateNotificationReqDTO requestDTO, @AuthenticationPrincipal CustomUserDetails userDetails, Errors errors){
         notificationService.editNotification(notificationId, requestDTO, userDetails.getMember());
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
