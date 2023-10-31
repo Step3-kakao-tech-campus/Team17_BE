@@ -29,7 +29,6 @@ public class HomeRespDTO {
 
     @Getter
     public static class NotificationDTO {
-        private String userImage;
         private Long notificationId;
         private String title;
         private Double lat;
@@ -37,8 +36,7 @@ public class HomeRespDTO {
         private DogInfo dogInfo;
         private int dogBowl;
 
-        public NotificationDTO(String userImage, Long notificationId, String title, Double lat, Double lng, DogInfo dogInfo, int dogBowl) {
-            this.userImage = userImage;
+        public NotificationDTO(Long notificationId, String title, Double lat, Double lng, DogInfo dogInfo, int dogBowl) {
             this.notificationId = notificationId;
             this.title = title;
             this.lat = lat;
@@ -49,13 +47,13 @@ public class HomeRespDTO {
 
         public NotificationDTO(Notification post) {
             this(
-                    post.getDog().getMember().getProfileImage(),
                     post.getId(),
                     post.getTitle(),
                     post.getLat(),
                     post.getLng(),
                     new DogInfo(
                             post.getDog().getName(),
+                            post.getDog().getImage(),
                             post.getDog().getAge(),
                             post.getDog().getSex(),
                             post.getDog().getBreed()
@@ -68,12 +66,14 @@ public class HomeRespDTO {
     @Getter
     public static class DogInfo {
         private String name;
+        private String image;
         private int age;
         private String sex;
         private String breed;
 
-        public DogInfo(String name, int age, String sex, String breed) {
+        public DogInfo(String name, String image, int age, String sex, String breed) {
             this.name = name;
+            this.image = image;
             this.age = age;
             this.sex = sex;
             this.breed = breed;
