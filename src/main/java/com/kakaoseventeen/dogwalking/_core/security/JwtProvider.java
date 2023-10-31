@@ -2,7 +2,7 @@ package com.kakaoseventeen.dogwalking._core.security;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
+import com.kakaoseventeen.dogwalking.member.dto.LoginRespDTO;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class JwtProvider {
         return signingKey;
     }
 
-    public static LoginResponseDTO createToken(Member member){
+    public static LoginRespDTO createToken(Member member){
 
         Claims claims = Jwts.claims().setSubject(String.valueOf(member.getEmail()));
         claims.put("id", member.getId());
@@ -53,7 +53,7 @@ public class JwtProvider {
                 .signWith(createKey(),SignatureAlgorithm.HS512)
                 .compact();
 
-        return new LoginResponseDTO(accessToken,refreshToken);
+        return new LoginRespDTO(accessToken,refreshToken);
     }
 
     // 헤더의 access 토큰의 유효성 + 만료일자 확인
@@ -67,8 +67,9 @@ public class JwtProvider {
             // 토큰의 만료 시간을 현재 시간과 비교하여 유효성을 확인
             // 만료 시간이 현재 시간 이후라면 토큰은 유효함
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (ExpiredJwtException e) {
-        //    e.printStackTrace();
+        }
+        catch (ExpiredJwtException e) {
+            e.printStackTrace();
             request.setAttribute("exception", MessageCode.EXPIRED_TOKEN.getValue());
         } catch (JwtException e) {
             e.printStackTrace();

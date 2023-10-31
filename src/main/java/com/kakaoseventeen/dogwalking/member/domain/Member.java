@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
 @Table(name="member_tb")
 public class Member {
     @Id
@@ -27,9 +28,10 @@ public class Member {
     private String profileImage;
     @Column (length = 256)
     private String profileContent;
-    @ColumnDefault("50")
-    private int dogBowl;
-    private BigDecimal coin;
+    @Builder.Default
+    private int dogBowl = 50;
+	@Builder.Default
+    private BigDecimal coin= BigDecimal.valueOf(300000);
 
     @Builder
     public Member(Long id, String nickname, String email, String password, String profileImage, String profileContent, int dogBowl, BigDecimal coin){

@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
+import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

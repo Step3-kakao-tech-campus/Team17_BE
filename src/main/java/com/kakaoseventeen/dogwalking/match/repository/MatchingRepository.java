@@ -4,6 +4,7 @@ import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,4 +30,15 @@ public interface MatchingRepository extends JpaRepository<Match, Long> {
             "join n.walk w " +
             "where m.matchId = :matchId")
     Optional<Walk> findWalkFromMatchById(Long matchId);
+
+
+    @Query("select m " +
+            "from Match m " +
+            "join fetch m.notificationId " +
+            "join fetch m.applicationId " +
+            "join fetch m.applicationId.appMemberId " +
+            "where m.notificationId.id = :notificationId")
+    List<Match> findMatchByNotificationId(@Param("notificationId") Long notificationId);
+
+
 }

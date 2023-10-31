@@ -44,10 +44,11 @@ public class InitController {
                 .nickname("닉네임1")
                 .email("mkwak1125@gmail.com")
                 .password("kwak!6038")
-                .dogBowl(55)
                 .profileImage("1번 이미지")
+                .profileContent("나는 1번 멤버")
                 .coin(BigDecimal.valueOf(100000))
                 .build());
+
 
 
         Member member2 = memberJpaRepository.save(Member.builder()
@@ -55,8 +56,11 @@ public class InitController {
                 .nickname("닉네임2")
                 .email("asfd@gmail.com")
                 .password("kwak!6038")
+                .profileContent("나는 2번 멤버")
+                .profileImage("2번 이미지")
+                .dogBowl(80)
+                .coin(BigDecimal.valueOf(500000))
                 .dogBowl(55)
-                .coin(BigDecimal.valueOf(100000))
                 .build());
 
         Member member3 = memberJpaRepository.save(Member.builder()
@@ -84,6 +88,9 @@ public class InitController {
                 .name("강아지이름1")
                 .sex("수컷")
                 .size("대형견")
+                .specificity("알러지있음")
+                .image("1번 강아지 이미지")
+                .age(3)
                 .member(member1)
                 .build();
 
@@ -93,6 +100,9 @@ public class InitController {
                 .name("강아지이름2")
                 .sex("암컷")
                 .size("소형견")
+                .specificity("알러지있음")
+                .image("2번 강아지 이미지")
+                .age(6)
                 .member(member2)
                 .build();
 
@@ -101,6 +111,10 @@ public class InitController {
                 .breed("시바견")
                 .name("강아지이름3")
                 .sex("암컷")
+                .size("중형견")
+                .specificity("알러지있음")
+                .image("3번 강아지 이미지")
+                .age(10)
                 .size("소형견")
                 .member(member3)
                 .build();
@@ -111,6 +125,9 @@ public class InitController {
                 .name("강아지이름4")
                 .sex("수컷")
                 .size("대형견")
+                .specificity("알러지있음")
+                .image("4번 강아지 이미지")
+                .age(1)
                 .member(member4)
                 .build();
 
@@ -120,7 +137,10 @@ public class InitController {
                 .name("강아지이름5")
                 .sex("수컷")
                 .size("대형견")
-                .member(member1)
+                .specificity("알러지있음")
+                .image("5번 강아지 이미지")
+                .age(15)
+                .member(member2)
                 .build();
 
         Dog dog6 = Dog.builder()
@@ -129,6 +149,9 @@ public class InitController {
                 .name("강아지이름6")
                 .sex("수컷")
                 .size("중형견")
+                .specificity("알러지있음")
+                .image("6번 강아지 이미지")
+                .age(12)
                 .member(member1)
                 .build();
 
@@ -144,10 +167,10 @@ public class InitController {
                 .title("제목1 공통")
                 .lat(34.25)
                 .lng(40.1)
-                .coin(BigDecimal.valueOf(40000))
-                .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
-                .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 검색1 착해용 ")
+                .coin(BigDecimal.valueOf(400))
+                .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 20, 36))
+                .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification2 = Notification.builder()
@@ -155,10 +178,10 @@ public class InitController {
                 .title("제목2 공통")
                 .lat(34.25)
                 .lng(50.1)
-                .coin(BigDecimal.valueOf(3500))
+                .coin(BigDecimal.valueOf(350))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 검색2 착해용ㅋㅋㅋ ")
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification3 = Notification.builder()
@@ -166,21 +189,21 @@ public class InitController {
                 .title("제목3 공통")
                 .lat(34.25)
                 .lng(60.1)
-                .coin(BigDecimal.valueOf(3000))
+                .coin(BigDecimal.valueOf(300))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용ㅋㅋㅋㅋㅋㅋㅋ")
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification4 = Notification.builder()
                 .dog(dog3)
-                .title("제목4")
+                .title("제목4 호호")
                 .lat(34.25)
                 .lng(70.1)
                 .coin(BigDecimal.valueOf(500))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용ㅋㅋㅋㅋㅋㅋㅋ")
+                .significant("우리 아이는 착해용")
                 .build();
 
 
@@ -189,7 +212,7 @@ public class InitController {
                 .title("제목5 호호")
                 .lat(34.25)
                 .lng(80.1)
-                .coin(BigDecimal.valueOf(40000))
+                .coin(BigDecimal.valueOf(400))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
                 .significant("우리 아이는 착해용")
@@ -197,24 +220,24 @@ public class InitController {
 
         Notification notification6 = Notification.builder()
                 .dog(dog6)
-                .title("제목6 호호")
+                .title("제목6 검색 테스트")
                 .lat(34.25)
                 .lng(90.1)
-                .coin(BigDecimal.valueOf(40000))
+                .coin(BigDecimal.valueOf(400))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용 공통")
+                .significant("우리 아이는 착해용")
                 .build();
 
         Notification notification7 = Notification.builder()
                 .dog(dog4)
-                .title("제목7")
+                .title("제목7 검색 테스트")
                 .lat(34.25)
                 .lng(100.1)
-                .coin(BigDecimal.valueOf(40000))
+                .coin(BigDecimal.valueOf(400))
                 .startTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
-                .significant("우리 아이는 착해용 공통")
+                .significant("우리 아이는 착해용")
                 .build();
 
         notificationJpaRepository.save(notification1);
@@ -232,15 +255,29 @@ public class InitController {
         walkRoadRepository.saveAndFlush(WalkRoad.of(37.402056,127.108212, walk1));
 
         Application application1 = applicationRepository.saveAndFlush(Application.builder()
-                .aboutMe("저에 관해서 소개를 하겠습니다.")
+                .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
                 .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
-                .aboutMe("저에 관해서 소개를 하겠습니다.")
+                .aboutMe("저에 관해서 소개를 하겠습니다. 2번 지원자")
                 .appMemberId(member3)
+                .certification("애견 보호사 2급")
+                .experience("강아지 유치원 2년 근무")
+                .build());
+
+        Application application3 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다. 3번 지원자")
+                .appMemberId(member4)
+                .certification("애견 보호사 2급")
+                .experience("강아지 유치원 2년 근무")
+                .build());
+
+        Application application4 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다. 4번 지원자")
+                .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
@@ -248,6 +285,16 @@ public class InitController {
         matchingRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
                 .applicationId(application1)
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .notificationId(notification1)
+                .applicationId(application3)
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .notificationId(notification1)
+                .applicationId(application4)
                 .build());
 
         matchingRepository.saveAndFlush(Match.builder()

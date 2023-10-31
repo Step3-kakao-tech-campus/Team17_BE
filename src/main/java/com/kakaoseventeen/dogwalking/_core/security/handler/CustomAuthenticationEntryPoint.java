@@ -22,36 +22,38 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         log.debug("log: exception: {} ", exception);
 
-        /**
-         * 토큰 없는 경우
-         */
+
+         //토큰 없는 경우
+
+
         if(exception == null) {
             errorCode = MessageCode.NON_LOGIN;
             setResponse(response, errorCode);
             return;
         }
 
-        /**
-         * 토큰 만료된 경우
-         */
+
+         // 토큰 만료된 경우
+
+
         if(exception.equals(MessageCode.EXPIRED_TOKEN.getValue())) {
             errorCode = MessageCode.EXPIRED_TOKEN;
             setResponse(response, errorCode);
             return;
         }
 
-        /**
-         * 토큰 시그니처가 다른 경우
-         */
+
+         //토큰 시그니처가 다른 경우
+
+
         if(exception.equals(MessageCode.INVALID_TOKEN.getValue())) {
             errorCode = MessageCode.INVALID_TOKEN;
             setResponse(response, errorCode);
         }
     }
 
-    /**
-     * 출력
-     */
+
+
     private void setResponse(HttpServletResponse resp, MessageCode errorCode) throws IOException {
         resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         resp.setContentType("application/json; charset=utf-8");

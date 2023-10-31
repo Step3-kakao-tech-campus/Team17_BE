@@ -35,7 +35,7 @@ import java.util.concurrent.TimeoutException;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
-//import static org.awaitility.Awaitility.await;
+import static org.awaitility.Awaitility.await;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // local Server Random port Setting
@@ -66,7 +66,7 @@ public class WebSocketTest {
         receivedMessages = new LinkedBlockingDeque<>();
         session = stompClient.connectAsync(URL, new MySessionHandler()).get(5, SECONDS);
         LOGGER.info(" -----연결 성공!------");
-//        await().until(this::isSubscribed);
+        await().until(this::isSubscribed);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class WebSocketTest {
     @AfterEach
     public void reset() throws InterruptedException {
         session.disconnect();
- //       await().until(() -> !session.isConnected());
+        await().until(() -> !session.isConnected());
         LOGGER.info("-----연결 종료!------");
     }
 

@@ -3,12 +3,8 @@ package com.kakaoseventeen.dogwalking.member.service;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
 import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.DuplicateEmailException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidEmailFormatException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidPasswordFormatException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidPasswordLengthException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.*;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistException;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
@@ -55,28 +51,30 @@ public class MemberService {
 
 
     @Transactional
-    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
+    public LoginRespDTO login(LoginReqDTO loginReqDTO) throws RuntimeException{
         //회원가입이 되어있는 유저인지 확인
-        Member member = memberJpaRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow(
-                () -> new MemberNotExistException(MessageCode.MEMBER_NOT_EXIST)
+        Member member = memberJpaRepository.findByEmail(loginReqDTO.getEmail()).orElseThrow(
+                () -> new MemberNotExistException(MemberMessageCode.MEMBER_NOT_EXIST)
         );
 
-		//패스워드가 일치하는지 확인
-        if(!Objects.equals(loginRequestDTO.getPassword(), member.getPassword())){
-            throw new MemberNotExistException(MessageCode.MEMBER_NOT_EXIST);
-        }
-        /*if(!passwordEncoder.matches(loginRequestDTO.getPassword(), member.getPassword())){
-            throw new RuntimeException("패스워드가 잘못입력되었습니다 ");
+/*		//패스워드가 일치하는지 확인
+        if(!Objects.equals(loginReqDTO.getPassword(), member.getPassword())){
+            throw new MemberNotExistException(MemberMessageCode.PASSWORD_NOT_MATCH);
         }*/
+
+        if(!passwordEncoder.matches(loginReqDTO.getPassword(), member.getPassword())){
+            throw new PasswordNotMatchException(MemberMessageCode.PASSWORD_NOT_MATCH);
+        }
+
 
         String email = member.getEmail();
 
         //accessToken과 refreshToken을 발급받아서 response dto에 담는다.
-        LoginResponseDTO loginResponseDTO = JwtProvider.createToken(member);
+        LoginRespDTO loginRespDTO = JwtProvider.createToken(member);
 
         //refresh token 객체를 만든다.
         RefreshToken refreshToken = RefreshToken.builder()
-                .token(loginResponseDTO.getRefreshToken())
+                .token(loginRespDTO.getRefreshToken())
                 .email(email)
                 .build();
 
@@ -87,7 +85,7 @@ public class MemberService {
         // 새로 발급한 refresh token 테이블에 저장
         refreshTokenJpaRepository.save(refreshToken);
 
-        return loginResponseDTO;
+        return loginRespDTO;
     }
 
     @Transactional

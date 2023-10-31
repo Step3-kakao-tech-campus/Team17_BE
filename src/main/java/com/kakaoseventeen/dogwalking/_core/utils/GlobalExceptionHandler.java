@@ -35,15 +35,26 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MemberMessageCode.DUPLICATE_EMAIL.getValue(), HttpStatus.BAD_REQUEST);
     }
 
-
     @ExceptionHandler(MemberNotExistException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(MemberNotExistException e){
-        return ApiResponseGenerator.fail(MessageCode.MEMBER_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+        return ApiResponseGenerator.fail(MemberMessageCode.MEMBER_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PasswordNotMatchException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(PasswordNotMatchException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.PASSWORD_NOT_MATCH.getValue(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ValidationException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(ValidationException e){
         return ApiResponseGenerator.fail(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(NotificationException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(NotificationException e){
+        return ApiResponseGenerator.fail(MessageCode.NOTIFICATION_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+
 
 }
