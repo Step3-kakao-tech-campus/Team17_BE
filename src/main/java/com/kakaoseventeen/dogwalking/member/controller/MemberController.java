@@ -51,4 +51,12 @@ public class MemberController {
         MemberProfileRespDTO respDTO = memberService.getProfile(userId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
+
+    @PostMapping("/member/signup")
+    public ResponseEntity<?> signup(@RequestBody SignupReqDTO signupReqDTO){
+
+        memberService.signup(signupReqDTO);
+        return ApiResponseGenerator.success(HttpStatus.OK);
+    }
+
 }

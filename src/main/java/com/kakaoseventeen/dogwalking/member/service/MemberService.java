@@ -2,6 +2,11 @@ package com.kakaoseventeen.dogwalking.member.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
+import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.DuplicateEmailException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidEmailFormatException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidPasswordFormatException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidPasswordLengthException;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistException;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
@@ -35,6 +40,11 @@ import java.util.Optional;
 public class MemberService {
     private final MemberJpaRepository memberJpaRepository;
     private final RefreshTokenJpaRepository refreshTokenJpaRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final Validator validator;
+
     private final PaymentRepository paymentRepository;
     private final WalkRepository walkRepository;
     private final DogJpaRepository dogJpaRepository;
@@ -92,6 +102,42 @@ public class MemberService {
         }
     }
 
+
+    @Transactional
+    public void signup(SignupReqDTO signupReqDTO){
+        validSignupDTO(signupReqDTO);
+
+        Member member = signupReqDtoToMember(signupReqDTO);
+
+        memberJpaRepository.save(member);
+    }
+
+    private void validSignupDTO(SignupReqDTO signupReqDTO) {
+        if(!validator.validEmailFormat(signupReqDTO.email())){
+            throw new InvalidEmailFormatException(MemberMessageCode.INVALID_EMAIL_FORMAT);
+        }
+        duplicateEmail(signupReqDTO.email());
+        if(!validator.checkPasswordLength(signupReqDTO.password())){
+            throw new InvalidPasswordLengthException(MemberMessageCode.INVALID_PASSWORD_LENGTH);
+        }
+        if(!validator.validPasswordFormat(signupReqDTO.password())){
+            throw new InvalidPasswordFormatException(MemberMessageCode.INVALID_PASSWORD_FORMAT);
+        }
+    }
+
+    private void duplicateEmail(String email) {
+        if(memberJpaRepository.existsByEmail(email)){
+            throw new DuplicateEmailException(MemberMessageCode.DUPLICATE_EMAIL);
+        }
+    }
+
+    private Member signupReqDtoToMember(SignupReqDTO signupReqDTO) {
+        return Member.builder()
+                .nickname(signupReqDTO.nickname())
+                .email(signupReqDTO.email())
+                .password(passwordEncoder.encode(signupReqDTO.password()))
+                .build();
+    }
     @Transactional(readOnly = true)
     public IsOwnerRespDTO isProfileOwner(CustomUserDetails customUserDetails, Long userId) throws RuntimeException{
         Member member =  memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 유저 ID 입니다."));
@@ -114,5 +160,6 @@ public class MemberService {
          List<Review> reviews = reviewRepository.findReviewByMemberId(userId);
 
          return MemberProfileRespDTO.of(member, notifications, dogs, applications, reviews);
+
     }
 }

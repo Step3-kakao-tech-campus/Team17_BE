@@ -18,6 +18,24 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MessageCode.MATCH_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidEmailFormatException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(InvalidEmailFormatException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.INVALID_EMAIL_FORMAT.getValue(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(InvalidPasswordFormatException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(InvalidPasswordFormatException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.INVALID_PASSWORD_FORMAT.getValue(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(InvalidPasswordLengthException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(InvalidPasswordLengthException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.INVALID_PASSWORD_LENGTH.getValue(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DuplicateEmailException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.DUPLICATE_EMAIL.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+
     @ExceptionHandler(MemberNotExistException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(MemberNotExistException e){
         return ApiResponseGenerator.fail(MessageCode.MEMBER_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
