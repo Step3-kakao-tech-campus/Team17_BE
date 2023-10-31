@@ -1,7 +1,10 @@
 package com.kakaoseventeen.dogwalking.notification.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.NotificationException;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationReqDTO;
@@ -33,10 +36,10 @@ public class NotificationService {
         return new LoadDogRespDTO(dogList);
     }
 
-    public LoadNotificationRespDTO loadNotification(Long id, Member sessionMember){
+    public LoadNotificationRespDTO loadNotification(Long id, Member sessionMember) throws NotificationException{
 
         Notification notification = notificationJpaRepository.findById(id).orElseThrow(
-                ()-> new RuntimeException("해당 공고글이 존재하지 않습니다.")
+                ()-> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST)
         );
 
         Dog dog = dogJpaRepository.findById(notification.getDog().getId()).orElseThrow(
@@ -56,14 +59,14 @@ public class NotificationService {
 
         List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember.getId());
         //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
-        Dog dogOP = dogList.stream().filter(dog -> dog.getId() == writeNotificationReqDTO.getDogId()).findFirst().orElseThrow(
+        Dog dogEntity = dogList.stream().filter(dog -> dog.getId() == writeNotificationReqDTO.getDogId()).findFirst().orElseThrow(
                 ()-> new RuntimeException("등록된 강아지가 아닙니다.")
         );
 
         if(sessionMember.getCoin().compareTo(writeNotificationReqDTO.getCoin())<0)
             throw new RuntimeException("보유한 멍코인이 부족합니다.");
 
-        Notification notification = writeNotificationReqDTO.toEntity(dogOP);
+        Notification notification = writeNotificationReqDTO.toEntity(dogEntity);
         notificationJpaRepository.save(notification);
     }
 
@@ -88,4 +91,5 @@ public class NotificationService {
 
         notification.update(updateNotificationReqDTO, dogOP);
     }
+
 }
