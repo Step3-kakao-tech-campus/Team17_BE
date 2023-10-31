@@ -2,10 +2,7 @@ package com.kakaoseventeen.dogwalking.member.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
-import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
-import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
-import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileRespDTO;
+import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,4 +28,12 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
 
     }
+
+    @PostMapping("/member/signup")
+    public ResponseEntity<?> signup(@RequestBody SignupReqDTO signupReqDTO){
+
+        memberService.signup(signupReqDTO);
+        return ApiResponseGenerator.success(HttpStatus.OK);
+    }
+
 }
