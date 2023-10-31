@@ -1,4 +1,4 @@
-임package com.kakaoseventeen.dogwalking.member.dto;
+package com.kakaoseventeen.dogwalking.member.dto;
 
 
 import lombok.Builder;
