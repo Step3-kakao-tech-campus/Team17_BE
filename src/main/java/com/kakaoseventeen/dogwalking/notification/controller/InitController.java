@@ -38,27 +38,45 @@ public class InitController {
     @GetMapping("/init")
     public ResponseEntity<?> init(){
 
-        Member member1 = Member.builder()
+
+        Member member1 = memberJpaRepository.save(Member.builder()
                 .id(1L)
-                .nickname("닉네임")
+                .nickname("닉네임1")
                 .email("mkwak1125@gmail.com")
                 .password("kwak!6038")
                 .dogBowl(55)
                 .profileImage("1번 이미지")
-                .coin(BigDecimal.valueOf(3000))
-                .build();
+                .coin(BigDecimal.valueOf(100000))
+                .build());
 
-        Member member2 = Member.builder()
+
+        Member member2 = memberJpaRepository.save(Member.builder()
                 .id(2L)
-                .nickname("닉네임")
+                .nickname("닉네임2")
                 .email("asfd@gmail.com")
                 .password("kwak!6038")
                 .dogBowl(55)
-                .coin(BigDecimal.valueOf(3000))
-                .build();
+                .coin(BigDecimal.valueOf(100000))
+                .build());
 
-        memberJpaRepository.save(member1);
-        memberJpaRepository.save(member2);
+        Member member3 = memberJpaRepository.save(Member.builder()
+                .id(3L)
+                .nickname("닉네임3")
+                .email("yardyard@gmail.com")
+                .password("12341234!")
+                .dogBowl(55)
+                .coin(BigDecimal.valueOf(100000))
+                .build());
+
+        Member member4 = memberJpaRepository.save(Member.builder()
+                .id(4L)
+                .nickname("닉네임4")
+                .email("yardyard@naver.com")
+                .password("12341234!")
+                .dogBowl(55)
+                .coin(BigDecimal.valueOf(100000))
+                .build());
+
 
         Dog dog1 = Dog.builder()
                 .id(1L)
@@ -75,7 +93,7 @@ public class InitController {
                 .name("강아지이름2")
                 .sex("암컷")
                 .size("소형견")
-                .member(member1)
+                .member(member2)
                 .build();
 
         Dog dog3 = Dog.builder()
@@ -84,7 +102,7 @@ public class InitController {
                 .name("강아지이름3")
                 .sex("암컷")
                 .size("소형견")
-                .member(member2)
+                .member(member3)
                 .build();
 
         Dog dog4 = Dog.builder()
@@ -93,7 +111,7 @@ public class InitController {
                 .name("강아지이름4")
                 .sex("수컷")
                 .size("대형견")
-                .member(member1)
+                .member(member4)
                 .build();
 
         Dog dog5 = Dog.builder()
@@ -209,6 +227,8 @@ public class InitController {
 
         Walk walk1 = walkRepository.saveAndFlush(Walk.of(member1, member2, notification1));
 
+        Walk walk2 = walkRepository.saveAndFlush(Walk.of(member3, member4, notification2));
+
         walkRoadRepository.saveAndFlush(WalkRoad.of(37.402056,127.108212, walk1));
 
         Application application1 = applicationRepository.saveAndFlush(Application.builder()
@@ -218,9 +238,21 @@ public class InitController {
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
+        Application application2 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다.")
+                .appMemberId(member3)
+                .certification("애견 보호사 2급")
+                .experience("강아지 유치원 2년 근무")
+                .build());
+
         matchingRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
                 .applicationId(application1)
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .notificationId(notification2)
+                .applicationId(application2)
                 .build());
 
         return ResponseEntity.ok("init");
