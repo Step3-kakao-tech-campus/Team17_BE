@@ -1,16 +1,19 @@
 package com.kakaoseventeen.dogwalking.member.service;
 
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
+import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.DuplicateEmailException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidEmailFormatException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidPasswordFormatException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.InvalidPasswordLengthException;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.dto.LoginRequestDTO;
-import com.kakaoseventeen.dogwalking.member.dto.LoginResponseDTO;
-import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileReqDTO;
-import com.kakaoseventeen.dogwalking.member.dto.UpdateProfileRespDTO;
+import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
 import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,9 @@ import java.util.Optional;
 public class MemberService {
     private final MemberJpaRepository memberJpaRepository;
     private final RefreshTokenJpaRepository refreshTokenJpaRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    private final Validator validator;
 
     @Transactional
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
@@ -62,5 +68,41 @@ public class MemberService {
         else {
             throw new RuntimeException("올바르지 않은 유저 ID입니다.");
         }
+    }
+
+    @Transactional
+    public void signup(SignupReqDTO signupReqDTO){
+        validSignupDTO(signupReqDTO);
+
+        Member member = signupReqDtoToMember(signupReqDTO);
+
+        memberJpaRepository.save(member);
+    }
+
+    private void validSignupDTO(SignupReqDTO signupReqDTO) {
+        if(!validator.validEmailFormat(signupReqDTO.email())){
+            throw new InvalidEmailFormatException(MemberMessageCode.INVALID_EMAIL_FORMAT);
+        }
+        duplicateEmail(signupReqDTO.email());
+        if(!validator.checkPasswordLength(signupReqDTO.password())){
+            throw new InvalidPasswordLengthException(MemberMessageCode.INVALID_PASSWORD_LENGTH);
+        }
+        if(!validator.validPasswordFormat(signupReqDTO.password())){
+            throw new InvalidPasswordFormatException(MemberMessageCode.INVALID_PASSWORD_FORMAT);
+        }
+    }
+
+    private void duplicateEmail(String email) {
+        if(memberJpaRepository.existsByEmail(email)){
+            throw new DuplicateEmailException(MemberMessageCode.DUPLICATE_EMAIL);
+        }
+    }
+
+    private Member signupReqDtoToMember(SignupReqDTO signupReqDTO) {
+        return Member.builder()
+                .nickname(signupReqDTO.nickname())
+                .email(signupReqDTO.email())
+                .password(passwordEncoder.encode(signupReqDTO.password()))
+                .build();
     }
 }
