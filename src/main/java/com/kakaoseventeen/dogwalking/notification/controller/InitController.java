@@ -57,6 +57,7 @@ public class InitController {
                 .email("asfd@gmail.com")
                 .password("kwak!6038")
                 .profileContent("나는 2번 멤버")
+                .profileImage("2번 이미지")
                 .dogBowl(80)
                 .coin(BigDecimal.valueOf(500000))
                 .dogBowl(55)
@@ -254,15 +255,29 @@ public class InitController {
         walkRoadRepository.saveAndFlush(WalkRoad.of(37.402056,127.108212, walk1));
 
         Application application1 = applicationRepository.saveAndFlush(Application.builder()
-                .aboutMe("저에 관해서 소개를 하겠습니다.")
+                .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
                 .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
-                .aboutMe("저에 관해서 소개를 하겠습니다.")
+                .aboutMe("저에 관해서 소개를 하겠습니다. 2번 지원자")
                 .appMemberId(member3)
+                .certification("애견 보호사 2급")
+                .experience("강아지 유치원 2년 근무")
+                .build());
+
+        Application application3 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다. 3번 지원자")
+                .appMemberId(member4)
+                .certification("애견 보호사 2급")
+                .experience("강아지 유치원 2년 근무")
+                .build());
+
+        Application application4 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다. 4번 지원자")
+                .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
@@ -270,6 +285,16 @@ public class InitController {
         matchingRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
                 .applicationId(application1)
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .notificationId(notification1)
+                .applicationId(application3)
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .notificationId(notification1)
+                .applicationId(application4)
                 .build());
 
         matchingRepository.saveAndFlush(Match.builder()
