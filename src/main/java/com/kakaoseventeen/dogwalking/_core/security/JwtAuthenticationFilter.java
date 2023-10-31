@@ -27,7 +27,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader("Authorization");
 
         if(token == null){
-           // request.setAttribute("exception", null);
             chain.doFilter(request, response);
             return;
         }
