@@ -1,11 +1,19 @@
 package com.kakaoseventeen.dogwalking.notification.controller;
 
+import com.kakaoseventeen.dogwalking.application.domain.Application;
+import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.match.domain.Match;
+import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
+import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
+import com.kakaoseventeen.dogwalking.walkRoad.repository.WalkRoadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +30,10 @@ public class InitController {
     private final DogJpaRepository dogJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final NotificationJpaRepository notificationJpaRepository;
+    private final ApplicationRepository applicationRepository;
+    private final WalkRepository walkRepository;
+    private final MatchingRepository matchingRepository;
+    private final WalkRoadRepository walkRoadRepository;
 
     @GetMapping("/init")
     public ResponseEntity<?> init(){
@@ -44,6 +56,9 @@ public class InitController {
                 .dogBowl(55)
                 .coin(BigDecimal.valueOf(3000))
                 .build();
+
+        memberJpaRepository.save(member1);
+        memberJpaRepository.save(member2);
 
         Dog dog1 = Dog.builder()
                 .id(1L)
@@ -98,6 +113,13 @@ public class InitController {
                 .size("중형견")
                 .member(member1)
                 .build();
+
+        dogJpaRepository.save(dog1);
+        dogJpaRepository.save(dog2);
+        dogJpaRepository.save(dog3);
+        dogJpaRepository.save(dog4);
+        dogJpaRepository.save(dog5);
+        dogJpaRepository.save(dog6);
 
         Notification notification1 = Notification.builder()
                 .dog(dog1)
@@ -177,17 +199,6 @@ public class InitController {
                 .significant("우리 아이는 착해용 공통")
                 .build();
 
-
-
-
-        memberJpaRepository.save(member1);
-        memberJpaRepository.save(member2);
-        dogJpaRepository.save(dog1);
-        dogJpaRepository.save(dog2);
-        dogJpaRepository.save(dog3);
-        dogJpaRepository.save(dog4);
-        dogJpaRepository.save(dog5);
-        dogJpaRepository.save(dog6);
         notificationJpaRepository.save(notification1);
         notificationJpaRepository.save(notification2);
         notificationJpaRepository.save(notification3);
@@ -196,7 +207,21 @@ public class InitController {
         notificationJpaRepository.save(notification6);
         notificationJpaRepository.save(notification7);
 
+        Walk walk1 = walkRepository.saveAndFlush(Walk.of(member1, member2, notification1));
 
+        walkRoadRepository.saveAndFlush(WalkRoad.of(37.402056,127.108212, walk1));
+
+        Application application1 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다.")
+                .appMemberId(member2)
+                .certification("애견 보호사 2급")
+                .experience("강아지 유치원 2년 근무")
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .notificationId(notification1)
+                .applicationId(application1)
+                .build());
 
         return ResponseEntity.ok("init");
     }
