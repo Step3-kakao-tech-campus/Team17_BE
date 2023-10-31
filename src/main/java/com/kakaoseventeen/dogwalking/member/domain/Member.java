@@ -59,7 +59,7 @@ public class Member {
      */
     public void withdrawCoin(BigDecimal coin){
         this.coin = this.coin.subtract(coin);
-        System.out.println("현재 코인값은 " + this.coin); // 정상 연산된다. -> 더티 체킹이 안되는 듯
+        System.out.println("현재 코인값은 " + this.coin);
     }
 
     /**

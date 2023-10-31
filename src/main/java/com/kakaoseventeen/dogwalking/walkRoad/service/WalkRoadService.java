@@ -29,8 +29,6 @@ public class WalkRoadService {
 
     private final WalkRoadRepository walkRoadRepository;
 
-    private final WalkRepository walkRepository;
-
     private final MatchingRepository matchingRepository;
 
     /**

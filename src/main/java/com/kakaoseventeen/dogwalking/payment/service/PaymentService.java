@@ -47,12 +47,16 @@ public class PaymentService {
     }
 
     @Transactional
-    public void savePayment(CustomUserDetails customUserDetails, Long notificationId, Long walkId){
+    public void savePayment(CustomUserDetails customUserDetails, Long notificationId, Long walkId) throws RuntimeException {
         // notification 가져오기
         Notification notification = notificationJpaRepository.findById(notificationId).orElseThrow(() -> new RuntimeException("잘못된 공고 Id입니다."));
 
         // walk 가져오기
         Walk walk = walkRepository.findById(walkId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+
+        if (paymentRepository.findById(walkId).isPresent()) {
+            throw new RuntimeException("이미 존재하는 결제 정보입니다.");
+        }
 
         // notification, walk, Payment.of()을 통해 생성 후 DB 저장
         Payment payment = paymentRepository.save(Payment.of(walk, notification.getCoin()));
