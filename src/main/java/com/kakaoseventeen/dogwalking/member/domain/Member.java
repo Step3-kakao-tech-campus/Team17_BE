@@ -51,4 +51,20 @@ public class Member {
             this.profileContent = profileContent;
         }
     }
+
+    /**
+     * 코인 출금하는 메서드
+     */
+    public void withdrawCoin(BigDecimal coin){
+        this.coin = this.coin.subtract(coin);
+        System.out.println("현재 코인값은 " + this.coin);
+    }
+
+    /**
+     * 코인 입금받는 메서드
+     */
+    public void depositCoin(BigDecimal coin){
+        this.coin = this.coin.add(coin);
+        System.out.println("현재 코인값은 " + this.coin);
+    }
 }

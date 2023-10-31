@@ -7,12 +7,15 @@ import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.payment.domain.Payment;
+import com.kakaoseventeen.dogwalking.payment.repository.PaymentRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,9 @@ public class WalkRestControllerTest {
     private MockMvc mvc;
 
     @Autowired
+    EntityManager em;
+
+    @Autowired
     MemberJpaRepository memberJpaRepository;
 
     @Autowired
@@ -61,6 +67,9 @@ public class WalkRestControllerTest {
 
     @Autowired
     WalkRepository walkRepository;
+
+    @Autowired
+    PaymentRepository paymentRepository;
 
     @BeforeEach
     @Transactional
@@ -91,7 +100,7 @@ public class WalkRestControllerTest {
 
         Notification notification2 = notificationJpaRepository.saveAndFlush(GetEntity.getNotification2());
 
-        walkRepository.saveAndFlush((Walk.of(master2, walker2, notification2)));
+        walkRepository.saveAndFlush((Walk.of(walker2, master2, notification2)));
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
                 .appMemberId(walker2)
@@ -144,15 +153,24 @@ public class WalkRestControllerTest {
     }
 
     @Test
+    @Transactional
     @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void end_walk_test() throws Exception {
         // given
+        paymentRepository.save(Payment.of(walkRepository.findById(1L).get(), notificationJpaRepository.findById(2L).get().getCoin()));
+
+
         int matchId = 2;
 
         // when
         ResultActions resultActions = mvc.perform(
                 post(String.format("/api/walk/end/%d", matchId))
         );
+
+        // eye
+        // 알바 돈 올라갔는지 확인
+        Member walker = memberJpaRepository.findById(4L).get();
+        System.out.println("알바 돈 올라갔나? : " + walker.getCoin());
 
         // console
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();

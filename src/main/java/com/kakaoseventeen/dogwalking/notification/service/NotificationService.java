@@ -34,6 +34,7 @@ public class NotificationService {
     }
 
     public LoadNotificationResponseDTO loadNotification(Long id, Member sessionMember){
+
         Notification notification = notificationJpaRepository.findById(id).orElseThrow(
                 ()-> new RuntimeException("해당 공고글이 존재하지 않습니다.")
         );
@@ -41,7 +42,13 @@ public class NotificationService {
         Dog dog = dogJpaRepository.findById(notification.getDog().getId()).orElseThrow(
                 ()-> new RuntimeException("해당 강아지가 존재하지 않습니다.")
         );
-        return new LoadNotificationResponseDTO(notification, dog);
+
+        Boolean isMine = null;
+        if(sessionMember.getId() == dog.getMember().getId())
+            isMine = true;
+        else
+            isMine = false;
+        return new LoadNotificationResponseDTO(notification, dog, isMine);
     }
 
 	@Transactional
