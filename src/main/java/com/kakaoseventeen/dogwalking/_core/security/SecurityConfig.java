@@ -68,7 +68,18 @@ public class SecurityConfig {
         );*/
         http.authorizeHttpRequests(authorize ->
                 authorize
-                        .requestMatchers(new AntPathRequestMatcher("/api/notification/**"), new AntPathRequestMatcher("/api/walk/**"), new AntPathRequestMatcher("/api/walkRoad/**"), new AntPathRequestMatcher("/api/profile/**"), new AntPathRequestMatcher("/api/chat/**")) // /notification/** 엔드포인트에 대한 권한 설정
+                        .requestMatchers(new AntPathRequestMatcher("/api/notification/**"),
+                                new AntPathRequestMatcher("/api/walk/**"),
+                                new AntPathRequestMatcher("/api/walkRoad/**"),
+                                new AntPathRequestMatcher("/api/profile/**"),
+                                new AntPathRequestMatcher("/api/chat/**"),
+                                new AntPathRequestMatcher("/api/refresh"),
+                                new AntPathRequestMatcher("/api/payment/**"),
+                                new AntPathRequestMatcher("/app/**"),
+                                new AntPathRequestMatcher("/api/application/**"),
+                                new AntPathRequestMatcher("/api/review/**")
+
+                                )
                         .authenticated()
                         .anyRequest().permitAll()
 
