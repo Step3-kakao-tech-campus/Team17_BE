@@ -69,11 +69,11 @@ public class JwtProvider {
             return !claims.getBody().getExpiration().before(new Date());
         }
         catch (ExpiredJwtException e) {
-            e.printStackTrace();
-            request.setAttribute("exception", MessageCode.EXPIRED_TOKEN.getValue());
+         //   log.error("토큰 검증 실패");
+
         } catch (JwtException e) {
             e.printStackTrace();
-            request.setAttribute("exception", MessageCode.INVALID_TOKEN.getValue());
+         //   log.error("토큰 검증 실패");
         }
         return false;
     }

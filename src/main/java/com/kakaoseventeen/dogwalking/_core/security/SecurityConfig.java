@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
-import com.kakaoseventeen.dogwalking._core.security.handler.CustomAccessDeniedHandler;
-import com.kakaoseventeen.dogwalking._core.security.handler.CustomAuthenticationEntryPoint;
+import com.kakaoseventeen.dogwalking._core.security.handler.FilterResponse;
+import com.kakaoseventeen.dogwalking._core.utils.exception.SecurityFilterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -59,20 +59,33 @@ public class SecurityConfig {
         //커스텀 필터 적용
         http.apply(new CustomSecurityFilterManager());
         //토큰을 활용하는 경우 아래 요청에 대해 '인가'에 대해서 사용.
-
+/*
         http.authorizeHttpRequests(authorize ->
                 authorize
                         .requestMatchers(new AntPathRequestMatcher("/api/member/**"), new AntPathRequestMatcher("/api/home"), new AntPathRequestMatcher("/init"))
                         .permitAll()
                         .anyRequest().authenticated()
+        );*/
+        http.authorizeHttpRequests(authorize ->
+                authorize
+                        .requestMatchers(new AntPathRequestMatcher("/api/notification/**"), new AntPathRequestMatcher("/api/walk/**"), new AntPathRequestMatcher("/api/walkRoad/**"), new AntPathRequestMatcher("/api/profile/**"), new AntPathRequestMatcher("/api/chat/**")) // /notification/** 엔드포인트에 대한 권한 설정
+                        .authenticated()
+                        .anyRequest().permitAll()
+
         );
 
-        http.exceptionHandling(exceptionHandling->
-                exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+        // 인증 실패 처리
+        http.exceptionHandling(exceptionHandling ->
+                        exceptionHandling.authenticationEntryPoint((request, response, authException) ->
+                //                log.error("인증되지 않은 사용자입니다. "+authException.getMessage()))
+                      FilterResponse.unAuthorized(response, new SecurityFilterException("인증되지 않았습니다")))
         );
 
-        http.exceptionHandling(exceptionHandling->
-                exceptionHandling.accessDeniedHandler(new CustomAccessDeniedHandler())
+        // 권한 실패 처리
+        http.exceptionHandling(exceptionHandling ->
+                        exceptionHandling.accessDeniedHandler((request, response, authException) ->
+                //                log.error("권한이 없습니다. "+authException.getMessage()))
+                        FilterResponse.forbidden(response, new SecurityFilterException("권한이 없습니다")))
         );
 
         return http.build();

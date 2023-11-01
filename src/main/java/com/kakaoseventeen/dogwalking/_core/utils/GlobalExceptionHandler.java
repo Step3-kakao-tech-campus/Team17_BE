@@ -56,5 +56,13 @@ public class GlobalExceptionHandler {
     }
 
 
+/*
+    @ExceptionHandler(SecurityFilterException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(SecurityFilterException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.REQUIRES_AUTHENTICATION.getValue(), HttpStatus.UNAUTHORIZED);
+    }
+*/
+
+
 
 }
