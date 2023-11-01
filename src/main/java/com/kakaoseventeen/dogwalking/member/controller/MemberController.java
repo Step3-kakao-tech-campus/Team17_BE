@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.member.controller;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
+import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistException;
 import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -41,8 +42,8 @@ public class MemberController {
      * 프로필 조회 메서드
      */
     @PostMapping("/profile/{userId}")
-    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@PathVariable("userId") Long userId) {
-        MemberProfileRespDTO respDTO = memberService.getProfile(userId);
+    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("userId") Long userId) throws MemberNotExistException {
+        MemberProfileRespDTO respDTO = memberService.getProfile(customUserDetails, userId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 

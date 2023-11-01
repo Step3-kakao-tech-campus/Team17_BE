@@ -7,7 +7,7 @@ public enum MessageCode {
 
     WALK_NOT_EXIST("해당 산책이 존재하지 않습니다."),
     MATCH_NOT_EXIST("해당 매칭이 존재하지 않습니다."),
-
+    MemberNotExistException("해당 유저가 존재하지 않습니다."),
 
     NOTIFICATION_NOT_EXIST("해당 공고글이 존재하지 않습니다.");
 

@@ -1,8 +1,10 @@
 package com.kakaoseventeen.dogwalking.walk.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
+import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.MatchNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
@@ -23,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode.MEMBER_NOT_EXIST;
 
 /**
  * Walk(산책) 서비스
@@ -48,9 +52,9 @@ public class WalkService {
      * 산책 허락하기 메서드
      */
     @Transactional
-    public void saveWalk(CustomUserDetails customUserDetails, Long userId, Long matchingId) throws RuntimeException{
+    public void saveWalk(CustomUserDetails customUserDetails, Long userId, Long matchingId) throws MemberNotExistException{
         Member master = memberJpaRepository.findById(customUserDetails.getMember().getId()).orElseThrow(() -> new RuntimeException("올바르지 않은 멤버 ID입니다."));
-        Member walker = memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("올바르지 않은 멤버 ID입니다."));;
+        Member walker = memberJpaRepository.findById(userId).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
 
 
         Match match = matchingRepository.findMatchById(matchingId).orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST));
