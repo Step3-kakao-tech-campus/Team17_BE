@@ -55,10 +55,28 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MessageCode.NOTIFICATION_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
     }
 
-/*
-    @ExceptionHandler(SecurityFilterException.class)
-    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(SecurityFilterException e){
-        return ApiResponseGenerator.fail(MemberMessageCode.REQUIRES_AUTHENTICATION.getValue(), HttpStatus.UNAUTHORIZED);
+
+    @ExceptionHandler(DogListNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DogListNotExistException e){
+        return ApiResponseGenerator.fail(MessageCode.DOG_LIST_NOT_EXIST.getValue(), HttpStatus.NOT_FOUND);
     }
-*/
+
+    @ExceptionHandler(DogNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DogNotExistException e){
+        return ApiResponseGenerator.fail(MessageCode.DOG_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(CoinNotEnoughException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(CoinNotEnoughException e){
+        return ApiResponseGenerator.fail(MessageCode.MUNG_COIN_NOT_ENOUGH.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotificationUpdateException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(NotificationUpdateException e){
+        return ApiResponseGenerator.fail(MessageCode.NOTIFICATION_FORBIDDEN.getValue(), HttpStatus.FORBIDDEN);
+    }
+
+
+
 }
