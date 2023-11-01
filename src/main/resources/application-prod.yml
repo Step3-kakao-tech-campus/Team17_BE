@@ -7,6 +7,8 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        naming:
+          physical-strategy : org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://${DB_url}:${DB_port}/${DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
