@@ -8,7 +8,7 @@ spring:
         show_sql: true
         format_sql: true
         naming:
-          physical-strategy : org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
           implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
