@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.notification.repository;
 
+import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface NotificationJpaRepository extends JpaRepository<Notification, Long> {
 
@@ -164,5 +166,13 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasSizeAndBreedKeySearch(@Param("tit") String tit, @Param("size") List<String> size, @Param("breed") List<String> breed, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
 
+    /**
+     * NotificationId를 통해서 해당 Notification 엔티티에 연관된 MemberId를 조회한다.
+     *
+     * @author 박영규
+     */
+    @Query(value = "SELECT m from Notification n join fetch n.dog d join fetch d.member m where n.id = :notificationId and n.dog.id = d.id and d.member.id = m.id",
+    nativeQuery = true)
+    Optional<Member> mfindMember(Long notificationId);
 
 }
