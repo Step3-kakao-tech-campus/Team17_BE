@@ -16,6 +16,7 @@ import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
 import com.kakaoseventeen.dogwalking.walkRoad.repository.WalkRoadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,12 +39,14 @@ public class InitController {
     @GetMapping("/init")
     public ResponseEntity<?> init(){
 
+        PasswordEncoder passwordEncoder = null;
+
 
         Member member1 = memberJpaRepository.save(Member.builder()
                 .id(1L)
                 .nickname("닉네임1")
                 .email("mkwak1125@gmail.com")
-                .password("kwak!6038")
+                .password(passwordEncoder.encode("kwak!6038"))
                 .profileImage("1번 이미지")
                 .profileContent("나는 1번 멤버")
                 .coin(BigDecimal.valueOf(100000))
@@ -55,7 +58,7 @@ public class InitController {
                 .id(2L)
                 .nickname("닉네임2")
                 .email("asfd@gmail.com")
-                .password("kwak!6038")
+                .password(passwordEncoder.encode("kwak!6038"))
                 .profileContent("나는 2번 멤버")
                 .profileImage("2번 이미지")
                 .dogBowl(80)
@@ -67,7 +70,7 @@ public class InitController {
                 .id(3L)
                 .nickname("닉네임3")
                 .email("yardyard@gmail.com")
-                .password("12341234!")
+                .password(passwordEncoder.encode("yard!1234"))
                 .dogBowl(55)
                 .coin(BigDecimal.valueOf(100000))
                 .build());
@@ -76,7 +79,7 @@ public class InitController {
                 .id(4L)
                 .nickname("닉네임4")
                 .email("yardyard@naver.com")
-                .password("12341234!")
+                .password(passwordEncoder.encode("yard!1234"))
                 .dogBowl(55)
                 .coin(BigDecimal.valueOf(100000))
                 .build());

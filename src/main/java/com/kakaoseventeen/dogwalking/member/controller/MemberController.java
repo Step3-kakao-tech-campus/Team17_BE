@@ -19,12 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-/*    @PostMapping("/member/join")
-    public ResponseEntity<?> join(@RequestBody @Valid JoinReqDTO joinRequestDTO) {
-        JoinReqDTO respDTO = memberService.join(joinRequestDTO);
-        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
-    }*/
-
     @PostMapping("/member/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginReqDTO loginReqDTO, Errors error) {
         LoginRespDTO respDTO = memberService.login(loginReqDTO);
