@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode.MEMBER_NOT_EXIST;
+
 @Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -54,7 +56,7 @@ public class MemberService {
     public LoginRespDTO login(LoginReqDTO loginReqDTO) throws RuntimeException{
         //회원가입이 되어있는 유저인지 확인
         Member member = memberJpaRepository.findByEmail(loginReqDTO.getEmail()).orElseThrow(
-                () -> new MemberNotExistException(MemberMessageCode.MEMBER_NOT_EXIST)
+                () -> new MemberNotExistException(MEMBER_NOT_EXIST)
         );
 
 /*		//패스워드가 일치하는지 확인
@@ -147,18 +149,26 @@ public class MemberService {
      * userId를 통한 산책 조회 메서드
      */
     @Transactional(readOnly = true)
-    public MemberProfileRespDTO getProfile(Long userId) throws RuntimeException{
-         Member member = memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 멤버 ID 입니다."));
+    public MemberProfileRespDTO getProfile(CustomUserDetails customUserDetails, Long userId) throws MemberNotExistException{
+        // 여기서 userId가 null이면 본인의 프로필
+        if (userId == null){
+            return respProfile(customUserDetails.getMember().getId());
+        }
 
-         List<Dog> dogs = dogJpaRepository.findDogsByMemberId(userId);
+        return respProfile(userId);
+    }
 
-         List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(userId);
+    private MemberProfileRespDTO respProfile(Long userId) throws MemberNotExistException {
+        Member member = memberJpaRepository.findById(userId).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
 
-         List<Application> applications = applicationRepository.findApplicationByMemberId(userId);
+        List<Dog> dogs = dogJpaRepository.findDogsByMemberId(userId);
 
-         List<Review> reviews = reviewRepository.findReviewByMemberId(userId);
+        List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(userId);
 
-         return MemberProfileRespDTO.of(member, notifications, dogs, applications, reviews);
+        List<Application> applications = applicationRepository.findApplicationByMemberId(userId);
 
+        List<Review> reviews = reviewRepository.findReviewByMemberId(userId);
+
+        return MemberProfileRespDTO.of(member, notifications, dogs, applications, reviews);
     }
 }

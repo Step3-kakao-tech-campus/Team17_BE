@@ -55,14 +55,10 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MessageCode.NOTIFICATION_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
     }
 
-
 /*
     @ExceptionHandler(SecurityFilterException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(SecurityFilterException e){
         return ApiResponseGenerator.fail(MemberMessageCode.REQUIRES_AUTHENTICATION.getValue(), HttpStatus.UNAUTHORIZED);
     }
 */
-
-
-
 }

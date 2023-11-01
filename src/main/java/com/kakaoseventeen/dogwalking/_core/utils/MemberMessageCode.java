@@ -14,7 +14,6 @@ public enum MemberMessageCode {
     DUPLICATE_EMAIL("중복된 이메일 입니다.");
 
 
-
     private final String value;
 
     MemberMessageCode(String value) {
