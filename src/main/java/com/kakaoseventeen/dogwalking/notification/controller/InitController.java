@@ -16,6 +16,8 @@ import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
 import com.kakaoseventeen.dogwalking.walkRoad.repository.WalkRoadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,11 +37,10 @@ public class InitController {
     private final WalkRepository walkRepository;
     private final MatchingRepository matchingRepository;
     private final WalkRoadRepository walkRoadRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/init")
     public ResponseEntity<?> init(){
-
-        PasswordEncoder passwordEncoder = null;
 
 
         Member member1 = memberJpaRepository.save(Member.builder()
@@ -253,7 +254,6 @@ public class InitController {
 
         Walk walk1 = walkRepository.saveAndFlush(Walk.of(member1, member2, notification1));
 
-        Walk walk2 = walkRepository.saveAndFlush(Walk.of(member3, member4, notification2));
 
         walkRoadRepository.saveAndFlush(WalkRoad.of(37.402056,127.108212, walk1));
 
