@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.dog.controller;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
+import com.kakaoseventeen.dogwalking._core.utils.exception.DogNotExistException;
 import com.kakaoseventeen.dogwalking.dog.dto.DogReqDTO;
 import com.kakaoseventeen.dogwalking.dog.dto.DogRespDTO;
 import com.kakaoseventeen.dogwalking.dog.service.DogService;
@@ -32,7 +33,7 @@ public class DogController {
      * 강아지 프로필 조회 메서드
      */
     @GetMapping("/profile/dog/{dogId}")
-    public ApiResponse<ApiResponse.CustomBody<DogRespDTO.findById>> findByDogId(@PathVariable("dogId") long dogId) throws RuntimeException {
+    public ApiResponse<ApiResponse.CustomBody<DogRespDTO.findById>> findByDogId(@PathVariable("dogId") long dogId) throws DogNotExistException {
         DogRespDTO.findById respDTO = dogService.findByDogId(dogId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
