@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface DogJpaRepository extends JpaRepository<Dog, Long> {
 
-    @Query("select d from Dog d where d.member =:member")
-    List<Dog> findDogsByMember(Member member);
+    @Query("select d from Dog d where d.member.id =:memberId")
+    List<Dog> findDogsByMember(Long memberId);
 }
