@@ -12,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.StandardCharsets;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -66,31 +69,27 @@ public class MemberControllerTest {
         resultActions.andExpect(jsonPath("$.success").value("true"));
 
     }
+
+    @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     void save_walkRoad_test() throws Exception {
         // given
-        int userId = 1;
-
-        UpdateProfileReqDTO reqDTO = new UpdateProfileReqDTO();
-        reqDTO.setProfileContent("변경되었다리");
-        reqDTO.setProfileImage("changedImage");
-
-        String requestBody = om.writeValueAsString(reqDTO);
-
+        long userId = 1;
 
         // when
+        mvc.perform(
+                get("/init")
+        );
+
         ResultActions resultActions = mvc.perform(
-                post(String.format("/api/profile/user/%d", userId))
-                        .content(requestBody)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                get(String.format("/api/profile/%d", userId))
         );
 
         // console
-        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);        System.out.println("테스트 : " + responseBody);
+        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
+        System.out.println("테스트 : " + responseBody);
 
         // verify
         resultActions.andExpect(jsonPath("$.success").value("true"));
-        resultActions.andExpect(jsonPath("$.response.profileImage").value("changedImage"));
-        resultActions.andExpect(jsonPath("$.response.profileContent").value("변경되었다리"));
     }
 }
