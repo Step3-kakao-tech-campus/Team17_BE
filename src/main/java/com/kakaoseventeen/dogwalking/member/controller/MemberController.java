@@ -7,6 +7,7 @@ import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistExcepti
 import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,8 @@ public class MemberController {
     /**
      * 프로필 조회 메서드
      */
-    @PostMapping("/profile/{userId}")
-    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("userId") Long userId) throws MemberNotExistException {
+    @GetMapping("/profile/{userId}")
+    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable(value = "userId", required = false) Long userId) throws MemberNotExistException {
         MemberProfileRespDTO respDTO = memberService.getProfile(customUserDetails, userId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
