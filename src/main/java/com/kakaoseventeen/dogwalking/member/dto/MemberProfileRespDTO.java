@@ -143,9 +143,15 @@ public class MemberProfileRespDTO {
 
         private String reviewContent;
 
+        private String writerImage;
+
+        private LocalDateTime reviewTime;
+
         public ReviewDTO(Review review){
             this.id = review.getReviewId();
             this.reviewContent = review.getReviewContent();
+            this.writerImage = review.getReceiverId().getProfileImage();
+            this.reviewTime = review.getCreatedAt();
         }
     }
 }

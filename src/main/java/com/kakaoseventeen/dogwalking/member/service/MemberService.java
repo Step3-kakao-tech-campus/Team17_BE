@@ -92,16 +92,12 @@ public class MemberService {
     }
 
     @Transactional
-    public UpdateProfileRespDTO updateProfile(UpdateProfileReqDTO reqDTO, Long userId){
-        Optional<Member> member = memberJpaRepository.findById(userId);
+    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, UpdateProfileReqDTO reqDTO){
+        Member member = customUserDetails.getMember();
 
-        if (member.isPresent()) {
-            member.get().updateProfile(reqDTO.getProfileImage(), reqDTO.getProfileContent());
-            return new UpdateProfileRespDTO(member.get());
-        }
-        else {
-            throw new RuntimeException("올바르지 않은 유저 ID입니다.");
-        }
+        member.updateProfile(reqDTO.getProfileImage(), reqDTO.getProfileContent());
+
+        return new UpdateProfileRespDTO(member);
     }
 
 
