@@ -9,7 +9,7 @@ public class Validator {
 
     private final String EMAIL_REGEX ="^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"; // RFC-5322
     private final String PASSWORD_LENGTH_REGEX = "^.{8,16}$"; // 비밀번호 길이 8~16
-    private final String PASSWORD_PATTERN_REGEX = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"; // 특수문자, 영문자, 숫자
+    private final String PASSWORD_PATTERN_REGEX = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]+$"; // 특수문자, 영문자, 숫자
 
     public boolean validEmailFormat(String email) {
         return Pattern.compile(EMAIL_REGEX)

@@ -23,4 +23,19 @@ public class ValidatorTest {
         Assertions.assertTrue(matcher.matches());
 
     }
+
+    @DisplayName("비밀번호 패턴 정규식 테스트")
+    @Test
+    public void password_pattern_test() {
+        // given
+        String regex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]+$";
+        String input = "gksp950034#"; // 테스트할 문자열
+
+        // when
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        // then
+        Assertions.assertTrue(matcher.matches());
+    }
 }
