@@ -26,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -152,22 +153,23 @@ public class MemberService {
     public MemberProfileRespDTO getProfile(CustomUserDetails customUserDetails, Long userId) throws MemberNotExistException{
         // 여기서 userId가 null이면 본인의 프로필
         if (userId == null){
-            return respProfile(customUserDetails.getMember().getId());
+            return respProfile(customUserDetails.getMember());
         }
 
-        return respProfile(userId);
+        Member member =  memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 유저 ID 입니다."));
+        return respProfile(member);
     }
 
-    private MemberProfileRespDTO respProfile(Long userId) throws MemberNotExistException {
-        Member member = memberJpaRepository.findById(userId).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
+    private MemberProfileRespDTO respProfile(Member member) throws MemberNotExistException {
 
-        List<Dog> dogs = dogJpaRepository.findDogsByMemberId(userId);
+        List<Dog> dogs = dogJpaRepository.findDogsByMemberId(member);
 
-        List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(userId);
+        List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(member.getId());
 
-        List<Application> applications = applicationRepository.findApplicationByMemberId(userId);
+        List<Application> applications = applicationRepository.findApplicationByMemberId(member.getId());
 
-        List<Review> reviews = reviewRepository.findReviewByMemberId(userId);
+
+        List<Review> reviews = reviewRepository.findReviewByMemberId(member.getId());
 
         return MemberProfileRespDTO.of(member, notifications, dogs, applications, reviews);
     }
