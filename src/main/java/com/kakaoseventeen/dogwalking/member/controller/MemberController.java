@@ -42,8 +42,8 @@ public class MemberController {
     /**
      * 프로필 조회 메서드
      */
-    @GetMapping("/profile/{userId}")
-    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable(value = "userId", required = false) Long userId) throws MemberNotExistException {
+    @GetMapping(value = {"/profile/{userId}", "/profile"})
+    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable(required = false) Long userId) throws MemberNotExistException {
         MemberProfileRespDTO respDTO = memberService.getProfile(customUserDetails, userId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
