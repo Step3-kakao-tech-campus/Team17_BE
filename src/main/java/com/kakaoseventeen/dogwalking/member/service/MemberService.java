@@ -162,7 +162,7 @@ public class MemberService {
 
     private MemberProfileRespDTO respProfile(Member member) throws MemberNotExistException {
 
-        List<Dog> dogs = dogJpaRepository.findDogsByMemberId(member);
+        List<Dog> dogs = dogJpaRepository.findDogsByMember(member);
 
         List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(member.getId());
 

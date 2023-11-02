@@ -28,7 +28,7 @@ public class NotificationService {
     private final NotificationJpaRepository notificationJpaRepository;
 
     public LoadDogRespDTO loadDog(Member sessionMember) throws DogListNotExistException {
-        List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember);
+        List<Dog> dogList = dogJpaRepository.findDogsByMember(sessionMember);
         //등록된 강아지가 없을 때
         if(dogList.isEmpty()){
             throw new DogListNotExistException(MessageCode.DOG_LIST_NOT_EXIST);
@@ -57,7 +57,7 @@ public class NotificationService {
 	@Transactional
     public void writeNotification(WriteNotificationReqDTO writeNotificationReqDTO, Member sessionMember) throws RuntimeException {
 
-        List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember);
+        List<Dog> dogList = dogJpaRepository.findDogsByMember(sessionMember);
         //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
         Dog dogEntity = dogList.stream().filter(dog -> dog.getId() == writeNotificationReqDTO.getDogId()).findFirst().orElseThrow(
                 ()-> new DogNotExistException(MessageCode.DOG_NOT_EXIST)
@@ -76,7 +76,7 @@ public class NotificationService {
                 ()-> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST)
         );
 
-        List<Dog> dogList = dogJpaRepository.findDogsByMemberId(sessionMember);
+        List<Dog> dogList = dogJpaRepository.findDogsByMember(sessionMember);
         //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
         Dog dogOP = dogList.stream().filter(dog -> dog.getId() == updateNotificationReqDTO.getDogId()).findFirst().orElseThrow(
                 ()-> new DogNotExistException(MessageCode.DOG_NOT_EXIST)
