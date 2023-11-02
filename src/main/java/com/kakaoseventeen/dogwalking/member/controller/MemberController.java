@@ -27,9 +27,9 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/profile/user/{userId}")
-    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@RequestBody UpdateProfileReqDTO reqDTO, @PathVariable("userId") Long userId) {
-        UpdateProfileRespDTO respDTO = memberService.updateProfile(reqDTO, userId);
+    @PostMapping("/profile/user")
+    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody UpdateProfileReqDTO reqDTO) {
+        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
