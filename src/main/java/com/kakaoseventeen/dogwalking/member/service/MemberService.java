@@ -168,7 +168,6 @@ public class MemberService {
 
         List<Application> applications = applicationRepository.findApplicationByMemberId(member.getId());
 
-
         List<Review> reviews = reviewRepository.findReviewByMemberId(member.getId());
 
         return MemberProfileRespDTO.of(member, notifications, dogs, applications, reviews);
