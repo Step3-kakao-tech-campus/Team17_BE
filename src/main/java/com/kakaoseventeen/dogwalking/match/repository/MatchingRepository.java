@@ -40,5 +40,6 @@ public interface MatchingRepository extends JpaRepository<Match, Long> {
             "where m.notificationId.id = :notificationId")
     List<Match> findMatchByNotificationId(@Param("notificationId") Long notificationId);
 
+    Optional<Match> findMatchByApplicationId(Long applicationId);
 
 }
