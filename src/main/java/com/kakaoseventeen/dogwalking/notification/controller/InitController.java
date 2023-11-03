@@ -263,21 +263,21 @@ public class InitController {
 
         Application application1 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
-                .appMemberId(member2)
+                .appMemberId(member1)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 2번 지원자")
-                .appMemberId(member3)
+                .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
         Application application3 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 3번 지원자")
-                .appMemberId(member4)
+                .appMemberId(member1)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
@@ -310,33 +310,39 @@ public class InitController {
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()
-                        .receiverId(member2)
-                        .reviewerId(member1)
-                        .reviewContent("이 집 맛집이네용~")
-                        .reviewEval1(true)
-                        .reviewEval2(true)
-                        .reviewEval3(true)
-                        .reviewEval4(false)
+                .reviewContent("이 집 맛집이네용1~")
+                .receiverId(member2)
+                .reviewerId(member1)
+                .reviewEval1(true)
+                .reviewEval2(true)
+                .reviewEval3(true)
+                .reviewEval4(false)
+                .dogBowl(40)
+                .isReceiverDogOwner(false)
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()
+                .reviewContent("이 집 맛집이네용2~")
                 .receiverId(member3)
                 .reviewerId(member1)
-                .reviewContent("강아지 산책 진짜 잘했네요!!")
                 .reviewEval1(true)
                 .reviewEval2(true)
                 .reviewEval3(true)
                 .reviewEval4(false)
+                .dogBowl(40)
+                .isReceiverDogOwner(false)
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()
-                .receiverId(member4)
-                .reviewerId(member1)
-                .reviewContent("강아지 산책 진짜 잘했네요!!")
+                .reviewContent("이 집 맛집이네용3~")
+                .receiverId(member1)
+                .reviewerId(member4)
                 .reviewEval1(true)
                 .reviewEval2(true)
                 .reviewEval3(true)
                 .reviewEval4(false)
+                .dogBowl(40)
+                .isReceiverDogOwner(true)
                 .build());
 
         return ResponseEntity.ok("init");
