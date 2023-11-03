@@ -1,6 +1,5 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
-import com.kakaoseventeen.dogwalking._core.security.handler.FilterResponse;
 import com.kakaoseventeen.dogwalking._core.utils.exception.SecurityFilterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -87,14 +86,12 @@ public class SecurityConfig {
         // 인증 실패 처리
         http.exceptionHandling(exceptionHandling ->
                         exceptionHandling.authenticationEntryPoint((request, response, authException) ->
-                //                log.error("인증되지 않은 사용자입니다. "+authException.getMessage()))
                       FilterResponse.unAuthorized(response, new SecurityFilterException("인증되지 않았습니다")))
         );
 
         // 권한 실패 처리
         http.exceptionHandling(exceptionHandling ->
                         exceptionHandling.accessDeniedHandler((request, response, authException) ->
-                //                log.error("권한이 없습니다. "+authException.getMessage()))
                         FilterResponse.forbidden(response, new SecurityFilterException("권한이 없습니다")))
         );
 

@@ -6,6 +6,7 @@ import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -20,12 +21,16 @@ import java.util.Date;
 @Slf4j
 public class JwtProvider {
 
-    private static final String SECRET = "thisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkey";
+    private static String SECRET;
     public static final Long accessTokenValidTime = 1000L * 60 * 30; //30분
     public static final Long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 7;
 
     private final CustomUserDetailsService customUserDetailsService;
 
+    @Value("${jwt.secret}")
+    public void setSecret(String secret) {
+        SECRET = secret;
+    }
 
     public static Key createKey() {
         byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET);
