@@ -263,21 +263,21 @@ public class InitController {
 
         Application application1 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
-                .appMemberId(member2)
+                .appMemberId(member1)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 2번 지원자")
-                .appMemberId(member3)
+                .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
         Application application3 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 3번 지원자")
-                .appMemberId(member4)
+                .appMemberId(member1)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
                 .build());
