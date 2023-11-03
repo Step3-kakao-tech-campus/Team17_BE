@@ -21,6 +21,8 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applicationId;
     @Column(nullable = false)
+    private String title;
+    @Column(nullable = false)
     private String aboutMe;
     private String certification;
     private String experience;
