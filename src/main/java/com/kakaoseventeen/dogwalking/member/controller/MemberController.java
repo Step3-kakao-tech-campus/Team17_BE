@@ -7,7 +7,6 @@ import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistExcepti
 import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
