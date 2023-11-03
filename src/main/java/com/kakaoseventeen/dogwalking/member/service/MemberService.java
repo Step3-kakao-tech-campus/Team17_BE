@@ -143,7 +143,7 @@ public class MemberService {
     }
 
     /**
-     * userId를 통한 산책 조회 메서드
+     * userId를 통한 프로필 조회 메서드
      */
     @Transactional(readOnly = true)
     public MemberProfileRespDTO getProfile(CustomUserDetails customUserDetails, Long userId) throws MemberNotExistException{
@@ -152,7 +152,7 @@ public class MemberService {
             return respProfile(customUserDetails.getMember());
         }
 
-        Member member =  memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 유저 ID 입니다."));
+        Member member =  memberJpaRepository.findById(userId).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
         return respProfile(member);
     }
 
