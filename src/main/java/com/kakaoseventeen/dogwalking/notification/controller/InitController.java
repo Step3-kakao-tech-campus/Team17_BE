@@ -10,6 +10,8 @@ import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.review.domain.Review;
+import com.kakaoseventeen.dogwalking.review.repository.ReviewRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
@@ -37,6 +39,8 @@ public class InitController {
     private final WalkRepository walkRepository;
     private final MatchingRepository matchingRepository;
     private final WalkRoadRepository walkRoadRepository;
+    private final ReviewRepository reviewRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/init")
@@ -303,6 +307,36 @@ public class InitController {
         matchingRepository.saveAndFlush(Match.builder()
                 .notificationId(notification2)
                 .applicationId(application2)
+                .build());
+
+        reviewRepository.saveAndFlush(Review.builder()
+                        .receiverId(member2)
+                        .reviewerId(member1)
+                        .reviewContent("이 집 맛집이네용~")
+                        .reviewEval1(true)
+                        .reviewEval2(true)
+                        .reviewEval3(true)
+                        .reviewEval4(false)
+                .build());
+
+        reviewRepository.saveAndFlush(Review.builder()
+                .receiverId(member3)
+                .reviewerId(member1)
+                .reviewContent("강아지 산책 진짜 잘했네요!!")
+                .reviewEval1(true)
+                .reviewEval2(true)
+                .reviewEval3(true)
+                .reviewEval4(false)
+                .build());
+
+        reviewRepository.saveAndFlush(Review.builder()
+                .receiverId(member4)
+                .reviewerId(member1)
+                .reviewContent("강아지 산책 진짜 잘했네요!!")
+                .reviewEval1(true)
+                .reviewEval2(true)
+                .reviewEval3(true)
+                .reviewEval4(false)
                 .build());
 
         return ResponseEntity.ok("init");

@@ -45,8 +45,6 @@ public class MemberService {
 
     private final Validator validator;
 
-    private final PaymentRepository paymentRepository;
-    private final WalkRepository walkRepository;
     private final DogJpaRepository dogJpaRepository;
     private final ApplicationRepository applicationRepository;
     private final NotificationJpaRepository notificationJpaRepository;
