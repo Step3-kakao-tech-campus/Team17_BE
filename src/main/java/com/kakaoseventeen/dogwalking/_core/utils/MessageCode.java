@@ -13,7 +13,10 @@ public enum MessageCode {
     MUNG_COIN_NOT_ENOUGH("멍코인이 부족합니다."),
     NOTIFICATION_FORBIDDEN("수정 권한이 없습니다."),
 
-    NOTIFICATION_NOT_EXIST("해당 공고글이 존재하지 않습니다.");
+    NOTIFICATION_NOT_EXIST("해당 공고글이 존재하지 않습니다."),
+    DUPLICATE_NOTIFICATION("해당 공고는 이미 산책과 연결되어있습니다."),
+
+    PAYMENT_NOT_EXIST("해당 결제가 존재하지 않습니다.");
 
 
     private final String value;
