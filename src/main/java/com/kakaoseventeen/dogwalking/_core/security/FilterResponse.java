@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking._core.security.handler;
+package com.kakaoseventeen.dogwalking._core.security;
 
 
 import com.kakaoseventeen.dogwalking._core.utils.exception.SecurityFilterException;

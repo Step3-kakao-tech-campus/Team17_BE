@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class LoadNotificationRespDTO {
     private Boolean isMine;
     private Long notificationId;
+    private Long userId;
     private String title;
     private DogDTO dog;
     private Double lat;
@@ -23,6 +24,7 @@ public class LoadNotificationRespDTO {
     public LoadNotificationRespDTO(Notification notification, Dog dog, Boolean isMine){
         this.isMine = isMine;
         this.notificationId = notification.getId();
+        this.userId = dog.getMember().getId();
         this.title = notification.getTitle();
         this.dog = new DogDTO(dog);
         this.lat = notification.getLat();
