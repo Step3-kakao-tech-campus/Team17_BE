@@ -310,33 +310,39 @@ public class InitController {
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()
-                        .receiverId(member2)
-                        .reviewerId(member1)
-                        .reviewContent("이 집 맛집이네용~")
-                        .reviewEval1(true)
-                        .reviewEval2(true)
-                        .reviewEval3(true)
-                        .reviewEval4(false)
+                .reviewContent("이 집 맛집이네용1~")
+                .receiverId(member2)
+                .reviewerId(member1)
+                .reviewEval1(true)
+                .reviewEval2(true)
+                .reviewEval3(true)
+                .reviewEval4(false)
+                .dogBowl(40)
+                .isReceiverDogOwner(false)
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()
+                .reviewContent("이 집 맛집이네용2~")
                 .receiverId(member3)
                 .reviewerId(member1)
-                .reviewContent("강아지 산책 진짜 잘했네요!!")
                 .reviewEval1(true)
                 .reviewEval2(true)
                 .reviewEval3(true)
                 .reviewEval4(false)
+                .dogBowl(40)
+                .isReceiverDogOwner(false)
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()
-                .receiverId(member4)
-                .reviewerId(member1)
-                .reviewContent("강아지 산책 진짜 잘했네요!!")
+                .reviewContent("이 집 맛집이네용3~")
+                .receiverId(member1)
+                .reviewerId(member4)
                 .reviewEval1(true)
                 .reviewEval2(true)
                 .reviewEval3(true)
                 .reviewEval4(false)
+                .dogBowl(40)
+                .isReceiverDogOwner(true)
                 .build());
 
         return ResponseEntity.ok("init");
