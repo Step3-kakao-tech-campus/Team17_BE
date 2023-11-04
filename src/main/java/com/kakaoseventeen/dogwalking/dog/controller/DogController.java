@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -26,8 +27,10 @@ public class DogController {
      * 강아지 프로필 등록 메서드
      */
     @PostMapping("/profile/dog")
-    public ApiResponse<ApiResponse.CustomBody<DogRespDTO.save>> saveDog(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody DogReqDTO dogReqDTO) throws ImageNotExistException, IOException {
-        DogRespDTO.save respDTO = dogService.saveDog(dogReqDTO, customUserDetails);
+    public ApiResponse<ApiResponse.CustomBody<DogRespDTO.save>> saveDog(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                                        @RequestPart(value = "image") MultipartFile image,
+                                                                        @RequestPart(value = "dogReqDTO") DogReqDTO dogReqDTO) throws ImageNotExistException, IOException {
+        DogRespDTO.save respDTO = dogService.saveDog(image, dogReqDTO, customUserDetails);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 

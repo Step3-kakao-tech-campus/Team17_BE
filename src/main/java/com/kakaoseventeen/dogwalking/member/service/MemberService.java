@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,11 +90,11 @@ public class MemberService {
     }
 
     @Transactional
-    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, UpdateProfileReqDTO reqDTO) throws IOException {
+    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, MultipartFile profileImage, UpdateProfileReqDTO reqDTO) throws IOException {
         Member member = customUserDetails.getMember();
 
-        if (reqDTO.getProfileImage() != null){
-            String userProfile = s3Uploader.uploadFiles(member.getId(), reqDTO.getProfileImage(), "userProfile");
+        if (profileImage != null){
+            String userProfile = s3Uploader.uploadFiles(member.getId(), profileImage, "userProfile");
 
             member.updateProfile(userProfile, reqDTO.getProfileContent());
         } else {

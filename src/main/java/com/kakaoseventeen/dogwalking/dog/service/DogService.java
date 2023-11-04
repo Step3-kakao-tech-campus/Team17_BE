@@ -14,6 +14,7 @@ import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -37,15 +38,15 @@ public class DogService {
      * 강아지 프로필 등록 메서드
      */
     @Transactional
-    public DogRespDTO.save saveDog(DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, IOException {
+    public DogRespDTO.save saveDog(MultipartFile image, DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, IOException {
 
-        if (dogReqDTO.getImage() == null){
+        if (image == null){
             throw new ImageNotExistException(MessageCode.IMAGE_NOT_EXIST);
         }
 
         Member member = customUserDetails.getMember();
 
-        String dogImage = s3Uploader.uploadFiles(member.getId(), dogReqDTO.getImage(), "dogProfile");
+        String dogImage = s3Uploader.uploadFiles(member.getId(), image, "dogProfile");
 
         Dog dog = Dog.of(dogReqDTO, member, dogImage);
 

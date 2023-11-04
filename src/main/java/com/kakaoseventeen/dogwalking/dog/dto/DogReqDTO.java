@@ -8,8 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter @Setter @Builder
 public class DogReqDTO {
 
-    private MultipartFile image;
-
     private String name;
 
     private String sex;
