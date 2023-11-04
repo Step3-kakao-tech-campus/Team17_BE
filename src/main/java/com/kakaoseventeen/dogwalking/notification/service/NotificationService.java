@@ -57,6 +57,10 @@ public class NotificationService {
 	@Transactional
     public void writeNotification(WriteNotificationReqDTO writeNotificationReqDTO, Member sessionMember) throws RuntimeException {
 
+		if(writeNotificationReqDTO.getStart().isAfter(writeNotificationReqDTO.getEnd())){
+            throw new NotificationTimeException(MessageCode.NOTIFICATION_TIME_ERROR);
+        }
+
         List<Dog> dogList = dogJpaRepository.findDogsByMember(sessionMember.getId());
         //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
         Dog dogEntity = dogList.stream().filter(dog -> dog.getId() == writeNotificationReqDTO.getDogId()).findFirst().orElseThrow(
