@@ -39,6 +39,7 @@ public class LoadNotificationRespDTO {
     public static class DogDTO {
         private Long dogId;
         private String name;
+        private int age;
         private String breed;
         private String image;
         private String size;
@@ -46,6 +47,7 @@ public class LoadNotificationRespDTO {
         public DogDTO(Dog dog){
             this.dogId = dog.getId();
             this.name = dog.getName();
+            this.age = dog.getAge();
             this.breed = dog.getBreed();
             this.image = dog.getImage();
             this.size = dog.getSize();
