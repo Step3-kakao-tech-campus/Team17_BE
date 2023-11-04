@@ -27,10 +27,10 @@ public class DogController {
     /**
      * 강아지 프로필 등록 메서드
      */
-    @PostMapping(value = "/profile/dog", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ApiResponse<ApiResponse.CustomBody<DogRespDTO.save>> saveDog(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                                                        @RequestPart(value = "image") MultipartFile image,
-                                                                        @RequestPart(value = "dogReqDTO") DogReqDTO dogReqDTO) throws ImageNotExistException, IOException {
+    @PostMapping(value = "/profile/dog")
+    public ApiResponse<ApiResponse.CustomBody<DogRespDTO.save>> saveDog(@RequestPart(value = "image") MultipartFile image,
+                                                                        @RequestPart(value = "dogReqDTO") DogReqDTO dogReqDTO,
+                                                                        @AuthenticationPrincipal CustomUserDetails customUserDetails) throws ImageNotExistException, IOException {
         DogRespDTO.save respDTO = dogService.saveDog(image, dogReqDTO, customUserDetails);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }

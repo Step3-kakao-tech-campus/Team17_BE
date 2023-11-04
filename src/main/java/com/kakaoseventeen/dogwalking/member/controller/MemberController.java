@@ -30,10 +30,10 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/profile/user", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                                                                   @RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
-                                                                                   @RequestPart(value = "reqDTO", required = false) UpdateProfileReqDTO reqDTO) throws IOException {
+    @PostMapping(value = "/profile/user")
+    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@RequestPart(required = false) MultipartFile profileImage,
+                                                                                   @RequestPart(required = false) UpdateProfileReqDTO reqDTO,
+                                                                        @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
         UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, profileImage, reqDTO);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
