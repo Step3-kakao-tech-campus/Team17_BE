@@ -9,6 +9,7 @@ import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
@@ -29,7 +30,7 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/profile/user")
+    @PostMapping(value = "/profile/user", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                                                                    @RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
                                                                                    @RequestPart(value = "reqDTO", required = false) UpdateProfileReqDTO reqDTO) throws IOException {

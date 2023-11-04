@@ -10,6 +10,7 @@ import com.kakaoseventeen.dogwalking.dog.dto.DogRespDTO;
 import com.kakaoseventeen.dogwalking.dog.service.DogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,7 @@ public class DogController {
     /**
      * 강아지 프로필 등록 메서드
      */
-    @PostMapping("/profile/dog")
+    @PostMapping(value = "/profile/dog", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<ApiResponse.CustomBody<DogRespDTO.save>> saveDog(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                                                         @RequestPart(value = "image") MultipartFile image,
                                                                         @RequestPart(value = "dogReqDTO") DogReqDTO dogReqDTO) throws ImageNotExistException, IOException {
