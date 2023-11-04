@@ -90,15 +90,15 @@ public class MemberService {
     }
 
     @Transactional
-    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, MultipartFile profileImage, UpdateProfileReqDTO reqDTO) throws IOException {
+    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, MultipartFile profileImage, String profileContent) throws IOException {
         Member member = customUserDetails.getMember();
 
         if (profileImage != null){
             String userProfile = s3Uploader.uploadFiles(member.getId(), profileImage, "userProfile");
 
-            member.updateProfile(userProfile, reqDTO.getProfileContent());
+            member.updateProfile(userProfile, profileContent);
         } else {
-            member.updateProfile(null, reqDTO.getProfileContent());
+            member.updateProfile(null, profileContent);
         }
 
         return new UpdateProfileRespDTO(member);

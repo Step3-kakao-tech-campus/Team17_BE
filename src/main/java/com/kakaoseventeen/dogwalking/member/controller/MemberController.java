@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -30,11 +29,10 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/profile/user", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
-                                                                                   @RequestPart(value = "reqDTO", required = false) UpdateProfileReqDTO reqDTO,
-                                                                        @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
-        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, profileImage, reqDTO);
+    @PostMapping(value = "/profile/user", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@ModelAttribute UpdateProfileReqDTO reqDTO,
+                                                                                   @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
+        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO.getProfileImage(), reqDTO.getProfileContent());
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
