@@ -17,7 +17,9 @@ public enum MessageCode {
     NOTIFICATION_NOT_EXIST("해당 공고글이 존재하지 않습니다."),
     DUPLICATE_NOTIFICATION("해당 공고는 이미 산책과 연결되어있습니다."),
 
-    PAYMENT_NOT_EXIST("해당 결제가 존재하지 않습니다.");
+    PAYMENT_NOT_EXIST("해당 결제가 존재하지 않습니다."),
+
+    IMAGE_NOT_EXIST("해당 이미지가 존재하지 않습니다.");
 
 
     private final String value;

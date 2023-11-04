@@ -92,5 +92,8 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MessageCode.NOTIFICATION_TIME_ERROR.getValue(), HttpStatus.BAD_REQUEST);
     }
 
-
+    @ExceptionHandler(ImageNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(ImageNotExistException e){
+        return ApiResponseGenerator.fail(MessageCode.IMAGE_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
 }
