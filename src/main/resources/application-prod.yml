@@ -15,3 +15,13 @@ spring:
     url: jdbc:mariadb://${DB_url}:${DB_port}/${DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
     username: ${DB_name}
     password: ${DB_password}
+
+cloud:
+  aws:
+    s3:
+      bucket: ${Bucket_name}
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: ${Access_key}
+      secretKey: ${Secret_key}
