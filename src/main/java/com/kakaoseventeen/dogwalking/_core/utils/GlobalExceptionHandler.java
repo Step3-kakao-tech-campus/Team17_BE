@@ -77,6 +77,20 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MessageCode.NOTIFICATION_FORBIDDEN.getValue(), HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(RefreshTokenNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(RefreshTokenNotExistException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.REFRESH_TOKEN_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RefreshTokenExpiredException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(RefreshTokenExpiredException e){
+        return ApiResponseGenerator.fail(MemberMessageCode.REFRESH_TOKEN_EXPIRED.getValue(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NotificationTimeException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(NotificationTimeException e){
+        return ApiResponseGenerator.fail(MessageCode.NOTIFICATION_TIME_ERROR.getValue(), HttpStatus.BAD_REQUEST);
+    }
 
 
 }
