@@ -51,7 +51,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         response.setCharacterEncoding("UTF-8");
             response.getWriter().println("{ \"success\": false, \"response\": null, \"error\": { \"message\": \"" +
                     e.getMessage() + "\", \"status\": \"" + HttpStatus.UNAUTHORIZED  + "\" } }");
-    }
+    	}
 
     }
 

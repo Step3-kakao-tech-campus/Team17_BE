@@ -58,6 +58,7 @@ public class SecurityConfig {
         //커스텀 필터 적용
         http.apply(new CustomSecurityFilterManager());
         //토큰을 활용하는 경우 아래 요청에 대해 '인가'에 대해서 사용.
+
 /*
         http.authorizeHttpRequests(authorize ->
                 authorize
@@ -65,16 +66,20 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest().authenticated()
         );*/
+
+
         http.authorizeHttpRequests(authorize ->
                 authorize
                         .requestMatchers(new AntPathRequestMatcher("/api/notification/**"),
                                 new AntPathRequestMatcher("/api/walk/**"),
                                 new AntPathRequestMatcher("/api/walkRoad/**"),
                                 new AntPathRequestMatcher("/api/profile/**"),
-                                new AntPathRequestMatcher("/api/chat/**"),
-                                new AntPathRequestMatcher("/api/refresh"),
+                                new AntPathRequestMatcher("/api/chatroom/**"),
                                 new AntPathRequestMatcher("/api/payment/**"),
                                 new AntPathRequestMatcher("/app/**"),
+                                new AntPathRequestMatcher("/api/chat/**"),
+                                new AntPathRequestMatcher("/queue/**"),
+                                new AntPathRequestMatcher("/chat-sub/**"),
                                 new AntPathRequestMatcher("/api/application/**"),
                                 new AntPathRequestMatcher("/api/review/**")
                                 )

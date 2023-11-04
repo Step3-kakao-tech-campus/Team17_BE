@@ -4,10 +4,10 @@ import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import lombok.Getter;
 
 @Getter
-public class NotificationUpdateException extends RuntimeException {
+public class NotificationTimeException extends RuntimeException{
     public final MessageCode messageCode;
 
-    public NotificationUpdateException(MessageCode messageCode) {
+    public NotificationTimeException(MessageCode messageCode) {
         this.messageCode = messageCode;
     }
 }
