@@ -58,11 +58,6 @@ public class MemberService {
                 () -> new MemberNotExistException(MEMBER_NOT_EXIST)
         );
 
-/*		//패스워드가 일치하는지 확인
-        if(!Objects.equals(loginReqDTO.getPassword(), member.getPassword())){
-            throw new MemberNotExistException(MemberMessageCode.PASSWORD_NOT_MATCH);
-        }*/
-
         if(!passwordEncoder.matches(loginReqDTO.getPassword(), member.getPassword())){
             throw new PasswordNotMatchException(MemberMessageCode.PASSWORD_NOT_MATCH);
         }

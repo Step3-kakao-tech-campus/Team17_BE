@@ -263,6 +263,7 @@ public class InitController {
 
         Application application1 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
+                .title("지원서 제목1")
                 .appMemberId(member1)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
@@ -270,6 +271,7 @@ public class InitController {
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 2번 지원자")
+                .title("지원서 제목2")
                 .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
@@ -277,6 +279,7 @@ public class InitController {
 
         Application application3 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 3번 지원자")
+                .title("지원서 제목3")
                 .appMemberId(member1)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
@@ -284,6 +287,7 @@ public class InitController {
 
         Application application4 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 4번 지원자")
+                .title("지원서 제목4")
                 .appMemberId(member2)
                 .certification("애견 보호사 2급")
                 .experience("강아지 유치원 2년 근무")
