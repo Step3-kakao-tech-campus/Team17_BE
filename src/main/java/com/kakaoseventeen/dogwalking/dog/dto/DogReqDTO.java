@@ -5,9 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
-@Builder
-@AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 public class DogReqDTO implements Serializable {
 
