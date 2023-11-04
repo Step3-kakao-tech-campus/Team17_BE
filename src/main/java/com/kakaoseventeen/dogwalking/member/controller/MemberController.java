@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -29,8 +30,10 @@ public class MemberController {
     }
 
     @PostMapping("/profile/user")
-    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody UpdateProfileReqDTO reqDTO) throws IOException {
-        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO);
+    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                                                   @RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
+                                                                                   @RequestPart(value = "reqDTO", required = false) UpdateProfileReqDTO reqDTO) throws IOException {
+        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, profileImage, reqDTO);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 

@@ -7,7 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter @Setter
 public class UpdateProfileReqDTO {
 
-    private MultipartFile profileImage;
-
     private String profileContent;
 }
