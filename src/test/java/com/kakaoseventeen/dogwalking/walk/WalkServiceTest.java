@@ -9,8 +9,6 @@ import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walk.service.WalkService;
-import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
-import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 
@@ -22,7 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -85,7 +82,7 @@ public class WalkServiceTest {
         given(memberJpaRepository.findById(any()))
                 .willReturn(Optional.ofNullable(walker));
         given(matchingRepository.findMatchById(any()))
-                .willReturn(match);
+                .willReturn(Optional.ofNullable(match));
 
         // when
         walkService.saveWalk(customUserDetails, walk.getId(), walker.getId());

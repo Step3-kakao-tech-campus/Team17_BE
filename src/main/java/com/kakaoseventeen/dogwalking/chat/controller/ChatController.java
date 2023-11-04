@@ -23,5 +23,4 @@ public class ChatController {
 
         return chatMessageWriteService.save(chatMessage, roomId);
     }
-
 }

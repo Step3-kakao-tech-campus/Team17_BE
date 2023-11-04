@@ -14,3 +14,6 @@ spring:
     url: jdbc:h2:tcp://localhost/~/dog-walking
     username: sa
     driver-class-name: org.h2.Driver
+
+jwt:
+  secret: thisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkey

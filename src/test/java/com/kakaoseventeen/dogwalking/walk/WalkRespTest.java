@@ -8,7 +8,6 @@ import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
-import com.kakaoseventeen.dogwalking.chat.model.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
@@ -24,7 +23,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @DataJpaTest
 public class WalkRespTest {
@@ -161,7 +159,7 @@ public class WalkRespTest {
         Long matchingId = 1L;
 
         // when
-        Notification notification = matchingRepository.findMatchById(matchingId).getNotificationId();
+        Notification notification = matchingRepository.findMatchById(matchingId).get().getNotificationId();
 
         // then
         Assertions.assertEquals(notification.getTitle(), "우리 강아지 좀 봐주세요");

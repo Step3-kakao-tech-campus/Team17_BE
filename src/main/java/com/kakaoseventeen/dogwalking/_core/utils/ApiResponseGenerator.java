@@ -21,7 +21,7 @@ public class ApiResponseGenerator {
     }
 
     public static <D> ApiResponse<ApiResponse.CustomBody<D>> success(final D response, final MediaType mediaType, final HttpStatus status) {
-        return new ApiResponse<>(new ApiResponse.CustomBody(true, response,null),mediaType,status);
+        return new ApiResponse<>(new ApiResponse.CustomBody(true, response,null), mediaType,status);
     }
 
     public static ApiResponse<ApiResponse.CustomBody> fail(String message, final HttpStatus status) {

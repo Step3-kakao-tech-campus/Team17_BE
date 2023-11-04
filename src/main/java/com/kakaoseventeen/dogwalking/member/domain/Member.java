@@ -12,10 +12,11 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
 @Table(name="member_tb")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 45, nullable = false)
     private String nickname;
@@ -27,9 +28,10 @@ public class Member {
     private String profileImage;
     @Column (length = 256)
     private String profileContent;
-    @ColumnDefault("50")
-    private int dogBowl;
-    private BigDecimal coin;
+    @Builder.Default
+    private int dogBowl = 50;
+	@Builder.Default
+    private BigDecimal coin= BigDecimal.valueOf(300000);
 
     @Builder
     public Member(Long id, String nickname, String email, String password, String profileImage, String profileContent, int dogBowl, BigDecimal coin){
@@ -50,5 +52,21 @@ public class Member {
         if (profileContent != null) {
             this.profileContent = profileContent;
         }
+    }
+
+    /**
+     * 코인 출금하는 메서드
+     */
+    public void withdrawCoin(BigDecimal coin){
+        this.coin = this.coin.subtract(coin);
+        System.out.println("현재 코인값은 " + this.coin);
+    }
+
+    /**
+     * 코인 입금받는 메서드
+     */
+    public void depositCoin(BigDecimal coin){
+        this.coin = this.coin.add(coin);
+        System.out.println("현재 코인값은 " + this.coin);
     }
 }

@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking.notification.domain;
 
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationDTO;
+import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationReqDTO;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,10 +15,9 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="notification_tb")
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CHATROOM_ID")
     private Long id;
     @ManyToOne
@@ -52,15 +51,15 @@ public class Notification {
         this.coin = coin;
     }
 
-    public void update(UpdateNotificationDTO updateNotificationDTO, Dog dog){
-        this.title = updateNotificationDTO.getTitle();
+    public void update(UpdateNotificationReqDTO updateNotificationReqDTO, Dog dog){
+        this.title = updateNotificationReqDTO.getTitle();
         this.dog = dog;
-        this.lat = updateNotificationDTO.getLat();
-        this.lng = updateNotificationDTO.getLng();
-        this.startTime = updateNotificationDTO.getStart();
-        this.endTime = updateNotificationDTO.getEnd();
-        this.significant = updateNotificationDTO.getSignificant();
-        this.coin = updateNotificationDTO.getCoin();
+        this.lat = updateNotificationReqDTO.getLat();
+        this.lng = updateNotificationReqDTO.getLng();
+        this.startTime = updateNotificationReqDTO.getStart();
+        this.endTime = updateNotificationReqDTO.getEnd();
+        this.significant = updateNotificationReqDTO.getSignificant();
+        this.coin = updateNotificationReqDTO.getCoin();
     }
 
 }
