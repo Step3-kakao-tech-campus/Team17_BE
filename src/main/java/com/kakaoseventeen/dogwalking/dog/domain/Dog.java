@@ -31,11 +31,11 @@ public class Dog {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    public static Dog of(DogReqDTO dogReqDTO, Member member){
+    public static Dog of(DogReqDTO dogReqDTO, Member member, String dogProfile){
         return Dog.builder()
                 .age(dogReqDTO.getAge())
                 .breed(dogReqDTO.getBreed())
-                .image(dogReqDTO.getImage())
+                .image(dogProfile)
                 .name(dogReqDTO.getName())
                 .sex(dogReqDTO.getSex())
                 .size(dogReqDTO.getSize())

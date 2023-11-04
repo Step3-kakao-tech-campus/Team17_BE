@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.member.service;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
 import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.S3Uploader;
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
@@ -26,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +46,8 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     private final Validator validator;
+
+    private final S3Uploader s3Uploader;
 
     private final DogJpaRepository dogJpaRepository;
     private final ApplicationRepository applicationRepository;
@@ -85,10 +89,16 @@ public class MemberService {
     }
 
     @Transactional
-    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, UpdateProfileReqDTO reqDTO){
+    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, UpdateProfileReqDTO reqDTO) throws IOException {
         Member member = customUserDetails.getMember();
 
-        member.updateProfile(reqDTO.getProfileImage(), reqDTO.getProfileContent());
+        if (reqDTO.getProfileImage() != null){
+            String userProfile = s3Uploader.uploadFiles(member.getId(), reqDTO.getProfileImage(), "userProfile");
+
+            member.updateProfile(userProfile, reqDTO.getProfileContent());
+        } else {
+            member.updateProfile(null, reqDTO.getProfileContent());
+        }
 
         return new UpdateProfileRespDTO(member);
     }

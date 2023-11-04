@@ -14,6 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -27,7 +29,7 @@ public class MemberController {
     }
 
     @PostMapping("/profile/user")
-    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody UpdateProfileReqDTO reqDTO) {
+    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody UpdateProfileReqDTO reqDTO) throws IOException {
         UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
