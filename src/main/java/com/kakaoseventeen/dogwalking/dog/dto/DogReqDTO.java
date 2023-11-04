@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @RequiredArgsConstructor
 @Getter @Setter
 public class DogReqDTO implements Serializable {
