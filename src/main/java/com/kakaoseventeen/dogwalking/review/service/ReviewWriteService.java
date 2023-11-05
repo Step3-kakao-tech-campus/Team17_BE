@@ -36,9 +36,10 @@ public class ReviewWriteService {
 
         // 리뷰 받는 사람이 견주인지 확인
         // Notification -> Dog -> Member
-        Member dogOwner = notificationJpaRepository.mfindMember(writeReviewReqDTO.notificationId()).orElseThrow(
-                () -> new NotificationIdNotExistException(ReviewMessageCode.NOTIFICATION_ID_NOT_EXIST)
-        );
+        Member dogOwner = notificationJpaRepository.mfindMember(writeReviewReqDTO.notificationId()).getDog().getMember();
+                //.orElseThrow(
+                //() -> new NotificationIdNotExistException(ReviewMessageCode.NOTIFICATION_ID_NOT_EXIST)
+        //);
         boolean isReceiverDogOwner = Objects.equals(dogOwner.getId(), writeReviewReqDTO.receiveMemberId());
 
         // 리뷰하는 사람, 리뷰 받는 사람 조회
