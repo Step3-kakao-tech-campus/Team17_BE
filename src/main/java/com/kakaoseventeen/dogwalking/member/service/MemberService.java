@@ -55,7 +55,6 @@ public class MemberService {
     private final NotificationJpaRepository notificationJpaRepository;
     private final ReviewRepository reviewRepository;
 
-
     @Transactional
     public LoginRespDTO login(LoginReqDTO loginReqDTO) throws RuntimeException{
         //회원가입이 되어있는 유저인지 확인
