@@ -11,7 +11,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     @Query("select a " +
             "from Application a " +
-            "where a.appMemberId =:userId")
+            "where a.appMemberId.id =:userId")
     List<Application> findApplicationByMemberId(Long userId);
 
 }

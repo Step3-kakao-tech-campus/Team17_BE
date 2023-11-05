@@ -1,29 +1,30 @@
 package com.kakaoseventeen.dogwalking.notification.dto.response;
 
 import com.kakaoseventeen.dogwalking._core.utils.CursorRequest;
+import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-public class HomeResponse {
+public class HomeRespDTO {
 
     private CursorRequest nextCursorRequest;
     private List<NotificationDTO> notifications;
     private String image;
 
-    public HomeResponse(CursorRequest nextCursorRequest, List<NotificationDTO> notifications, String image) {
+    public HomeRespDTO(CursorRequest nextCursorRequest, List<NotificationDTO> notifications, String image) {
         this.nextCursorRequest = nextCursorRequest;
         this.notifications = notifications;
         this.image = image;
     }
 
-    public static HomeResponse of(CursorRequest nextCursorRequest, List<Notification> notifications, String image) {
+    public static HomeRespDTO of(CursorRequest nextCursorRequest, List<Notification> notifications, String image) {
         List<NotificationDTO> notificationDTOs = notifications.stream()
                 .map(NotificationDTO::new)
                 .toList();
-        return new HomeResponse(nextCursorRequest, notificationDTOs, image);
+        return new HomeRespDTO(nextCursorRequest, notificationDTOs, image);
     }
 
     @Getter
@@ -52,6 +53,7 @@ public class HomeResponse {
                     post.getLng(),
                     new DogInfo(
                             post.getDog().getName(),
+                            post.getDog().getImage(),
                             post.getDog().getAge(),
                             post.getDog().getSex(),
                             post.getDog().getBreed()
@@ -64,12 +66,14 @@ public class HomeResponse {
     @Getter
     public static class DogInfo {
         private String name;
+        private String image;
         private int age;
         private String sex;
         private String breed;
 
-        public DogInfo(String name, int age, String sex, String breed) {
+        public DogInfo(String name, String image, int age, String sex, String breed) {
             this.name = name;
+            this.image = image;
             this.age = age;
             this.sex = sex;
             this.breed = breed;

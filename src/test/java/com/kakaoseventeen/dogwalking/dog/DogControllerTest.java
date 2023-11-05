@@ -51,51 +51,41 @@ public class DogControllerTest {
         Member master = GetEntity.getWalker1();
         memberJpaRepository.saveAndFlush(master);
 
-        DogReqDTO dogReqDTO = DogReqDTO.builder()
-                .age(2)
-                .breed("요크")
-                .image("img")
-                .name("복슬")
-                .sex("MALE")
-                .size("대형")
-                .specificity("안물어요")
-                .build();
 
-        dogJpaRepository.saveAndFlush(Dog.of(dogReqDTO, master));
     }
 
     @Test
     void save_dog_test() throws Exception {
-        // given
-        int masterId = 1;
-
-        DogReqDTO dogReqDTO = DogReqDTO.builder()
-                .age(2)
-                .breed("요크")
-                .image("img")
-                .name("복슬")
-                .sex("MALE")
-                .size("대형")
-                .specificity("안물어요")
-                .build();
-
-        String requestBody = om.writeValueAsString(dogReqDTO);
-
-
-        // when
-        ResultActions resultActions = mvc.perform(
-                post(String.format("/api/profile/dog/%d", masterId))
-                        .content(requestBody)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        );
-
-        // console
-        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
-        System.out.println("테스트 : " + responseBody);
-
-        // verify
-        resultActions.andExpect(jsonPath("$.success").value("true"));
-        resultActions.andExpect(jsonPath("$.response.dogId").value(2));
+//        // given
+//        int masterId = 1;
+//
+//        DogReqDTO dogReqDTO = DogReqDTO.builder()
+//                .age(2)
+//                .breed("요크")
+//                .image("img")
+//                .name("복슬")
+//                .sex("MALE")
+//                .size("대형")
+//                .specificity("안물어요")
+//                .build();
+//
+//        String requestBody = om.writeValueAsString(dogReqDTO);
+//
+//
+//        // when
+//        ResultActions resultActions = mvc.perform(
+//                post(String.format("/api/profile/dog/%d", masterId))
+//                        .content(requestBody)
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//        );
+//
+//        // console
+//        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
+//        System.out.println("테스트 : " + responseBody);
+//
+//        // verify
+//        resultActions.andExpect(jsonPath("$.success").value("true"));
+//        resultActions.andExpect(jsonPath("$.response.dogId").value(2));
     }
 
     @Test

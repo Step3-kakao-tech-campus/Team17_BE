@@ -1,13 +1,13 @@
 package com.kakaoseventeen.dogwalking.dog.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Getter @Setter @Builder
-public class DogReqDTO {
+import java.io.Serializable;
 
-    private String image;
+@NoArgsConstructor
+@Getter @Setter
+public class DogReqDTO implements Serializable {
 
     private String name;
 
@@ -20,5 +20,7 @@ public class DogReqDTO {
     private String specificity;
 
     private int age;
+
+    private MultipartFile image;
 
 }

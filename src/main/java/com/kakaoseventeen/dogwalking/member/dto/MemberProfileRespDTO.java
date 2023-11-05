@@ -39,17 +39,31 @@ public class MemberProfileRespDTO {
 
 
     public static MemberProfileRespDTO of(Member member, List<Notification> notifications, List<Dog> dogs, List<Application> applications, List<Review> reviews){
-        return MemberProfileRespDTO.builder()
+        MemberProfileRespDTO dto = MemberProfileRespDTO.builder()
                 .id(member.getId())
                 .nickname(member.getNickname())
                 .profileImage(member.getProfileImage())
                 .dogBowl(member.getDogBowl())
                 .coin(member.getCoin())
-                .notifications(notifications.stream().map(NotificationDTO::new).collect(Collectors.toList()))
-                .dogs(dogs.stream().map(DogDTO::new).collect(Collectors.toList()))
-                .applications(applications.stream().map(ApplicationDTO::new).collect(Collectors.toList()))
-                .reviews(reviews.stream().map(ReviewDTO::new).collect(Collectors.toList()))
                 .build();
+
+        if (!notifications.isEmpty()) {
+            dto.setNotifications(notifications.stream().map(NotificationDTO::new).collect(Collectors.toList()));
+        }
+
+        if (!dogs.isEmpty()) {
+            dto.setDogs(dogs.stream().map(DogDTO::new).collect(Collectors.toList()));
+        }
+
+        if (!applications.isEmpty()) {
+            dto.setApplications(applications.stream().map(ApplicationDTO::new).collect(Collectors.toList()));
+        }
+
+        if (!reviews.isEmpty()) {
+            dto.setReviews(reviews.stream().map(ReviewDTO::new).collect(Collectors.toList()));
+        }
+
+        return dto;
     }
 
     @Getter @Setter
@@ -129,9 +143,15 @@ public class MemberProfileRespDTO {
 
         private String reviewContent;
 
+        private String writerImage;
+
+        private LocalDateTime reviewTime;
+
         public ReviewDTO(Review review){
             this.id = review.getReviewId();
             this.reviewContent = review.getReviewContent();
+            this.writerImage = review.getReceiverId().getProfileImage();
+            this.reviewTime = review.getCreatedAt();
         }
     }
 }

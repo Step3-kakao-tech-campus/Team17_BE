@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginRequestDTO {
+public class LoginReqDTO {
 
     private static final String EMAIL_PATTERN = "^[\\w_]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
     private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$";

@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.payment.service;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.MatchNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.NotificationException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -34,7 +35,7 @@ public class PaymentService {
     private final NotificationJpaRepository notificationJpaRepository;
 
     @Transactional(readOnly = true)
-    public PaymentResDTO getPaymentInfo(CustomUserDetails customUserDetails, Long matchingId) throws WalkNotExistException{
+    public PaymentResDTO getPaymentInfo(CustomUserDetails customUserDetails, Long matchingId) throws MatchNotExistException, WalkNotExistException{
         // notification 가져오기
         Notification notification = matchingRepository.findMatchById(matchingId)
                 .orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST)).getNotificationId();
@@ -47,12 +48,16 @@ public class PaymentService {
     }
 
     @Transactional
-    public void savePayment(CustomUserDetails customUserDetails, Long notificationId, Long walkId){
+    public void savePayment(CustomUserDetails customUserDetails, Long notificationId, Long walkId) throws NotificationException, WalkNotExistException {
         // notification 가져오기
-        Notification notification = notificationJpaRepository.findById(notificationId).orElseThrow(() -> new RuntimeException("잘못된 공고 Id입니다."));
+        Notification notification = notificationJpaRepository.findById(notificationId).orElseThrow(() -> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST));
 
         // walk 가져오기
         Walk walk = walkRepository.findById(walkId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+
+        if (paymentRepository.findById(walkId).isPresent()) {
+            throw new RuntimeException("이미 존재하는 결제 정보입니다.");
+        }
 
         // notification, walk, Payment.of()을 통해 생성 후 DB 저장
         Payment payment = paymentRepository.save(Payment.of(walk, notification.getCoin()));
