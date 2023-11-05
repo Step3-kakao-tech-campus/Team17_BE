@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking.walk.repository;
 
-import com.kakaoseventeen.dogwalking.match.domain.Match;
+import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,5 +28,7 @@ public interface WalkRepository extends JpaRepository<Walk, Long> {
      */
     @Query("select w from Walk w where w.walker.id = :userId or w.master.id =:userId and w.walkStatus = 'END'")
     List<Walk> findByWalkWithUserIdAndEndStatus(long userId);
+
+    Optional<Walk> findWalkByMaster(Member member);
 
 }
