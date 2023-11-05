@@ -22,7 +22,7 @@ public class ApplicationReadService {
 
         // TODO - Custom 예외처리
         Application application = applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("존재하지 않는 지원서 입니다."));
-        Match match = matchingRepository.findMatchByApplicationId(id).orElseThrow(() -> new RuntimeException("잘못된 요청 입니다."));
+        Match match = matchingRepository.findByApplicationId(application).orElseThrow(() -> new RuntimeException("잘못된 요청 입니다."));
 
         return GetAppResDTO.builder()
                 .aboutMe(application.getAboutMe())
