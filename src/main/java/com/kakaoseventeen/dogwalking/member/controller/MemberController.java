@@ -9,10 +9,13 @@ import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +29,10 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/profile/user")
-    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody UpdateProfileReqDTO reqDTO) {
-        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO);
+    @PostMapping(value = "/profile/user", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@ModelAttribute UpdateProfileReqDTO reqDTO,
+                                                                                   @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
+        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO.getProfileImage(), reqDTO.getProfileContent());
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 

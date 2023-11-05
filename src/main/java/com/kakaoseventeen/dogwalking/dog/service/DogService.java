@@ -2,7 +2,9 @@ package com.kakaoseventeen.dogwalking.dog.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.S3Uploader;
 import com.kakaoseventeen.dogwalking._core.utils.exception.DogNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.ImageNotExistException;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.dto.DogReqDTO;
 import com.kakaoseventeen.dogwalking.dog.dto.DogRespDTO;
@@ -12,7 +14,9 @@ import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -27,16 +31,25 @@ public class DogService {
 
     private final DogJpaRepository dogJpaRepository;
 
-    private final MemberJpaRepository memberJpaRepository;
+    private final S3Uploader s3Uploader;
 
 
     /**
      * 강아지 프로필 등록 메서드
      */
     @Transactional
-    public DogRespDTO.save saveDog(DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws RuntimeException {
+    public DogRespDTO.save saveDog(MultipartFile image, DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, IOException {
 
-        Dog dog = Dog.of(dogReqDTO, customUserDetails.getMember());
+        if (image == null){
+            throw new ImageNotExistException(MessageCode.IMAGE_NOT_EXIST);
+        }
+
+        Member member = customUserDetails.getMember();
+
+        String dogImage = s3Uploader.uploadFiles(member.getId(), image, "dogProfile");
+
+        Dog dog = Dog.of(dogReqDTO, member, dogImage);
+
 
         return new DogRespDTO.save(dogJpaRepository.save(dog));
     }
