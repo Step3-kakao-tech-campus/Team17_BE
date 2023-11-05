@@ -35,6 +35,20 @@ public class DogController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
+    /**
+     * 강아지 프로필 수정 메서드
+     */
+    @PostMapping(value = "/profile/update/dog/{dogId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ApiResponse<ApiResponse.CustomBody<DogRespDTO.save>> updateDog(@PathVariable("dogId") long dogId,
+                                                                        @ModelAttribute DogReqDTO dogReqDTO,
+                                                                          @AuthenticationPrincipal CustomUserDetails customUserDetails
+                                                                        ) throws ImageNotExistException, DogNotExistException, IOException {
+
+        DogRespDTO.save respDTO = dogService.updateDog(dogId, dogReqDTO, customUserDetails);
+
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
+    }
+
 
     /**
      * 강아지 프로필 조회 메서드
