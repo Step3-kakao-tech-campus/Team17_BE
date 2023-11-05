@@ -2,6 +2,7 @@ package com.kakaoseventeen.dogwalking.match.repository;
 
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
+import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -39,8 +40,9 @@ public interface MatchingRepository extends JpaRepository<Match, Long> {
             "join fetch m.applicationId " +
             "join fetch m.applicationId.appMemberId " +
             "where m.notificationId.id = :notificationId")
-    List<Match> findMatchByNotificationId(@Param("notificationId") Long notificationId);
+    List<Match> mfindMatchByNotificationId(@Param("notificationId") Long notificationId);
 
     Optional<Match> findByApplicationId(Application applicationId);
 
+    Optional<Match> findMatchByNotificationId(Notification notification);
 }

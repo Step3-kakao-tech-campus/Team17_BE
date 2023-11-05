@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CHATROOM_ID")
+    @Column(name = "NOTIFICATION_ID")
     private Long id;
     @ManyToOne
     private Dog dog;
