@@ -22,7 +22,7 @@ public class MatchService {
 
     public MatchRespDTO match(Long notificationId, Member sessionMember) throws RuntimeException {
 
-		List<Match> matchList = matchingRepository.findMatchByNotificationId(notificationId);
+		List<Match> matchList = matchingRepository.mfindMatchByNotificationId(notificationId);
 
         if(matchList.isEmpty()) {
             throw new RuntimeException("매칭된 유저가 없습니다.");
