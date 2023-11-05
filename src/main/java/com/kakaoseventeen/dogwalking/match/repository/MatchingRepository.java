@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.match.repository;
 
+import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -40,6 +41,6 @@ public interface MatchingRepository extends JpaRepository<Match, Long> {
             "where m.notificationId.id = :notificationId")
     List<Match> findMatchByNotificationId(@Param("notificationId") Long notificationId);
 
-    Optional<Match> findMatchByApplicationId(Long applicationId);
+    Optional<Match> findByApplicationId(Application applicationId);
 
 }

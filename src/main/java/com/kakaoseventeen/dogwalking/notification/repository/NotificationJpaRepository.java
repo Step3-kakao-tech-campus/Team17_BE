@@ -169,8 +169,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
      *
      * @author 박영규
      */
-    @Query(value = "SELECT m from Notification n join fetch n.dog d join fetch d.member m where n.id = :notificationId and n.dog.id = d.id and d.member.id = m.id",
-    nativeQuery = true)
-    Optional<Member> mfindMember(Long notificationId);
+    @Query(value = "SELECT noti FROM Notification noti JOIN fetch noti.dog JOIN fetch noti.dog.member WHERE noti.id = :notificationId")
+    Notification mfindMember(Long notificationId);
 
 }
