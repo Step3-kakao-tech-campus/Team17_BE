@@ -79,7 +79,7 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/app/**"),
                                 new AntPathRequestMatcher("/api/chat/**"),
                                 new AntPathRequestMatcher("/queue/**"),
-                                new AntPathRequestMatcher("/chat-sub/**"),
+                                new AntPathRequestMatcher("/chat-connect/**"),
                                 new AntPathRequestMatcher("/api/application/**"),
                                 new AntPathRequestMatcher("/api/review/**")
                                 )

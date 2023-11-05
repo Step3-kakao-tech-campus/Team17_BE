@@ -14,17 +14,7 @@ public class MatchRespDTO {
 
     public MatchRespDTO(List<Match> matchList) {
 		        this.matchList = matchList.stream()
-                .map(
-                        match -> new MatchListDTO(
-                                match.getMatchId(),
-                                match.getApplicationId().getCertification(),
-                                match.getApplicationId().getExperience(),
-                                new MemberDTO(
-                                        match.getApplicationId().getAppMemberId().getNickname(),
-                                        match.getApplicationId().getAppMemberId().getProfileImage()
-                                )
-                        )
-                )
+                .map(match -> new MatchListDTO(match, match.getApplicationId()))
                 .collect(Collectors.toList());
     }
 
@@ -38,11 +28,14 @@ public class MatchRespDTO {
         private MemberDTO member;
 
 
-        public MatchListDTO(Long id, String certification, String experience, MemberDTO member) {
-            this.id = id;
-            this.certification = certification;
-            this.experience = experience;
-			this.member = member;
+        public MatchListDTO(Match match, Application application){
+            this.id = match.getMatchId();
+            this.certification = application.getCertification();
+            this.experience = application.getExperience();
+			this.member = new MemberDTO(
+                    application.getAppMemberId().getNickname(),
+                    application.getAppMemberId().getProfileImage()
+            );
         }
     }
 
