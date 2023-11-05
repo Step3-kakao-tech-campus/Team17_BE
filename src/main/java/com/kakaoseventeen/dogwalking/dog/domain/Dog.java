@@ -5,6 +5,8 @@ import com.kakaoseventeen.dogwalking.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Entity
 @Table(name="dog_tb")
@@ -42,5 +44,31 @@ public class Dog {
                 .specificity(dogReqDTO.getSpecificity())
                 .member(member)
                 .build();
+    }
+
+    public void updateDog(DogReqDTO dogReqDTO, String imageUrl){
+        if (!(Objects.equals(imageUrl, "null"))){
+            this.image = imageUrl;
+        }
+
+        if (!dogReqDTO.getName().isEmpty()){
+            this.name = dogReqDTO.getName();
+        }
+
+        if (!dogReqDTO.getBreed().isEmpty()){
+            this.breed = dogReqDTO.getBreed();
+        }
+
+        if (!(dogReqDTO.getAge() == 0)){
+            this.age = dogReqDTO.getAge();
+        }
+
+        if (!dogReqDTO.getSize().isEmpty()){
+            this.size = dogReqDTO.getSize();
+        }
+
+        if (!dogReqDTO.getSpecificity().isEmpty()){
+            this.specificity = dogReqDTO.getSpecificity();
+        }
     }
 }

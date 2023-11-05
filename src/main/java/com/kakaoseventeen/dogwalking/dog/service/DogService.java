@@ -55,6 +55,25 @@ public class DogService {
     }
 
     /**
+     * 강아지 프로필 수정 메서드
+     */
+    @Transactional
+    public DogRespDTO.save updateDog(Long dogId, DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, DogNotExistException, IOException {
+
+        Dog dog = dogJpaRepository.findById(dogId).orElseThrow(() -> new DogNotExistException(MessageCode.DOG_NOT_EXIST));
+
+        if (!(dogReqDTO.getImage() == null)){
+            String dogImage = s3Uploader.uploadFiles(customUserDetails.getMember().getId(), dogReqDTO.getImage(), "dogProfile");
+            dog.updateDog(dogReqDTO, dogImage);
+        } else {
+            dog.updateDog(dogReqDTO, "null");
+        }
+
+        return new DogRespDTO.save(dog);
+    }
+
+
+    /**
      * 강아지 프로필 조회 메서드
      */
     @Transactional(readOnly = true)
