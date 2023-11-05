@@ -3,14 +3,19 @@ package com.kakaoseventeen.dogwalking.member.controller;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
+import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistException;
 import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,15 +23,16 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
-        LoginResponseDTO respDTO = memberService.login(loginRequestDTO);
+    @PostMapping("/member/login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginReqDTO loginReqDTO, Errors error) {
+        LoginRespDTO respDTO = memberService.login(loginReqDTO);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/profile/user/{userId}")
-    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@RequestBody UpdateProfileReqDTO reqDTO, @PathVariable("userId") Long userId) {
-        UpdateProfileRespDTO respDTO = memberService.updateProfile(reqDTO, userId);
+    @PostMapping(value = "/profile/user", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@ModelAttribute UpdateProfileReqDTO reqDTO,
+                                                                                   @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
+        UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO.getProfileImage(), reqDTO.getProfileContent());
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
@@ -39,9 +45,17 @@ public class MemberController {
     /**
      * 프로필 조회 메서드
      */
-    @PostMapping("/profile/{userId}")
-    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@PathVariable("userId") Long userId) {
-        MemberProfileRespDTO respDTO = memberService.getProfile(userId);
+    @GetMapping(value = {"/profile/{userId}", "/profile"})
+    public ApiResponse<ApiResponse.CustomBody<MemberProfileRespDTO>> getProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable(required = false) Long userId) throws MemberNotExistException {
+        MemberProfileRespDTO respDTO = memberService.getProfile(customUserDetails, userId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
+
+    @PostMapping("/member/signup")
+    public ResponseEntity<?> signup(@RequestBody SignupReqDTO signupReqDTO){
+
+        memberService.signup(signupReqDTO);
+        return ApiResponseGenerator.success(HttpStatus.OK);
+    }
+
 }

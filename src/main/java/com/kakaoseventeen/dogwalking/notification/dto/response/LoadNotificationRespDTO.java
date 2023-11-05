@@ -8,9 +8,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
-public class LoadNotificationResponseDTO {
+public class LoadNotificationRespDTO {
     private Boolean isMine;
     private Long notificationId;
+    private Long userId;
     private String title;
     private DogDTO dog;
     private Double lat;
@@ -20,9 +21,10 @@ public class LoadNotificationResponseDTO {
     private BigDecimal coin;
     private String significant;
 
-    public LoadNotificationResponseDTO(Notification notification, Dog dog, Boolean isMine){
+    public LoadNotificationRespDTO(Notification notification, Dog dog, Boolean isMine){
         this.isMine = isMine;
         this.notificationId = notification.getId();
+        this.userId = dog.getMember().getId();
         this.title = notification.getTitle();
         this.dog = new DogDTO(dog);
         this.lat = notification.getLat();
@@ -37,6 +39,7 @@ public class LoadNotificationResponseDTO {
     public static class DogDTO {
         private Long dogId;
         private String name;
+        private int age;
         private String breed;
         private String image;
         private String size;
@@ -44,6 +47,7 @@ public class LoadNotificationResponseDTO {
         public DogDTO(Dog dog){
             this.dogId = dog.getId();
             this.name = dog.getName();
+            this.age = dog.getAge();
             this.breed = dog.getBreed();
             this.image = dog.getImage();
             this.size = dog.getSize();
