@@ -30,9 +30,15 @@ public class GlobalExceptionHandler {
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(InvalidPasswordLengthException e){
         return ApiResponseGenerator.fail(MemberMessageCode.INVALID_PASSWORD_LENGTH.getValue(), HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(DuplicateEmailException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DuplicateEmailException e){
         return ApiResponseGenerator.fail(MemberMessageCode.DUPLICATE_EMAIL.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DuplicateNotificationWithWalkException e){
+        return ApiResponseGenerator.fail(MessageCode.DUPLICATE_NOTIFICATION.getValue(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MemberNotExistException.class)
