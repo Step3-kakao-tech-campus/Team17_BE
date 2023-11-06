@@ -59,5 +59,34 @@ class HomeControllerTest {
         resultActions.andExpect(jsonPath("$.success").value("true"));
     }
 
-   
+    @DisplayName("홈 메인화면 테스트 - 제목 키워드")
+    @Test
+    void get_post_test2() throws Exception {
+        // given
+        Double lat = 0.0;
+        Double lng = 0.0;
+        String keyword = "공통";
+
+
+        // when
+        mvc.perform(
+                get("/init")
+        );
+
+        ResultActions resultActions = mvc.perform(
+                get(String.format("/api/home"))
+                        .param("latitude",lat.toString())
+                        .param("longitude",lng.toString())
+                        .param("word", keyword)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        );
+
+        // then
+        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
+        System.out.println("테스트 : " + responseBody);
+
+        resultActions.andExpect(jsonPath("$.success").value("true"));
+    }
+
+
 }
