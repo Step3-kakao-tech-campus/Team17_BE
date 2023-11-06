@@ -45,6 +45,7 @@ public class MemberProfileRespDTO {
                 .id(member.getId())
                 .nickname(member.getNickname())
                 .profileImage(member.getProfileImage())
+                .profileContent(member.getProfileContent())
                 .dogBowl(member.getDogBowl())
                 .coin(member.getCoin())
                 .build();
