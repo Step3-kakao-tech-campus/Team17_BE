@@ -88,14 +88,16 @@ public class MemberService {
         return loginRespDTO;
     }
 
+    /**
+     * 프로필 수정 메서드
+     */
     @Transactional
-    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, MultipartFile profileImage, String profileContent) throws IOException {
+    public UpdateProfileRespDTO updateProfile(CustomUserDetails customUserDetails, MultipartFile profileImage, String profileContent) throws IOException, MemberNotExistException {
         Member member = memberJpaRepository.findById(customUserDetails.getMember().getId())
                 .orElseThrow(() ->  new MemberNotExistException(MEMBER_NOT_EXIST));
 
         if (profileImage != null){
             String userProfile = s3Uploader.uploadFiles(member.getId(), profileImage, "userProfile");
-
             member.updateProfile(userProfile, profileContent);
         } else {
             member.updateProfile(null, profileContent);
