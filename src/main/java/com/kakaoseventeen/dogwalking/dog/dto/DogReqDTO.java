@@ -19,7 +19,7 @@ public class DogReqDTO implements Serializable {
 
     private String specificity;
 
-    private int age;
+    private String age;
 
     private MultipartFile image;
 
