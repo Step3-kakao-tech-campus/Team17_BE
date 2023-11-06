@@ -34,8 +34,7 @@ public class JwtProvider {
 
     public static Key createKey() {
         byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET);
-        Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
-        return signingKey;
+        return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
     }
 
     public static LoginRespDTO createToken(Member member) {
@@ -63,7 +62,7 @@ public class JwtProvider {
     }
 
     // 헤더의 access 토큰의 유효성 + 만료일자 확인
-    public boolean isTokenValidate(String accessToken, HttpServletRequest request) {
+    public boolean isTokenValidate(String accessToken) {
         try {
             //JWT 토큰 파싱 및 검증을 시도
             Jws<Claims> claims = Jwts.parserBuilder()
@@ -95,9 +94,7 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(token);
 
-        Integer id = (Integer) claims.getBody().get("id");
-        Long idLong = Long.valueOf(id);
-        Member member = Member.builder().id(idLong).build();
+        Long idLong = Long.parseLong(claims.getBody().get("id").toString());
 
         CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(claims.getBody().getSubject());
         //인증용 객체
