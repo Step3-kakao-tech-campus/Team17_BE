@@ -25,3 +25,6 @@ cloud:
     credentials:
       accessKey: ${Access_key}
       secretKey: ${Secret_key}
+
+jwt:
+  secret: ${key}
