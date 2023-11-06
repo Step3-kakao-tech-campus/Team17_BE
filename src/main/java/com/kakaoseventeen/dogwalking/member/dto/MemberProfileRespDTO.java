@@ -96,14 +96,14 @@ public class MemberProfileRespDTO {
 
         private InDogDTO dog;
 
-        private WalkStatus walkStatus;
+        private String walkStatus;
 
         public NotificationDTO(Notification notification, WalkStatus walkStatus){
             this.id = notification.getId();
             this.title = notification.getTitle();
             this.start = notification.getStartTime();
             this.end = notification.getEndTime();
-            this.walkStatus = walkStatus;
+            this.walkStatus = walkStatus.toString();
             this.dog = new InDogDTO(notification.getDog());
         }
     }
