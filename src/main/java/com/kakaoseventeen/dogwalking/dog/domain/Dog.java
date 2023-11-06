@@ -35,7 +35,7 @@ public class Dog {
 
     public static Dog of(DogReqDTO dogReqDTO, Member member, String dogProfile){
         return Dog.builder()
-                .age(dogReqDTO.getAge())
+                .age(Integer.parseInt(dogReqDTO.getAge()))
                 .breed(dogReqDTO.getBreed())
                 .image(dogProfile)
                 .name(dogReqDTO.getName())
@@ -59,8 +59,8 @@ public class Dog {
             this.breed = dogReqDTO.getBreed();
         }
 
-        if (!(dogReqDTO.getAge() == 0)){
-            this.age = dogReqDTO.getAge();
+        if (!(Integer.parseInt(dogReqDTO.getAge()) == 0)){
+            this.age = Integer.parseInt(dogReqDTO.getAge());
         }
 
         if (!dogReqDTO.getSize().isEmpty()){
