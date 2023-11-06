@@ -27,4 +27,10 @@ cloud:
       secretKey: ${Secret_key}
 
 jwt:
-  secret: ${key}
+  secret: thisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkey
+
+
+
+
+
+

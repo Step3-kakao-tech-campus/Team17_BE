@@ -28,7 +28,6 @@ public class S3Uploader {
     private String bucket;
 
     // 다른 메서드에서 호출되는 부분
-    // dirName -> S3 Bucket 내부에 해당 이름의 디렉토리가 생성이 된다.
     @Transactional
     public String uploadFiles(Long userId, MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
