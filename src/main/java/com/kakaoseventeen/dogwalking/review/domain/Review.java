@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.review.domain;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -50,5 +51,18 @@ public class Review {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @Builder
+    private Review(String reviewContent, boolean reviewEval1, boolean reviewEval2, boolean reviewEval3, boolean reviewEval4,
+                  Integer dogBowl, Member reviewerId, Member receiverId, boolean isReceiverDogOwner){
+        this.reviewContent=reviewContent;
+        this.reviewEval1=reviewEval1;
+        this.reviewEval2=reviewEval2;
+        this.reviewEval3=reviewEval3;
+        this.reviewEval4=reviewEval4;
+        this.dogBowl=dogBowl;
+        this.reviewerId=reviewerId;
+        this.receiverId=receiverId;
+        this.isReceiverDogOwner=isReceiverDogOwner;
+    }
 
 }

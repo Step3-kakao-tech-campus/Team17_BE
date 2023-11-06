@@ -35,6 +35,7 @@ public class WalkRespDTO {
     public static class EndWalk {
 
         private Long userId;
+        private Long receiveMemberId;
         private String profile;
 
         private Long walkId;
@@ -44,9 +45,10 @@ public class WalkRespDTO {
         private Long notificationId;
         private BigDecimal coin;
 
-        public static EndWalk of(Member member, Walk walk, Notification notification){
+        public static EndWalk of(Member member, Member receiver, Walk walk, Notification notification){
             return EndWalk.builder()
                     .userId(member.getId())
+                    .receiveMemberId(receiver.getId())
                     .profile(member.getProfileImage())
                     .walkId(walk.getId())
                     .walkStartTIme(walk.getStartTime())

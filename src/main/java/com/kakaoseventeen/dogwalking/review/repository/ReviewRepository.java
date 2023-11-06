@@ -10,6 +10,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     @Query("select r " +
             "from Review r " +
+            "join fetch r.receiverId " +
             "where r.receiverId.id = :userId or r.reviewerId.id =:userId")
     List<Review> findReviewByMemberId(Long userId);
 }
