@@ -29,9 +29,12 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
+    /**
+     * 프로필 수정 메서드
+     */
     @PostMapping(value = "/profile/user", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<ApiResponse.CustomBody<UpdateProfileRespDTO>> updateProfile(@ModelAttribute UpdateProfileReqDTO reqDTO,
-                                                                                   @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
+                                                                                   @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException, MemberNotExistException {
         UpdateProfileRespDTO respDTO = memberService.updateProfile(customUserDetails, reqDTO.getProfileImage(), reqDTO.getProfileContent());
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
