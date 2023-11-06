@@ -14,7 +14,7 @@ public class LoginReqDTO {
     private static final String PASSWORD_PATTERN = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$";
 
     @NotEmpty
-    @Pattern(regexp = EMAIL_PATTERN, message = "이메일 형식으로 작성해주세요")
+    @Pattern(regexp = EMAIL_PATTERN, message = "이메일 형식으로 작성해주세요.")
     String email;
 
     @NotEmpty
