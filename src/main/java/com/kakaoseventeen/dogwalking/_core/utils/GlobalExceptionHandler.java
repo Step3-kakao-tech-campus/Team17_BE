@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(MemberMessageCode.DUPLICATE_EMAIL.getValue(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(DuplicateEmailException.class)
+    @ExceptionHandler(DuplicateNotificationWithWalkException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DuplicateNotificationWithWalkException e){
         return ApiResponseGenerator.fail(MessageCode.DUPLICATE_NOTIFICATION.getValue(), HttpStatus.BAD_REQUEST);
     }
