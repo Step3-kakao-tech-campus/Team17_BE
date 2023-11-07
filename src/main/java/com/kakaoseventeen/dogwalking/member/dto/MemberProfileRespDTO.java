@@ -130,6 +130,8 @@ public class MemberProfileRespDTO {
 
         private Long id;
 
+        private String title;
+
         private String aboutMe;
 
         private String certification;
@@ -138,6 +140,7 @@ public class MemberProfileRespDTO {
 
         public ApplicationDTO(Application application){
             this.id = application.getApplicationId();
+            this.title = application.getTitle();
             this.aboutMe = application.getAboutMe();
             this.certification = application.getCertification();
             this.experience = application.getExperience();

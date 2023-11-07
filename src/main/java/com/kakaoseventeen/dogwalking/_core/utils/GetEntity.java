@@ -15,6 +15,12 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * GetEntity : 쉽게 객체를 생성할 수 있도록, 미리 지정한 값의 객체를 생성하는 클래스
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Component
 public class GetEntity {
 

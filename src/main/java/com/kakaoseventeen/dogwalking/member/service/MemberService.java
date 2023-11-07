@@ -142,6 +142,9 @@ public class MemberService {
                 .password(passwordEncoder.encode(signupReqDTO.password()))
                 .build();
     }
+    /**
+     * 해당 프로필이 인가된 유저 본인의 프로필인지를 판단하고, 분기처리하는 메서드
+     */
     @Transactional(readOnly = true)
     public IsOwnerRespDTO isProfileOwner(CustomUserDetails customUserDetails, Long userId) throws RuntimeException{
         Member member =  memberJpaRepository.findById(userId).orElseThrow(() -> new RuntimeException("잘못된 유저 ID 입니다."));
@@ -162,6 +165,9 @@ public class MemberService {
         return respProfile(member);
     }
 
+    /**
+     * 유저 프로필 조회간 Member 엔티티를 이용해 각 Repository에 쿼리를 보내서 값을 가져오는 메서드
+     */
     private MemberProfileRespDTO respProfile(Member member) throws MemberNotExistException {
 
         List<Dog> dogs = dogJpaRepository.findDogsByMember(member.getId());
