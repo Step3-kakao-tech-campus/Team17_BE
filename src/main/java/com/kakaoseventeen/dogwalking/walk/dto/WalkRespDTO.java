@@ -113,7 +113,7 @@ public class WalkRespDTO {
                 this.walkId = walk.getId();
                 this.walkStatus = walk.getWalkStatus().toString();
                 this.notificationId = walk.getNotification().getId();
-                this.isReviewed = walk.isReviewd();
+                this.isReviewed = walk.isReviewed();
             }
         }
     }
