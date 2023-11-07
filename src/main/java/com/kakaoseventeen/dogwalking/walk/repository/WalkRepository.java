@@ -36,7 +36,7 @@ public interface WalkRepository extends JpaRepository<Walk, Long> {
      */
     @Query(value = "SELECT w.* " +
             "FROM walk w " +
-            "LEFT JOIN notification n ON w.notification_id = n.id " +
+            "LEFT JOIN notification n ON w.notification_id = n.notification_id " +
             "WHERE (w.master_id = :userId OR w.walker_id = :userId) " +
             "AND w.walk_status != 'END' " +
             "AND w.is_reviewed != 'N'", nativeQuery = true)
