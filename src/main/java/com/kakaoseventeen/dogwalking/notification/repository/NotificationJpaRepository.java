@@ -51,7 +51,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
     @Query(value = "SELECT n.*, 6371.0 *acos(cos(radians(:latitude))*cos(radians(n.lat))*cos(radians(n.lng)-radians(:longitude))+sin(radians(:latitude))*sin(radians(n.lat))) as distance " +
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasNoneKey(@Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
@@ -61,7 +61,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
             "WHERE d.breed IN :breed " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasBreedKey(@Param("breed") List<String> breed, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
@@ -71,7 +71,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
             "WHERE d.size IN :size " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasSizeKey(@Param("size") List<String> size, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
@@ -81,7 +81,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
             "WHERE (d.size IN :size OR d.breed IN :breed) " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasSizeAndBreedKey(@Param("size") List<String> size, @Param("breed") List<String> breed, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
@@ -130,7 +130,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
             "WHERE n.title LIKE CONCAT('%', :tit, '%') " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasNoneKeySearch(@Param("tit") String tit, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
@@ -140,7 +140,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
             "WHERE (n.title LIKE CONCAT('%', :tit, '%')) AND (n.breed IN :breed) " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasBreedKeySearch(@Param("tit") String tit, @Param("breed") List<String> breed, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
@@ -150,7 +150,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
             "WHERE (n.title LIKE CONCAT('%', :tit, '%')) AND (n.size IN :size) " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasSizeKeySearch(@Param("tit") String tit, @Param("size") List<String> size, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
@@ -159,7 +159,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "FROM notification n " +
             "JOIN dog_tb d on n.dog_id = d.id " +
             "WHERE (n.title LIKE CONCAT('%', :tit, '%')) AND (n.size IN :size) + OR (n.breed IN :breed) " +
-            "GROUP BY n.chatroom_id " +
+            "GROUP BY n.notification_id " +
             "HAVING distance > :key " +
             "ORDER BY distance ASC", nativeQuery = true)
     List<Notification> findAllHasSizeAndBreedKeySearch(@Param("tit") String tit, @Param("size") List<String> size, @Param("breed") List<String> breed, @Param("latitude") Double lat, @Param("longitude") Double lng, @Param("key") Double key, Pageable pageable);
