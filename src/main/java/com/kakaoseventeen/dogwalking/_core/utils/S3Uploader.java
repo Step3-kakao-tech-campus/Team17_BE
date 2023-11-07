@@ -17,6 +17,12 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * S3Uploader : MultipartFile을 넘겨받아서 S3에 저장하고, S3에 저장된 url로 반환하는 클래스
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Service
 @Slf4j // log찍기 위함
 @RequiredArgsConstructor
