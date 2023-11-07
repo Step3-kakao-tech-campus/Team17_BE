@@ -31,8 +31,9 @@ public class ChatRoom {
     private Match matchId;
 
     @Builder
-    public ChatRoom(Member notiMemberId, Member appMemberId){
+    public ChatRoom(Member notiMemberId, Member appMemberId, Match matchId){
         this.notiMemberId = notiMemberId;
         this.appMemberId = appMemberId;
+        this.matchId=matchId;
     }
 }
