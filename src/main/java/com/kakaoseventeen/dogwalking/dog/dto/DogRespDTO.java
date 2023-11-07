@@ -4,6 +4,12 @@ import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * DogRespDTO : 프론트엔드의 Dog 프로필 조회 API 요청에 맞는 값들을 반환하는 DTO
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 public class DogRespDTO {
 
     @Getter

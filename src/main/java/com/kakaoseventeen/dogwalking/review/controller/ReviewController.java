@@ -19,10 +19,10 @@ public class ReviewController {
     private final ReviewWriteService reviewWriteService;
     private final ReviewReadService reviewReadService;
 
-    @PostMapping("/review")
-    public ResponseEntity<?> writeReview(@RequestBody WriteReviewReqDTO writeReviewReqDTO){
+    @PostMapping("/review/{walkId}")
+    public ResponseEntity<?> writeReview(@PathVariable("walkId") Long walkId, @RequestBody WriteReviewReqDTO writeReviewReqDTO){
 
-        reviewWriteService.writeReview(writeReviewReqDTO);
+        reviewWriteService.writeReview(walkId, writeReviewReqDTO);
 
         return ApiResponseGenerator.success(HttpStatus.OK);
 

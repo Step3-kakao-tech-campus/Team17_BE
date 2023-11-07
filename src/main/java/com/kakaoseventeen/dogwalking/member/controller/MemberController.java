@@ -39,6 +39,9 @@ public class MemberController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
+    /**
+     * 유저 프로필 조회간 Member 엔티티를 이용해 각 Repository에 쿼리를 보내서 값을 가져오는 메서드
+     */
     @PostMapping("/profile/isOwner/{userId}")
     public ApiResponse<ApiResponse.CustomBody<IsOwnerRespDTO>> isProfileOwner(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("userId") Long userId) {
         IsOwnerRespDTO respDTO = memberService.isProfileOwner(customUserDetails, userId);

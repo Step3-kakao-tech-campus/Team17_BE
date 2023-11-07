@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.walk.domain;
 
+import com.kakaoseventeen.dogwalking._core.utils.BooleanToYNConverter;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import jakarta.persistence.*;
@@ -37,10 +38,12 @@ public class Walk {
     @Enumerated(value = EnumType.STRING)
     private WalkStatus walkStatus;
 
+    @Convert(converter = BooleanToYNConverter.class)
+    private boolean isReviewd;
+
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
-
 
     /**
      * Walk Entity 생성, 즉 산책 허락하기시 객체 생성 메서드
@@ -51,6 +54,7 @@ public class Walk {
                 .master(master)
                 .walker(walker)
                 .notification(notification)
+                .isReviewd(false)
                 .build();
     }
 
@@ -74,5 +78,9 @@ public class Walk {
     public void endWalk(){
         this.walkStatus = WalkStatus.END;
         this.endTime = LocalDateTime.now();
+    }
+
+    public void isReviewdToTrue(){
+        this.isReviewd = true;
     }
 }

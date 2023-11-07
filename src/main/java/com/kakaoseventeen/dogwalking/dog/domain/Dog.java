@@ -33,6 +33,9 @@ public class Dog {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    /**
+     * Dog DTO, Member, dogProfile 주소를 이용해서 Dog 객체를 생성하는 정적 팩터리 메서드
+     */
     public static Dog of(DogReqDTO dogReqDTO, Member member, String dogProfile){
         return Dog.builder()
                 .age(Integer.parseInt(dogReqDTO.getAge()))
@@ -46,6 +49,9 @@ public class Dog {
                 .build();
     }
 
+    /**
+     * Dog를 수정하는 메서드
+     */
     public void updateDog(DogReqDTO dogReqDTO, String imageUrl){
         if (!(Objects.equals(imageUrl, "null"))){
             this.image = imageUrl;

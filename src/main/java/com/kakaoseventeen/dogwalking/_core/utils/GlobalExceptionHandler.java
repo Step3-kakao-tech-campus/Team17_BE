@@ -8,6 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * GlobalExceptionHandler : @RestControllerAdvice를 이용해 전역적으로 에러를 핸들링 하는 클래스
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
