@@ -20,7 +20,7 @@ public class ApplicationController {
     private final ApplicationWriteService applicationWriteService;
     private final ApplicationReadService applicationReadService;
 
-    @GetMapping("/application")
+    @GetMapping("/application/{applicationId}")
     public ApiResponse<ApiResponse.CustomBody<GetAppResDTO>> getApp(@PathVariable Long applicationId){
 
         GetAppResDTO response = applicationReadService.getApp(applicationId);
