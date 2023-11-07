@@ -89,32 +89,32 @@ public class HomeService {
     private static Double getLastKey(List<Notification> notifications, Double curLat, Double curLng) {
         if (notifications.isEmpty()) {
             return CursorRequest.NONE_KEY;
-        } else {
-
-            Double lat = notifications.get(notifications.size() - 1).getLat();
-            Double lng = notifications.get(notifications.size() - 1).getLng();
-
-            final Double R = 6371.0;
-
-            // 위도 및 경도를 라디안으로 변환
-            Double latRad = Math.toRadians(lat);
-            Double lngRad = Math.toRadians(lng);
-            Double curLatRad = Math.toRadians(curLat);
-            Double curLngRad = Math.toRadians(curLng);
-
-            // 위도 및 경도의 차이 계산
-            Double dLat = curLatRad - latRad;
-            Double dLng = curLngRad - lngRad;
-
-            // 하버사인 공식을 사용하여 거리 계산
-            Double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                    Math.cos(latRad) * Math.cos(curLatRad) *
-                            Math.sin(dLng / 2) * Math.sin(dLng / 2);
-
-            Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-            return R * c;
-
         }
+
+        Double lat = notifications.get(notifications.size() - 1).getLat();
+        Double lng = notifications.get(notifications.size() - 1).getLng();
+
+        final Double R = 6371.0;
+
+        // 위도 및 경도를 라디안으로 변환
+        Double latRad = Math.toRadians(lat);
+        Double lngRad = Math.toRadians(lng);
+        Double curLatRad = Math.toRadians(curLat);
+        Double curLngRad = Math.toRadians(curLng);
+
+        // 위도 및 경도의 차이 계산
+        Double dLat = curLatRad - latRad;
+        Double dLng = curLngRad - lngRad;
+
+        // 하버사인 공식을 사용하여 거리 계산
+        Double formula = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(latRad) * Math.cos(curLatRad) *
+                        Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+        Double result = 2 * Math.atan2(Math.sqrt(formula), Math.sqrt(1 - formula));
+
+        return R * result;
+
+
     }
 }
