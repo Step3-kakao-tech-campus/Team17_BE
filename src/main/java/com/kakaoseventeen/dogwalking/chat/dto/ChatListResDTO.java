@@ -5,6 +5,7 @@ import lombok.Builder;
 public record ChatListResDTO(
         Long chatRoomId,
         Long userId,
+        String userNickname,
         String userImage,
         String chatContent,
         String walkType,

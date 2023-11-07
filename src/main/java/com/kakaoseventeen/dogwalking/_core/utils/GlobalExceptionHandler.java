@@ -1,6 +1,8 @@
 package com.kakaoseventeen.dogwalking._core.utils;
 
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMatchNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMemberNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -107,5 +109,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ImageNotExistException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(ImageNotExistException e){
         return ApiResponseGenerator.fail(MessageCode.IMAGE_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ChatRoomMemberNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ChatRoomMemberNotFoundException e){
+        return ApiResponseGenerator.fail(ChatRoomMessageCode.MEMBER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(ChatRoomMatchNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> hadleIllegalArgumentException(ChatRoomMatchNotFoundException e){
+        return ApiResponseGenerator.fail(ChatRoomMessageCode.MATCH_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
     }
 }

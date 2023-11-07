@@ -54,12 +54,11 @@ public class ChatRoomReadService {
 
             // 채팅룸의 notiMember정보로 match, walk에서 찾기
             Walk walk = walkRepository.findWalkByMaster(chatRoom.getNotiMemberId()).orElseThrow(() -> new RuntimeException("산책의 정보가 존재하지 않습니다."));
-            //Notification notification = notificationJpaRepository.findNotificationByMemberId()
-            //Match match = matchingRepository.findMatchByNotificationId(chatRoom.getNotiMemberId());
 
             return ChatListResDTO.builder()
                     .chatRoomId(chatRoomId)
                     .userId(chatMessage.getSenderId().getId())
+                    .userNickname(chatMessage.getSenderId().getNickname())
                     .userImage(chatMessage.getSenderId().getProfileImage())
                     .chatContent(chatMessage.getContent())
                     .walkType(walk.getWalkStatus().toString())
@@ -69,14 +68,6 @@ public class ChatRoomReadService {
         // TODO - MatchingId 포함
 
         return chatListResDTOS;
-
-
-
-
-
-
-
-
 
     }
 }
