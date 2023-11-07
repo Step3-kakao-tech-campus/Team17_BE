@@ -10,6 +10,8 @@ import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +27,7 @@ public class ApplicationWriteService {
     @Transactional
     public void createApp(CreateAppReqDTO createAppReqDTO){
         // TODO - Custom 예외 적용
-        Member member = memberJpaRepository.findById(createAppReqDTO.memberId()).orElseThrow(() -> new RuntimeException("잘못된 사용자 입니다."));
+        Member member = memberJpaRepository.findByEmail(getEmail()).orElseThrow(() -> new RuntimeException("잘못된 사용자 입니다."));
 
         Application application = getApplication(createAppReqDTO, member);
 
@@ -40,6 +42,12 @@ public class ApplicationWriteService {
         matchingRepository.save(match);
 
 
+    }
+
+    private String getEmail(){
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String email = loggedInUser.getName();
+        return email;
     }
 
     private static Match getMatch(Application application, Notification notification) {
