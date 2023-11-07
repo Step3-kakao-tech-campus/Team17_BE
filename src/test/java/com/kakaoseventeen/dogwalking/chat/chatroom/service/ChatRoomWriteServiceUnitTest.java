@@ -20,13 +20,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 /**
- * ChatRoomWriteServiceTest(채팅 방 서비스 단위 테스트)
+ * ChatRoomWriteServiceUnitTest(채팅 방 서비스 단위 테스트)
  *
  * @author 영규 박
  * @version 1.0
  */
 @ExtendWith(MockitoExtension.class)
-public class ChatRoomWriteServiceTest {
+public class ChatRoomWriteServiceUnitTest {
 
     @Mock
     MemberJpaRepository memberJpaRepository;
