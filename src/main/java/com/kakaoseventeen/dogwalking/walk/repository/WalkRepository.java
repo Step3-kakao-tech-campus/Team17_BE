@@ -31,4 +31,15 @@ public interface WalkRepository extends JpaRepository<Walk, Long> {
 
     Optional<Walk> findWalkByMaster(Member member);
 
+    /**
+     * walkStatus가 END가 아니고, 사용자나 지원자 id가 유저 id인 walk들 반환
+     */
+    @Query(value = "SELECT w.* " +
+            "FROM Walk w " +
+            "LEFT JOIN Notification n ON w.notification_id = n.id " +
+            "WHERE (w.master_id = :userId OR w.walker_id = :userId) " +
+            "AND w.walk_status != 'END' " +
+            "AND w.is_reviewed != 'N'", nativeQuery = true)
+    List<Walk> findWalkWhatNotEnd(Long userId);
+
 }

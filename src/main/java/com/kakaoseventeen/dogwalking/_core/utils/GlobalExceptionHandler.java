@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking._core.utils;
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMatchNotFoundException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReviewMemberNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -116,7 +117,12 @@ public class GlobalExceptionHandler {
         return ApiResponseGenerator.fail(ChatRoomMessageCode.MEMBER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(ChatRoomMatchNotFoundException.class)
-    public ApiResponse<ApiResponse.CustomBody> hadleIllegalArgumentException(ChatRoomMatchNotFoundException e){
+    public ApiResponse<ApiResponse.CustomBody> hadnleIllegalArgumentException(ChatRoomMatchNotFoundException e){
         return ApiResponseGenerator.fail(ChatRoomMessageCode.MATCH_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ReviewMemberNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ReviewMemberNotFoundException e){
+        return ApiResponseGenerator.fail(ReviewMessageCode.REVIEW_MEMBER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
     }
 }

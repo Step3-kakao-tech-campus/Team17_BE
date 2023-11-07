@@ -10,10 +10,7 @@ import com.kakaoseventeen.dogwalking.walk.service.WalkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,6 +44,15 @@ public class WalkController {
     @PostMapping("walk/end/{matchingId}")
     public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.EndWalk>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("matchingId") Long matchingId) throws MatchNotExistException, WalkNotExistException, PaymentNotExistException {
         WalkRespDTO.EndWalk respDTO = walkService.terminateWalk(customUserDetails, matchingId);
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
+    }
+
+    /**
+     * 리뷰 작성되지 않은 산책 조회 메서드
+     */
+    @GetMapping("walk/notReviwed")
+    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.FindNotEndWalksByUserId>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails) throws MemberNotExistException, WalkNotExistException{
+        WalkRespDTO.FindNotEndWalksByUserId respDTO = walkService.findAllWalkStatusByUserId(customUserDetails);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 }
