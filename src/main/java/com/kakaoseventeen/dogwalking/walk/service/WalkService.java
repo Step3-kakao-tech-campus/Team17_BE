@@ -44,8 +44,6 @@ public class WalkService {
 
     private final PaymentRepository paymentRepository;
 
-    private final EntityManager em;
-
     /**
      * 산책 허락하기 메서드
      */
@@ -99,19 +97,15 @@ public class WalkService {
     }
 
     /**
-     * userId를 통한 산책 조회 메서드
+     * 종료되지 않은 산책 반환 메서드
      */
     @Transactional(readOnly = true)
-    public WalkRespDTO.FindByUserId findAllWalkStatusByUserId(long userId) throws MemberNotExistException{
-        Optional<Member> member = memberJpaRepository.findById(userId);
+    public WalkRespDTO.FindNotEndWalksByUserId findAllWalkStatusByUserId(CustomUserDetails customUserDetails) throws MemberNotExistException {
+        Member member = memberJpaRepository.findById(customUserDetails.getMember().getId()).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
 
-        if (member.isEmpty()) {
-            throw new MemberNotExistException(MEMBER_NOT_EXIST);
-        }
+        List<Walk> walks = walkRepository.findWalkWhatNotEnd(member.getId());
 
-        List<Walk> walks = walkRepository.findByWalkWithUserIdAndEndStatus(userId);
-
-        return new WalkRespDTO.FindByUserId(walks);
+        return new WalkRespDTO.FindNotEndWalksByUserId(walks);
     }
 }
 
