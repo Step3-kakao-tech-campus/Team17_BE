@@ -97,7 +97,7 @@ public class WalkService {
     }
 
     /**
-     * 종료되지 않은 산책 반환 메서드
+     * 종료되고, 리뷰가 작성되지 않은 산책 반환 메서드
      */
     @Transactional(readOnly = true)
     public WalkRespDTO.FindNotEndWalksByUserId findAllWalkStatusByUserId(CustomUserDetails customUserDetails) throws MemberNotExistException {
