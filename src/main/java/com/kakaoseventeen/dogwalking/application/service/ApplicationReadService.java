@@ -5,6 +5,8 @@ import com.kakaoseventeen.dogwalking.application.dto.GetAppResDTO;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.member.domain.Member;
+import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +26,11 @@ public class ApplicationReadService {
         Application application = applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("존재하지 않는 지원서 입니다."));
         Match match = matchingRepository.findByApplicationId(application).orElseThrow(() -> new RuntimeException("잘못된 요청 입니다."));
 
+
         return GetAppResDTO.builder()
                 .aboutMe(application.getAboutMe())
                 .title(application.getTitle())
+                .memberNickname(application.getAppMemberId().getNickname())
                 .experience(application.getExperience())
                 .notificationId(match.getNotificationId().getId())
                 .memberImage(application.getAppMemberId().getProfileImage())

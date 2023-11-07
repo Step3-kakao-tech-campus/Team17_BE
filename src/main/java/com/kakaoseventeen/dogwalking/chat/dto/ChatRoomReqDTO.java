@@ -4,7 +4,8 @@ import lombok.Builder;
 
 public record ChatRoomReqDTO(
         Long notiMemberId,
-        Long appMemberId
+        Long appMemberId,
+        Long matchId
 ) {
     @Builder
     public ChatRoomReqDTO{
