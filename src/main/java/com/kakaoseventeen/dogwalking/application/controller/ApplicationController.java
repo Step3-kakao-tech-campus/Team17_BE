@@ -21,9 +21,9 @@ public class ApplicationController {
     private final ApplicationReadService applicationReadService;
 
     @GetMapping("/application")
-    public ApiResponse<ApiResponse.CustomBody<GetAppResDTO>> getApp(@RequestParam Long id){
+    public ApiResponse<ApiResponse.CustomBody<GetAppResDTO>> getApp(@PathVariable Long applicationId){
 
-        GetAppResDTO response = applicationReadService.getApp(id);
+        GetAppResDTO response = applicationReadService.getApp(applicationId);
 
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
