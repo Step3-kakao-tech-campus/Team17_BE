@@ -1,5 +1,7 @@
 package com.kakaoseventeen.dogwalking.chat.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.exception.ChatRoomMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMemberNotFoundException;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatRoomReqDTO;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
@@ -19,9 +21,8 @@ public class ChatRoomWriteService {
     @Transactional
     public void save(ChatRoomReqDTO chatRoomReqDTO){
 
-        // TODO - 커스텀 Exception 적용할 것
-        Member appMember = memberJpaRepository.findById(chatRoomReqDTO.appMemberId()).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
-        Member notiMember = memberJpaRepository.findById(chatRoomReqDTO.notiMemberId()).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+        Member appMember = memberJpaRepository.findById(chatRoomReqDTO.appMemberId()).orElseThrow(() -> new ChatRoomMemberNotFoundException(ChatRoomMessageCode.MEMBER_NOT_FOUND));
+        Member notiMember = memberJpaRepository.findById(chatRoomReqDTO.notiMemberId()).orElseThrow(() -> new ChatRoomMemberNotFoundException(ChatRoomMessageCode.MEMBER_NOT_FOUND));
 
         ChatRoom chatRoom = getChatRoom(appMember, notiMember);
 
