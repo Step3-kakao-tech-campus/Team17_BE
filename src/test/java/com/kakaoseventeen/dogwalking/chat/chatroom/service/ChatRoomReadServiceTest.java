@@ -26,14 +26,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-
+/**
+ * ChatRoomReadServiceTest(채팅 방 서비스 연결 테스트)
+ * ChatRoomReadService 와 Repository 연결 테스트
+ *
+ * @author 영규 박
+ * @version 1.0
+ */
 @SpringBootTest
 public class ChatRoomReadServiceTest {
 
@@ -52,7 +57,7 @@ public class ChatRoomReadServiceTest {
     @Autowired
     private ChatRoomReadService chatRoomReadService;
 
-    @Autowired
+    @PersistenceContext
     private EntityManager em;
 
 
