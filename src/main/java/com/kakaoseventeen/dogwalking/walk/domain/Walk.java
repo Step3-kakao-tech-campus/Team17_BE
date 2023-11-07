@@ -39,7 +39,7 @@ public class Walk {
     private WalkStatus walkStatus;
 
     @Convert(converter = BooleanToYNConverter.class)
-    private boolean isReviewd;
+    private boolean isReviewed;
 
     private LocalDateTime startTime;
 
@@ -54,7 +54,7 @@ public class Walk {
                 .master(master)
                 .walker(walker)
                 .notification(notification)
-                .isReviewd(false)
+                .isReviewed(false)
                 .build();
     }
 
@@ -81,6 +81,6 @@ public class Walk {
     }
 
     public void isReviewdToTrue(){
-        this.isReviewd = true;
+        this.isReviewed = true;
     }
 }
