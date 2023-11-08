@@ -49,7 +49,6 @@ public class DogController {
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
-
     /**
      * 강아지 프로필 조회 메서드
      */
