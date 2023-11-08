@@ -13,7 +13,6 @@ public enum MessageCode {
 
     WALK_NOT_EXIST("해당 산책이 존재하지 않습니다."),
     MATCH_NOT_EXIST("해당 매칭이 존재하지 않습니다."),
-    MemberNotExistException("해당 유저가 존재하지 않습니다."),
 
     DOG_LIST_NOT_EXIST("해당 강아지가 존재하지 않습니다."),
     DOG_NOT_EXIST("등록된 강아지가 아닙니다."),
