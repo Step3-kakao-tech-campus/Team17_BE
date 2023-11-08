@@ -14,8 +14,8 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
 
     @Query("select n " +
             "from Notification n " +
-            "left join Member m on n.dog.member.id = m.id " +
-            "left join Walk w on w.notification.id = n.id " +
+            "join n.walk w " +
+            "join n.dog.member m " +
             "where m.id = :userId")
     List<Notification> findNotificationByMemberId(Long userId);
 
