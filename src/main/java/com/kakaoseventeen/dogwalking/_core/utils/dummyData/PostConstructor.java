@@ -35,13 +35,13 @@ public class PostConstructor {
                 .id(1L)
                 .nickname("test1")
                 .email("test1@naver.com")
-                .password(passwordEncoder.encode("test1234"))
+                .password(passwordEncoder.encode("test1234!"))
                 .build();
         Member member2 = Member.builder() // 지원자
                 .id(2L)
                 .nickname("test2")
                 .email("test2@naver.com")
-                .password(passwordEncoder.encode("test1234"))
+                .password(passwordEncoder.encode("test1234!"))
                 .build();
         memberJpaRepository.saveAll(List.of(member1, member2));
 
