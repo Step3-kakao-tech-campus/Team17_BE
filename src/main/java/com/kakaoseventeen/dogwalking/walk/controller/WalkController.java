@@ -50,7 +50,7 @@ public class WalkController {
     /**
      * 리뷰 작성되지 않은 산책 조회 메서드
      */
-    @GetMapping("walk/notReviwed")
+    @GetMapping("walk/notReviewed")
     public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.FindNotEndWalksByUserId>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails) throws MemberNotExistException, WalkNotExistException{
         WalkRespDTO.FindNotEndWalksByUserId respDTO = walkService.findAllWalkStatusByUserId(customUserDetails);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
