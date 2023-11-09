@@ -1,5 +1,8 @@
 package com.kakaoseventeen.dogwalking.application.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.ApplicationMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.application.ApplicationMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.application.NotificationNotFoundException;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.dto.CreateAppReqDTO;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
@@ -26,16 +29,17 @@ public class ApplicationWriteService {
 
     @Transactional
     public void createApp(CreateAppReqDTO createAppReqDTO){
-        // TODO - Custom 예외 적용
-        Member member = memberJpaRepository.findByEmail(getEmail()).orElseThrow(() -> new RuntimeException("잘못된 사용자 입니다."));
+
+        Member member = memberJpaRepository.findByEmail(getEmail())
+                .orElseThrow(() -> new ApplicationMemberNotFoundException(ApplicationMessageCode.MEMBER_NOT_FOUND));
 
         Application application = getApplication(createAppReqDTO, member);
 
 
         applicationRepository.save(application);
 
-        // TODO - Custom 예외 적용
-        Notification notification = notificationJpaRepository.findById(createAppReqDTO.notificationId()).orElseThrow(() -> new RuntimeException("삭제된 공고글 입니다."));
+        Notification notification = notificationJpaRepository.findById(createAppReqDTO.notificationId())
+                .orElseThrow(() -> new NotificationNotFoundException(ApplicationMessageCode.NOTIFICATION_NOT_FOUND));
 
         Match match = getMatch(application, notification);
 
