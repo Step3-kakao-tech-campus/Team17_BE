@@ -7,6 +7,7 @@ import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.review.dto.GetReviewResDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +15,8 @@ public class ReviewReadService {
 
     private final MemberJpaRepository memberJpaRepository;
 
-    public GetReviewResDTO getReviewPrivew(Long memberId){
+    @Transactional(readOnly = true)
+    public GetReviewResDTO getReviewPreview(Long memberId){
 
 
         Member member = memberJpaRepository.findById(memberId)
