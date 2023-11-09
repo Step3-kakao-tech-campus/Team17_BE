@@ -36,7 +36,7 @@ public class ReviewWriteService {
      * @param writeReviewReqDTO
      * @apiNote 리뷰 작성 요청을 받아 DB에 저장한다.
      */
-    public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO){
+    public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO) throws WalkNotExistException, ReceiveMemberIdNotExistException{
         // TODO - 주석제거
         // 객체 유효성 검사 Validator
         validator(writeReviewReqDTO);
