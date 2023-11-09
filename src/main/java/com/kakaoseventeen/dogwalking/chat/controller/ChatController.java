@@ -2,7 +2,6 @@ package com.kakaoseventeen.dogwalking.chat.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatMessageResDTO;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatReqDTO;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatResDTO;
@@ -14,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,12 +31,12 @@ public class ChatController {
      * connect : /chat/connect
      * subscribe : /topic/chat-sub/{roomId}
      * send : /app/{roomId}
-     * @param roomId
-     * @param chatMessage
+     * @param roomId is PK ChatRoom table
+     * @param chatMessage ChatReqDTO.class
      * @return
      */
     @MessageMapping("/{roomId}")
-    @SendTo("/topic/chat-sub/{roomId}")
+    @SendTo("/api/topic/chat-sub/{roomId}")
     public ChatResDTO sendMessage(
             @DestinationVariable Long roomId,
             @Payload ChatReqDTO chatMessage
@@ -45,7 +45,7 @@ public class ChatController {
         return chatMessageWriteService.save(chatMessage, roomId);
     }
 
-    @GetMapping("api/chat/{chatRoomId}")
+    @GetMapping("/api/chat/{chatRoomId}")
     public ApiResponse<ApiResponse.CustomBody<List<ChatMessageResDTO>>> getMessage(@PathVariable Long chatRoomId){
         List<ChatMessageResDTO> response = chatMessageReadService.getMessage(chatRoomId);
 
