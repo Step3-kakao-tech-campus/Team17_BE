@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * S3Config : S3의 여러 설정 정보들을 @Value 어노테이션으로 application.yml에 지정된 값을 가져와 S3 인증 객체를 생성하는 클래스
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Configuration
 public class S3Config {
 

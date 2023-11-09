@@ -1,6 +1,8 @@
 package com.kakaoseventeen.dogwalking.review.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.ReviewMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.MemberIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.NotificationIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReceiveMemberIdNotExistException;
@@ -11,6 +13,8 @@ import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepo
 import com.kakaoseventeen.dogwalking.review.domain.Review;
 import com.kakaoseventeen.dogwalking.review.dto.WriteReviewReqDTO;
 import com.kakaoseventeen.dogwalking.review.repository.ReviewRepository;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +25,8 @@ import java.util.Objects;
 @Transactional
 @RequiredArgsConstructor
 public class ReviewWriteService {
+
+    private final WalkRepository walkRepository;
     private final ReviewRepository reviewRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final NotificationJpaRepository notificationJpaRepository;
@@ -30,9 +36,13 @@ public class ReviewWriteService {
      * @param writeReviewReqDTO
      * @apiNote 리뷰 작성 요청을 받아 DB에 저장한다.
      */
-    public void writeReview(WriteReviewReqDTO writeReviewReqDTO){
+    public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO) throws WalkNotExistException, ReceiveMemberIdNotExistException{
+        // TODO - 주석제거
         // 객체 유효성 검사 Validator
         validator(writeReviewReqDTO);
+
+        Walk walk = walkRepository.findById(walkId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+        walk.isReviewdToTrue();
 
         // 리뷰 받는 사람이 견주인지 확인
         // Notification -> Dog -> Member

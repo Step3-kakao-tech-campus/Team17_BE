@@ -47,10 +47,7 @@ public class NotificationService {
         );
 
         Boolean isMine = null;
-        if(sessionMember.getId() == dog.getMember().getId())
-            isMine = true;
-        else
-            isMine = false;
+        isMine = sessionMember.getId() == dog.getMember().getId();
         return new LoadNotificationRespDTO(notification, dog, isMine);
     }
 

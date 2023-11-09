@@ -5,6 +5,8 @@ import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.review.domain.Review;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
+import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,12 +45,15 @@ public class MemberProfileRespDTO {
                 .id(member.getId())
                 .nickname(member.getNickname())
                 .profileImage(member.getProfileImage())
+                .profileContent(member.getProfileContent())
                 .dogBowl(member.getDogBowl())
                 .coin(member.getCoin())
                 .build();
 
         if (!notifications.isEmpty()) {
-            dto.setNotifications(notifications.stream().map(NotificationDTO::new).collect(Collectors.toList()));
+            dto.setNotifications(notifications.stream()
+                    .map(notification -> new NotificationDTO(notification, notification.getWalk().getWalkStatus()))
+                    .collect(Collectors.toList()));
         }
 
         if (!dogs.isEmpty()) {
@@ -92,11 +97,14 @@ public class MemberProfileRespDTO {
 
         private InDogDTO dog;
 
-        public NotificationDTO(Notification notification){
+        private String walkStatus;
+
+        public NotificationDTO(Notification notification, WalkStatus walkStatus){
             this.id = notification.getId();
             this.title = notification.getTitle();
             this.start = notification.getStartTime();
             this.end = notification.getEndTime();
+            this.walkStatus = walkStatus.toString();
             this.dog = new InDogDTO(notification.getDog());
         }
     }
@@ -122,6 +130,8 @@ public class MemberProfileRespDTO {
 
         private Long id;
 
+        private String title;
+
         private String aboutMe;
 
         private String certification;
@@ -130,6 +140,7 @@ public class MemberProfileRespDTO {
 
         public ApplicationDTO(Application application){
             this.id = application.getApplicationId();
+            this.title = application.getTitle();
             this.aboutMe = application.getAboutMe();
             this.certification = application.getCertification();
             this.experience = application.getExperience();

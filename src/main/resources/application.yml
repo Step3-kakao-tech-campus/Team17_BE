@@ -16,4 +16,4 @@ spring:
     driver-class-name: org.h2.Driver
 
 jwt:
-  secret: thisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkey
+  secret: ${key}

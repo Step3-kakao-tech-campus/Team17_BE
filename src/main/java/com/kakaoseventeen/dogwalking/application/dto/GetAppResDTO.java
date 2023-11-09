@@ -5,6 +5,7 @@ import lombok.Builder;
 public record GetAppResDTO(
         String title,
         Long memberId,
+        String memberNickname,
         Long notificationId,
         String memberImage,
         String aboutMe,

@@ -34,8 +34,7 @@ public class JwtProvider {
 
     public static Key createKey() {
         byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET);
-        Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
-        return signingKey;
+        return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
     }
 
     public static LoginRespDTO createToken(Member member) {
@@ -63,7 +62,7 @@ public class JwtProvider {
     }
 
     // 헤더의 access 토큰의 유효성 + 만료일자 확인
-    public boolean isTokenValidate(String accessToken, HttpServletRequest request) {
+    public boolean isTokenValidate(String accessToken) {
         try {
             //JWT 토큰 파싱 및 검증을 시도
             Jws<Claims> claims = Jwts.parserBuilder()
@@ -74,16 +73,16 @@ public class JwtProvider {
             // 만료 시간이 현재 시간 이후라면 토큰은 유효함
             return !claims.getBody().getExpiration().before(new Date());
         } catch (SecurityException e) {
-            log.info("Invalid JWT signature.");
+            log.error("Invalid JWT signature.");
             throw new JwtException("잘못된 JWT 형식입니다.");
         } catch (MalformedJwtException e) {
-            log.info("Invalid JWT token.");
+            log.error("Invalid JWT token.");
             throw new JwtException("유효하지 않은 토큰입니다.");
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token.");
+            log.error("Expired JWT token.");
             throw new JwtException("토큰 기한이 만료되었습니다.");
         } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT token.");
+            log.error("Unsupported JWT token.");
             throw new JwtException("지원하지 않는 JWT 토큰입니다.");
         }
     }
@@ -95,9 +94,7 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(token);
 
-        Integer id = (Integer) claims.getBody().get("id");
-        Long idLong = Long.valueOf(id);
-        Member member = Member.builder().id(idLong).build();
+        Long idLong = Long.parseLong(claims.getBody().get("id").toString());
 
         CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(claims.getBody().getSubject());
         //인증용 객체
