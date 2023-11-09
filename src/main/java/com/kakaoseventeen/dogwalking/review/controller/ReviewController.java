@@ -33,7 +33,7 @@ public class ReviewController {
     @GetMapping("/review/{memberId}")
     public ApiResponse<ApiResponse.CustomBody<GetReviewResDTO>> getReview(@PathVariable Long memberId){
 
-        GetReviewResDTO response = reviewReadService.getReviewPrivew(memberId);
+        GetReviewResDTO response = reviewReadService.getReviewPreview(memberId);
 
         return ApiResponseGenerator.success(response, HttpStatus.OK);
 
