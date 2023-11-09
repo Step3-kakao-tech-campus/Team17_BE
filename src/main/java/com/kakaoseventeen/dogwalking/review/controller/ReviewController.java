@@ -2,7 +2,7 @@ package com.kakaoseventeen.dogwalking.review.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReceiveMemberIdNotExistException;
 import com.kakaoseventeen.dogwalking.review.dto.GetReviewResDTO;
 import com.kakaoseventeen.dogwalking.review.dto.WriteReviewReqDTO;

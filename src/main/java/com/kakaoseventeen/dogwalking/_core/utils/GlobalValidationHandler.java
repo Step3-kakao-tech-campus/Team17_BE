@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking._core.utils;
 
-import com.kakaoseventeen.dogwalking._core.utils.exception.ValidationException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.notification.ValidationException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

@@ -1,8 +1,7 @@
 package com.kakaoseventeen.dogwalking.match.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.NotificationException;
-import com.kakaoseventeen.dogwalking.application.domain.Application;
+import com.kakaoseventeen.dogwalking._core.utils.exception.notification.NotificationException;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.dto.MatchRespDTO;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;

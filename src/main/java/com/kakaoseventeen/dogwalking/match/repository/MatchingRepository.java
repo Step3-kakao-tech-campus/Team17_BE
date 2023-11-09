@@ -44,5 +44,4 @@ public interface MatchingRepository extends JpaRepository<Match, Long> {
 
     Optional<Match> findByApplicationId(Application applicationId);
 
-    Optional<Match> findMatchByNotificationId(Notification notification);
 }

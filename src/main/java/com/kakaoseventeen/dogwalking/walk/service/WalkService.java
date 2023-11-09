@@ -1,9 +1,12 @@
 package com.kakaoseventeen.dogwalking.walk.service;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
-import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.MemberNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.payment.PaymentNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.DuplicateNotificationWithWalkException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
@@ -16,13 +19,11 @@ import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode.MEMBER_NOT_EXIST;
 
@@ -68,7 +69,7 @@ public class WalkService {
      * 산책 시작하기 메서드
      */
     @Transactional
-    public WalkRespDTO.StartWalk startWalk(Long matchingId) throws WalkNotExistException{
+    public WalkRespDTO.StartWalk startWalk(Long matchingId) throws WalkNotExistException {
         Walk walk = matchingRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
         walk.startWalk();
 

@@ -19,8 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class HomeService {
+
     private final NotificationJpaRepository notificationJpaRepository;
 
+    /**
+     * 메인페이지에서 위도, 경도, 견종, 크기, 검색어를 통해 포스트를 가져오는 메서드
+     */
     public HomeRespDTO home(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, CustomUserDetails customUserDetails) {
         String image;
         if(customUserDetails == null){

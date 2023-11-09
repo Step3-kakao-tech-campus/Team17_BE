@@ -20,6 +20,9 @@ public class HomeController {
 
     private final HomeService homeService;
 
+    /**
+     * 메인페이지에서 위도, 경도, 견종, 크기, 검색어를 통해 포스트를 가져오는 메서드
+     */
     @GetMapping("/home")
     public ResponseEntity<?> getPosts(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                       CursorRequest cursorRequest,

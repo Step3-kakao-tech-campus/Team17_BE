@@ -1,7 +1,6 @@
 package com.kakaoseventeen.dogwalking.notification.dto.response;
 
 import com.kakaoseventeen.dogwalking._core.utils.CursorRequest;
-import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import lombok.Getter;
 

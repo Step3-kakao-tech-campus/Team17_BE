@@ -5,6 +5,10 @@ import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.MemberNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.payment.PaymentNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.DuplicateNotificationWithWalkException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
 import com.kakaoseventeen.dogwalking.walk.service.WalkService;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking._core.utils.exception;
+package com.kakaoseventeen.dogwalking._core.utils.exception.notification;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import lombok.Getter;
@@ -11,5 +11,4 @@ public class NotificationException extends RuntimeException {
     public NotificationException(MessageCode messageCode) {
         this.messageCode = messageCode;
     }
-
 }
