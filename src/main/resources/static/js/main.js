@@ -23,7 +23,7 @@ function connect(event) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/chat/connect');
+        var socket = new SockJS('/api/connect');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
@@ -34,7 +34,7 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/chat-sub/1', onMessageReceived);
+    stompClient.subscribe('/api/topic/chat-sub/1', onMessageReceived);
 
     connectingElement.classList.add('hidden');
 }
@@ -54,7 +54,7 @@ function sendMessage(event) {
             memberId: username,
             messageType: 'CHAT'
         };
-        stompClient.send("/app/1", {}, JSON.stringify(chatMessage));
+        stompClient.send("/api/app/1", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
