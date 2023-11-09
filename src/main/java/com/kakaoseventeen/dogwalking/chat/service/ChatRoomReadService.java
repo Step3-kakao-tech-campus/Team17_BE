@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 박영규
@@ -33,8 +34,7 @@ public class ChatRoomReadService {
 
     private String getEmail(){
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String email = loggedInUser.getName();
-        return email;
+        return loggedInUser.getName();
     }
 
     /**
@@ -57,6 +57,8 @@ public class ChatRoomReadService {
             Walk walk = walkRepository.findWalkByMaster(chatRoom.getNotiMemberId())
                     .orElseThrow(() -> new RuntimeException("산책의 정보가 존재하지 않습니다."));
 
+            boolean isDogOwner = Objects.equals(walk.getMaster().getId(), member.getId());
+
             return ChatListResDTO.builder()
                     .chatRoomId(chatRoom.getChatRoomId())
                     .memberId(chatMessage.getSenderId().getId())
@@ -65,6 +67,7 @@ public class ChatRoomReadService {
                     .chatContent(chatMessage.getContent())
                     .walkType(walk.getWalkStatus().toString())
                     .matchId(chatRoom.getMatchId().getMatchId())
+                    .isDogOwner(isDogOwner)
                     .build();
         }).toList();
 
