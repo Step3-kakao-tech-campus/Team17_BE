@@ -29,7 +29,7 @@ public class ChatMessage {
     @ManyToOne(fetch = FetchType.LAZY)
     private ChatRoom chatRoomId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member senderId;
 
     @CreatedDate
