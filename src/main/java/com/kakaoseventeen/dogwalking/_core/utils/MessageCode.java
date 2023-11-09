@@ -2,12 +2,17 @@ package com.kakaoseventeen.dogwalking._core.utils;
 
 import lombok.Getter;
 
+/**
+ * MessageCode : 에러의 메세지 내용들을 제공하는 enum 클래스
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Getter
 public enum MessageCode {
 
     WALK_NOT_EXIST("해당 산책이 존재하지 않습니다."),
     MATCH_NOT_EXIST("해당 매칭이 존재하지 않습니다."),
-    MemberNotExistException("해당 유저가 존재하지 않습니다."),
 
     DOG_LIST_NOT_EXIST("해당 강아지가 존재하지 않습니다."),
     DOG_NOT_EXIST("등록된 강아지가 아닙니다."),

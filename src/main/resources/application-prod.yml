@@ -2,7 +2,7 @@ spring:
   config.activate.on-profile: prod
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
@@ -25,3 +25,12 @@ cloud:
     credentials:
       accessKey: ${Access_key}
       secretKey: ${Secret_key}
+
+jwt:
+  secret: thisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkey
+
+
+
+
+
+

@@ -1,10 +1,19 @@
 package com.kakaoseventeen.dogwalking._core.utils;
 
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMatchNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReviewMemberNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * GlobalExceptionHandler : @RestControllerAdvice를 이용해 전역적으로 에러를 핸들링 하는 클래스
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -30,9 +39,15 @@ public class GlobalExceptionHandler {
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(InvalidPasswordLengthException e){
         return ApiResponseGenerator.fail(MemberMessageCode.INVALID_PASSWORD_LENGTH.getValue(), HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(DuplicateEmailException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DuplicateEmailException e){
         return ApiResponseGenerator.fail(MemberMessageCode.DUPLICATE_EMAIL.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateNotificationWithWalkException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(DuplicateNotificationWithWalkException e){
+        return ApiResponseGenerator.fail(MessageCode.DUPLICATE_NOTIFICATION.getValue(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MemberNotExistException.class)
@@ -95,5 +110,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ImageNotExistException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(ImageNotExistException e){
         return ApiResponseGenerator.fail(MessageCode.IMAGE_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ChatRoomMemberNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ChatRoomMemberNotFoundException e){
+        return ApiResponseGenerator.fail(ChatRoomMessageCode.MEMBER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(ChatRoomMatchNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> hadnleIllegalArgumentException(ChatRoomMatchNotFoundException e){
+        return ApiResponseGenerator.fail(ChatRoomMessageCode.MATCH_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ReviewMemberNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ReviewMemberNotFoundException e){
+        return ApiResponseGenerator.fail(ReviewMessageCode.REVIEW_MEMBER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
     }
 }

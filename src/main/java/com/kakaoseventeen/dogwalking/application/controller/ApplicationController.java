@@ -4,6 +4,7 @@ package com.kakaoseventeen.dogwalking.application.controller;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 import com.kakaoseventeen.dogwalking.application.dto.CreateAppReqDTO;
+import com.kakaoseventeen.dogwalking.application.dto.GetAppMemberResDTO;
 import com.kakaoseventeen.dogwalking.application.dto.GetAppResDTO;
 import com.kakaoseventeen.dogwalking.application.service.ApplicationReadService;
 import com.kakaoseventeen.dogwalking.application.service.ApplicationWriteService;
@@ -20,10 +21,10 @@ public class ApplicationController {
     private final ApplicationWriteService applicationWriteService;
     private final ApplicationReadService applicationReadService;
 
-    @GetMapping("/application")
-    public ApiResponse<ApiResponse.CustomBody<GetAppResDTO>> getApp(@RequestParam Long id){
+    @GetMapping("/application/{applicationId}")
+    public ApiResponse<ApiResponse.CustomBody<GetAppResDTO>> getApp(@PathVariable Long applicationId){
 
-        GetAppResDTO response = applicationReadService.getApp(id);
+        GetAppResDTO response = applicationReadService.getApp(applicationId);
 
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
@@ -32,5 +33,14 @@ public class ApplicationController {
     public ResponseEntity<?> createApp(@RequestBody CreateAppReqDTO createAppReqDTO){
         applicationWriteService.createApp(createAppReqDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
+    }
+
+    @GetMapping("/application")
+    public ApiResponse<ApiResponse.CustomBody<GetAppMemberResDTO>> getAppMember(){
+
+         GetAppMemberResDTO response = applicationReadService.getAppMember();
+
+        return ApiResponseGenerator.success(response, HttpStatus.OK);
+
     }
 }

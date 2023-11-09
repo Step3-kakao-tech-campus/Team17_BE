@@ -49,7 +49,7 @@ public class Member {
         if (profileImage != null) {
             this.profileImage = profileImage;
         }
-        if (profileContent != null) {
+        if (!profileContent.isEmpty()) {
             this.profileContent = profileContent;
         }
     }

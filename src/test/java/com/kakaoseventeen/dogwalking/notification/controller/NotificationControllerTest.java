@@ -10,11 +10,14 @@ import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.dto.request.WriteNotificationReqDTO;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
@@ -22,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -51,11 +55,38 @@ class NotificationControllerTest {
     @Autowired
     DogJpaRepository dogJpaRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @BeforeEach
     void setUp() {
-        Member master1 = GetEntity.getMaster1();
+        Member master1 = memberJpaRepository.save(Member.builder()
+                .id(1L)
+                .nickname("닉네임1")
+                .email("mkwak1125@gmail.com")
+                .password(passwordEncoder.encode("kwak!6038"))
+                .profileImage("1번 이미지")
+                .profileContent("나는 1번 멤버")
+                .coin(BigDecimal.valueOf(100000))
+                .build());
+
+
+
+        Member master2 = memberJpaRepository.save(Member.builder()
+                .id(2L)
+                .nickname("닉네임2")
+                .email("asfd@gmail.com")
+                .password(passwordEncoder.encode("kwak!6038"))
+                .profileContent("나는 2번 멤버")
+                .profileImage("2번 이미지")
+                .dogBowl(80)
+                .coin(BigDecimal.valueOf(500000))
+                .dogBowl(55)
+                .build());
+
         memberJpaRepository.saveAndFlush(master1);
+        memberJpaRepository.saveAndFlush(master2);
 
 
         Dog dog1 = Dog.builder()
@@ -82,20 +113,24 @@ class NotificationControllerTest {
 
     }
 
-    @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+
+
+
+    @DisplayName("공고 상세페이지 불러오기 테스트 - 성공")
+    @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    void load_notification_test() throws Exception{
+    void load_notification_success_test() throws Exception{
         // given
 		int id = 1;
 
-        // when
+
         ResultActions resultActions = mvc.perform(
                 get(String.format("/api/notification/%d", id))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
         );
 
         // console
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
         System.out.println("테스트 : " + responseBody);
 
         // verify
@@ -104,12 +139,34 @@ class NotificationControllerTest {
         resultActions.andExpect(jsonPath("$.response.dog.dogId").value(1));
     }
 
-
-    @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @DisplayName("공고 상세페이지 불러오기 테스트 - 실패 (공고글 존재 x)")
+    @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    void load_dog() throws Exception{
+    void load_notification_fail_test() throws Exception{
         // given
-        int id = 1;
+        int id = 2;
+
+
+        ResultActions resultActions = mvc.perform(
+                get(String.format("/api/notification/%d", id))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        );
+
+        // console
+        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
+        System.out.println("테스트 : " + responseBody);
+
+        // verify
+        resultActions.andExpect(jsonPath("$.success").value("false"));
+        resultActions.andExpect(jsonPath("$.error.message").value("해당 공고글이 존재하지 않습니다."));
+
+    }
+
+
+    @DisplayName("강아지 불러오기 테스트 - 성공")
+    @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    void load_dog_success_test() throws Exception{
 
         // when
         ResultActions resultActions = mvc.perform(
@@ -119,7 +176,7 @@ class NotificationControllerTest {
         );
 
         // console
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
         System.out.println("테스트 : " + responseBody);
 
         resultActions.andExpect(jsonPath("$.success").value("true"));
@@ -128,9 +185,29 @@ class NotificationControllerTest {
         resultActions.andExpect(jsonPath("$.response.dogs[0].dogName").value("강아지이름1"));
     }
 
-    @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @DisplayName("강아지 불러오기 테스트 - 실패")
+    @WithUserDetails(value = "asfd@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
-    void write_notification() throws Exception{
+    void load_dog_fail_test() throws Exception{
+
+        // when
+        ResultActions resultActions = mvc.perform(
+                get(String.format("/api/notification"))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+
+        );
+
+        // console
+        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
+        System.out.println("테스트 : " + responseBody);
+
+        resultActions.andExpect(jsonPath("$.success").value("false"));
+    }
+
+    @DisplayName("공고글 작성하기 테스트 - 성공")
+    @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    void write_notification_success_test() throws Exception{
         // given
         WriteNotificationReqDTO writeNotificationReqDTO = new WriteNotificationReqDTO();
         writeNotificationReqDTO.setDogId(1L);
@@ -151,7 +228,7 @@ class NotificationControllerTest {
         );
 
         // console
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
         System.out.println("테스트 : " + responseBody);
 
         // verify
