@@ -31,6 +31,25 @@ spec:
                 secretKeyRef:
                   name: aws-secret
                   key: secretkey
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/dog_walking?useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: PASSWORD
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: JWT_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret-key-secret
+                  key: secretKey
           resources:
             requests:
               memory: 1Gi
