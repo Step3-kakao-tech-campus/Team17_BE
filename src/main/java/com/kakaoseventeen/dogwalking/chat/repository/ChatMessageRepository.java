@@ -5,6 +5,7 @@ import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,4 +17,7 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
      * @return Optional ChatMessage
      */
     Optional<ChatMessage> findTop1ByChatRoomIdOrderByChatMessageIdDesc(ChatRoom chatRoomId);
+
+
+    List<ChatMessage> findChatMessageByChatRoomId(ChatRoom chatRoomId);
 }
