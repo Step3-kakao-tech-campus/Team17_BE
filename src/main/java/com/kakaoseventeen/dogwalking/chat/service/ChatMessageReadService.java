@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
@@ -26,10 +27,11 @@ public class ChatMessageReadService {
 
         return chatMessages.stream()
                 .map(chatMessage -> ChatMessageResDTO.builder()
-                            .messageType(chatMessage.getMessageType())
-                            .memberId(chatMessage.getSenderId().getId())
-                            .content(chatMessage.getContent())
-                            .build()
+                        .messageType(chatMessage.getMessageType())
+                        .memberId(chatMessage.getSenderId().getId())
+                        .content(chatMessage.getContent())
+                        .createdAt(chatMessage.getCreatedAt().toEpochSecond(ZoneOffset.UTC))
+                        .build()
                 ).toList();
 
 
