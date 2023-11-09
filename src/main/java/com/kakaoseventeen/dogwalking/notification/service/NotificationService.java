@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking.notification.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.*;
+import com.kakaoseventeen.dogwalking._core.utils.exception.notification.*;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
 
@@ -24,9 +24,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class NotificationService {
+
     private final DogJpaRepository dogJpaRepository;
     private final NotificationJpaRepository notificationJpaRepository;
 
+    /**
+     * 공고글 강아지 불러오기 메서드
+     */
     public LoadDogRespDTO loadDog(Member sessionMember) throws DogListNotExistException {
         List<Dog> dogList = dogJpaRepository.findDogsByMember(sessionMember.getId());
         //등록된 강아지가 없을 때
@@ -36,6 +40,9 @@ public class NotificationService {
         return new LoadDogRespDTO(dogList);
     }
 
+    /**
+     * 공고글 상세보기 메서드
+     */
     public LoadNotificationRespDTO loadNotification(Long id, Member sessionMember) throws RuntimeException{
 
         Notification notification = notificationJpaRepository.findById(id).orElseThrow(
@@ -51,6 +58,10 @@ public class NotificationService {
         return new LoadNotificationRespDTO(notification, dog, isMine);
     }
 
+
+    /**
+     * 공고글 작성하기 메서드
+     */
 	@Transactional
     public void writeNotification(WriteNotificationReqDTO writeNotificationReqDTO, Member sessionMember) throws RuntimeException {
 
@@ -71,6 +82,9 @@ public class NotificationService {
         notificationJpaRepository.save(notification);
     }
 
+    /**
+     * 공고글 수정하기 메서드
+     */
     @Transactional
     public void editNotification(Long id, UpdateNotificationReqDTO updateNotificationReqDTO, Member sessionMember) throws RuntimeException {
         Notification notification = notificationJpaRepository.findById(id).orElseThrow(

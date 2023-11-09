@@ -2,9 +2,8 @@ package com.kakaoseventeen.dogwalking.review.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.ReviewMessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.MemberIdNotExistException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.review.NotificationIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReceiveMemberIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReviewContentNotExistException;
 import com.kakaoseventeen.dogwalking.member.domain.Member;

@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking.chat.service;
 
-import com.kakaoseventeen.dogwalking._core.utils.exception.ChatRoomMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.ChatRoomMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMatchNotFoundException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMemberNotFoundException;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;

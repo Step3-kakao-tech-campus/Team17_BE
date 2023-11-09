@@ -4,8 +4,7 @@ import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
 import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.S3Uploader;
-import com.kakaoseventeen.dogwalking._core.utils.exception.*;
-import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.*;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
@@ -15,12 +14,10 @@ import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
-import com.kakaoseventeen.dogwalking.payment.repository.PaymentRepository;
 import com.kakaoseventeen.dogwalking.review.domain.Review;
 import com.kakaoseventeen.dogwalking.review.repository.ReviewRepository;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
 import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
-import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,10 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 import static com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode.MEMBER_NOT_EXIST;
 
@@ -55,6 +49,9 @@ public class MemberService {
     private final NotificationJpaRepository notificationJpaRepository;
     private final ReviewRepository reviewRepository;
 
+    /**
+     * 로그인 메서드
+     */
     @Transactional
     public LoginRespDTO login(LoginReqDTO loginReqDTO) throws RuntimeException{
         //회원가입이 되어있는 유저인지 확인
@@ -106,7 +103,9 @@ public class MemberService {
         return new UpdateProfileRespDTO(member);
     }
 
-
+    /**
+     * 회원가입 메서드
+     */
     @Transactional
     public void signup(SignupReqDTO signupReqDTO){
         validSignupDTO(signupReqDTO);
@@ -116,6 +115,9 @@ public class MemberService {
         memberJpaRepository.save(member);
     }
 
+    /**
+     * 이메일, 비밀번호 형식 검증 메서드
+     */
     private void validSignupDTO(SignupReqDTO signupReqDTO) {
         if(!validator.validEmailFormat(signupReqDTO.email())){
             throw new InvalidEmailFormatException(MemberMessageCode.INVALID_EMAIL_FORMAT);
@@ -129,11 +131,15 @@ public class MemberService {
         }
     }
 
+    /**
+     * 중복된 이메일 검증 검증 메서드
+     */
     private void duplicateEmail(String email) {
         if(memberJpaRepository.existsByEmail(email)){
             throw new DuplicateEmailException(MemberMessageCode.DUPLICATE_EMAIL);
         }
     }
+
 
     private Member signupReqDtoToMember(SignupReqDTO signupReqDTO) {
         return Member.builder()

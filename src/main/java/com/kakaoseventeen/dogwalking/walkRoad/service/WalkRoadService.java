@@ -2,10 +2,9 @@ package com.kakaoseventeen.dogwalking.walkRoad.service;
 
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walkRoad.domain.WalkRoad;
 import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadReqDTO;
 import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadRespDTO;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * WalkRoad(산책 경로) 서비스

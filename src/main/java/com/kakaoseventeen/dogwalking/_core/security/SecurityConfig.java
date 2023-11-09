@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
-import com.kakaoseventeen.dogwalking._core.utils.exception.SecurityFilterException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.SecurityFilterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

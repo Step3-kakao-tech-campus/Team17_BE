@@ -1,8 +1,8 @@
 package com.kakaoseventeen.dogwalking.token.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.RefreshTokenExpiredException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.RefreshTokenNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.RefreshTokenExpiredException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.RefreshTokenNotExistException;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
 import com.kakaoseventeen.dogwalking.token.dto.RefreshRespDTO;
 import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
