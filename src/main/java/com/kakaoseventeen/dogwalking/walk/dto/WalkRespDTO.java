@@ -88,8 +88,8 @@ public class WalkRespDTO {
 
         private List<NotReviewedWalkDTO> walkStatusDTOS;
 
-        public FindNotEndWalksByUserId (List<Walk> walks){
-            this.walkStatusDTOS = walks.stream().map(NotReviewedWalkDTO::new).collect(Collectors.toList());
+        public FindNotEndWalksByUserId (List<Walk> walks, Long memberId){
+            this.walkStatusDTOS = walks.stream().map(walk -> new NotReviewedWalkDTO(walk, memberId)).collect(Collectors.toList());
         }
 
         @Getter @Setter
@@ -107,13 +107,16 @@ public class WalkRespDTO {
 
             private boolean isReviewed;
 
-            public NotReviewedWalkDTO(Walk walk) {
+            private boolean isMaster;
+
+            public NotReviewedWalkDTO(Walk walk, Long memberId) {
                 this.userId = walk.getMaster().getId();
                 this.receiveMemberId = walk.getMaster().getId();
                 this.walkId = walk.getId();
                 this.walkStatus = walk.getWalkStatus().toString();
                 this.notificationId = walk.getNotification().getId();
                 this.isReviewed = walk.isReviewed();
+                this.isMaster = walk.getMaster().getId().equals(memberId);
             }
         }
     }

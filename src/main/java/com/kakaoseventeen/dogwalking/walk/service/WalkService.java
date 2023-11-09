@@ -105,7 +105,7 @@ public class WalkService {
 
         List<Walk> walks = walkRepository.findWalkWhatNotEnd(member.getId());
 
-        return new WalkRespDTO.FindNotEndWalksByUserId(walks);
+        return new WalkRespDTO.FindNotEndWalksByUserId(walks, member.getId());
     }
 }
 
