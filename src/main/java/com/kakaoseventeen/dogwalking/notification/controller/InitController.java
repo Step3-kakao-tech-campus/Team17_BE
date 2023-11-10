@@ -43,7 +43,7 @@ public class InitController {
 
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/init")
+    @GetMapping("/api/init")
     public ResponseEntity<?> init(){
 
 
