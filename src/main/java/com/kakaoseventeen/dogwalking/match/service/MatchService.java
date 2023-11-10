@@ -1,6 +1,8 @@
 package com.kakaoseventeen.dogwalking.match.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.MatchNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.notification.NotMyNotificationException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.notification.NotificationException;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.dto.MatchRespDTO;
@@ -30,10 +32,15 @@ public class MatchService {
                 ()-> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST)
         );
 
+        if(sessionMember.getId()!= notification.getDog().getMember().getId()){
+            throw new NotMyNotificationException(MessageCode.NOT_MY_NOTIFICATION);
+        }
+
+
         List<Match> matchList = matchingRepository.mfindMatchByNotificationId(notificationId);
 
         if(matchList.isEmpty()) {
-            throw new RuntimeException("매칭된 유저가 없습니다.");
+            throw new MatchNotExistException(MessageCode.MATCH_NOT_EXIST);
         }
 
         return new MatchRespDTO(matchList);
