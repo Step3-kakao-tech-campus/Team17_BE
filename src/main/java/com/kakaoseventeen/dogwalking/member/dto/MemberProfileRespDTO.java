@@ -5,6 +5,7 @@ import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.review.domain.Review;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,8 +54,9 @@ public class MemberProfileRespDTO {
         if (!notifications.isEmpty()) {
             dto.setNotifications(notifications.stream()
                     .map(notification -> {
-                        WalkStatus walkStatus = notification.getWalk().getWalkStatus();
-                        return new NotificationDTO(notification, walkStatus != null ? walkStatus : /*원하는 기본값*/ null);
+                        Walk walk = notification.getWalk();
+                        WalkStatus walkStatus = (walk != null) ? walk.getWalkStatus() : null;
+                        return new NotificationDTO(notification, walkStatus);
                     })
                     .collect(Collectors.toList()));
         }
