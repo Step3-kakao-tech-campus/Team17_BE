@@ -1,5 +1,9 @@
 package com.kakaoseventeen.dogwalking.chat.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.ChatRoomMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatMessageNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.InvalidMemberException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.WalkNotFoundException;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatListResDTO;
@@ -45,19 +49,21 @@ public class ChatRoomReadService {
     public List<ChatListResDTO> getChatList() {
 
         Member member = memberJpaRepository.findByEmail(getEmail())
-                .orElseThrow(() -> new RuntimeException("인증되지 않았습니다."));
+                .orElseThrow(() -> new InvalidMemberException(ChatRoomMessageCode.INVALID_MEMBER));
 
         List<ChatRoom> chatRooms = chatRoomRepository.findChatRoomsByAppMemberIdOrNotiMemberId(member, member);
 
         List<ChatListResDTO> chatListResDTOS = chatRooms.stream().map(chatRoom -> {
 
-            ChatMessage chatMessage = chatMessageRepository.findTop1ByChatRoomIdOrderByChatMessageIdDesc(chatRoom)
-                    .orElseThrow(() -> new RuntimeException("ChatMessage조회 에러"));
-
             Walk walk = walkRepository.findWalkByMaster(chatRoom.getNotiMemberId())
-                    .orElseThrow(() -> new RuntimeException("산책의 정보가 존재하지 않습니다."));
+                    .orElseThrow(() -> new WalkNotFoundException(ChatRoomMessageCode.WALK_NOT_FOUND));
 
             boolean isDogOwner = Objects.equals(walk.getMaster().getId(), member.getId());
+
+            ChatMessage chatMessage = chatMessageRepository.findTop1ByChatRoomIdOrderByChatMessageIdDesc(chatRoom)
+                    .orElseThrow(() -> new ChatMessageNotFoundException(ChatRoomMessageCode.CHAT_MESSAGE_NOT_FOUND));
+
+
 
             return ChatListResDTO.builder()
                     .chatRoomId(chatRoom.getChatRoomId())

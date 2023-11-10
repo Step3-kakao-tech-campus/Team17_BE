@@ -4,7 +4,7 @@ import com.kakaoseventeen.dogwalking._core.utils.ApplicationMessageCode;
 import lombok.Getter;
 
 @Getter
-public class ApplicationMemberNotFoundException extends IllegalArgumentException{
+public class ApplicationMemberNotFoundException extends RuntimeException{
 
     private ApplicationMessageCode applicationMessageCode;
 

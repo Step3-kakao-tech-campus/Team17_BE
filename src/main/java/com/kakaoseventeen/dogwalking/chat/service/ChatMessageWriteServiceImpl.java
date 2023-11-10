@@ -1,5 +1,8 @@
 package com.kakaoseventeen.dogwalking.chat.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.ChatMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.ChatRoomNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.MemberIdNotFoundException;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatReqDTO;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatResDTO;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
@@ -25,19 +28,18 @@ public class ChatMessageWriteServiceImpl implements ChatMessageWriteService {
     @Transactional
     public ChatResDTO save(ChatReqDTO chatReqDTO, Long roomId) {
 
-        // TODO - 예외처리 수정할 것
         Member sender = memberJpaRepository.findById(chatReqDTO.memberId())
-                .orElseThrow(() -> new RuntimeException("사용자가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberIdNotFoundException(ChatMessageCode.MEMBER_ID_NOT_FOUND));
         
         ChatRoom chatRoom = chatRoomRepository.findById(roomId)
-                .orElseThrow(() -> new RuntimeException("해당 채팅방이 존재하지 않습니다."));
+                .orElseThrow(() -> new ChatRoomNotFoundException(ChatMessageCode.CHATROOM_NOT_FOUND));
         ChatMessage chatMessage = ChatMessage.builder()
                 .chatRoomId(chatRoom)
                 .content(chatReqDTO.chatContent())
                 .senderId(sender)
                 .messageType(MessageType.valueOf(chatReqDTO.messageType().toString()))
                 .build();
-        // TODO - 인증과정 추가할 것
+
         chatMessageRepository.save(chatMessage);
 
         return ChatResDTO.builder()
