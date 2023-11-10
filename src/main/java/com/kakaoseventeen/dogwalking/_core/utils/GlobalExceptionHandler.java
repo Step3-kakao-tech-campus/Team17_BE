@@ -1,11 +1,14 @@
 package com.kakaoseventeen.dogwalking._core.utils;
 
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
-import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMatchNotFoundException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.application.ApplicationMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.application.NotificationNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.ChatRoomNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.MemberIdNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.*;
 import com.kakaoseventeen.dogwalking._core.utils.exception.member.*;
 import com.kakaoseventeen.dogwalking._core.utils.exception.notification.*;
-import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReviewMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.review.*;
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.DuplicateNotificationWithWalkException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import org.springframework.http.HttpStatus;
@@ -133,5 +136,59 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotMyNotificationException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(NotMyNotificationException e){
         return ApiResponseGenerator.fail(MessageCode.NOT_MY_NOTIFICATION.getValue(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(ChatRoomNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(ChatRoomNotFoundException e){
+        return ApiResponseGenerator.fail(ChatMessageCode.CHATROOM_NOT_FOUND.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MemberIdNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(MemberIdNotFoundException e){
+        return ApiResponseGenerator.fail(ChatMessageCode.MEMBER_ID_NOT_FOUND.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ApplicationMemberNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(ApplicationMemberNotFoundException e){
+        return ApiResponseGenerator.fail(ApplicationMessageCode.MEMBER_NOT_FOUND.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotificationNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(NotificationNotFoundException e){
+        return ApiResponseGenerator.fail(ApplicationMessageCode.NOTIFICATION_NOT_FOUND.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MemberIdNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(MemberIdNotExistException e){
+        return ApiResponseGenerator.fail(ReviewMessageCode.MEMBER_ID_NOT_EXIST.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotificationIdNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(NotificationIdNotExistException e){
+        return ApiResponseGenerator.fail(ReviewMessageCode.NOTIFICATION_ID_NOT_EXIST.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReceiveMemberIdNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ReceiveMemberIdNotExistException e){
+        return ApiResponseGenerator.fail(ReviewMessageCode.RECEIVE_MEMBER_ID_NOT_EXIST.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReviewContentNotExistException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ReviewContentNotExistException e){
+        return ApiResponseGenerator.fail(ReviewMessageCode.REVIEW_CONTENT_NOT_EXIST.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(WalkNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(WalkNotFoundException e){
+        return ApiResponseGenerator.fail(ChatRoomMessageCode.WALK_NOT_FOUND.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ChatMessageNotFoundException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(ChatMessageNotFoundException e){
+        return ApiResponseGenerator.fail(ChatRoomMessageCode.CHAT_MESSAGE_NOT_FOUND.getValue(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidMemberException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleRuntimeException(InvalidMemberException e){
+        return ApiResponseGenerator.fail(ChatRoomMessageCode.INVALID_MEMBER.getValue(), HttpStatus.UNAUTHORIZED);
     }
 }
