@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MatchNotExistException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(MatchNotExistException e){
-        return ApiResponseGenerator.fail(MessageCode.MATCH_NOT_EXIST.getValue(), HttpStatus.BAD_REQUEST);
+        return ApiResponseGenerator.fail(MessageCode.MATCH_NOT_EXIST.getValue(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidEmailFormatException.class)
