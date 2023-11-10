@@ -13,6 +13,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter @Setter @Builder
@@ -51,9 +52,13 @@ public class MemberProfileRespDTO {
 
         if (!notifications.isEmpty()) {
             dto.setNotifications(notifications.stream()
-                    .map(notification -> new NotificationDTO(notification, notification.getWalk().getWalkStatus()))
+                    .map(notification -> {
+                        WalkStatus walkStatus = notification.getWalk().getWalkStatus();
+                        return new NotificationDTO(notification, walkStatus != null ? walkStatus : /*원하는 기본값*/ null);
+                    })
                     .collect(Collectors.toList()));
         }
+
 
         if (!dogs.isEmpty()) {
             dto.setDogs(dogs.stream().map(DogDTO::new).collect(Collectors.toList()));
@@ -103,7 +108,7 @@ public class MemberProfileRespDTO {
             this.title = notification.getTitle();
             this.start = notification.getStartTime();
             this.end = notification.getEndTime();
-            this.walkStatus = walkStatus.toString();
+            this.walkStatus = (walkStatus.toString().isEmpty()) ? "" : walkStatus.toString();
             this.dog = new InDogDTO(notification.getDog());
         }
     }
