@@ -1,5 +1,7 @@
 package com.kakaoseventeen.dogwalking.chat.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.ChatMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.ChatRoomNotFoundException;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatMessageResDTO;
@@ -22,7 +24,8 @@ public class ChatMessageReadService {
 
     public List<ChatMessageResDTO> getMessage(Long chatRoomId){
 
-        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow(() -> new RuntimeException("일치하는 채팅방이 존재하지 않습니다."));
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
+                .orElseThrow(() -> new ChatRoomNotFoundException(ChatMessageCode.CHATROOM_NOT_FOUND));
         List<ChatMessage> chatMessages = chatMessageRepository.findChatMessageByChatRoomId(chatRoom);
 
         return chatMessages.stream()
