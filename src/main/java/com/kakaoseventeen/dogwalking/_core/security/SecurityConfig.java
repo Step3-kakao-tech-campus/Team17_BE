@@ -67,7 +67,6 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/api/walkRoad/**"),
                                 new AntPathRequestMatcher("/api/profile/**"),
                                 new AntPathRequestMatcher("/api/payment/**"),
-                                new AntPathRequestMatcher("/chat-connect/**"),
                                 new AntPathRequestMatcher("/api/application/**"),
                                 new AntPathRequestMatcher("/api/review/**")
                                 )
