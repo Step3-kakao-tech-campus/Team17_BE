@@ -13,7 +13,7 @@ public interface NotificationJpaRepository extends JpaRepository<Notification, L
             "from Notification n " +
             "join fetch n.walk w " +
             "join n.dog.member m " +
-            "where m.id = :userId")
+            "where m.id = :userId or n.walk IS NULL")
     List<Notification> findNotificationByMemberId(Long userId);
 
     @Query(value = "SELECT n.*, 6371.0 *acos(cos(radians(:latitude))*cos(radians(n.lat))*cos(radians(n.lng)-radians(:longitude))+sin(radians(:latitude))*sin(radians(n.lat))) as distance " +
