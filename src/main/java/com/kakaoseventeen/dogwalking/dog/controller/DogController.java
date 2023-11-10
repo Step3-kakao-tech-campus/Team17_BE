@@ -3,7 +3,7 @@ package com.kakaoseventeen.dogwalking.dog.controller;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking._core.utils.exception.DogNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.notification.DogNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.ImageNotExistException;
 import com.kakaoseventeen.dogwalking.dog.dto.DogReqDTO;
 import com.kakaoseventeen.dogwalking.dog.dto.DogRespDTO;

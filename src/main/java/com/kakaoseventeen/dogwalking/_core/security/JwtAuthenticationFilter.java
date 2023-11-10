@@ -1,8 +1,5 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -45,7 +42,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             chain.doFilter(request, response);
-        }catch (final JwtException e) {
+        } catch (final JwtException e) {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
@@ -54,6 +51,5 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     	}
 
     }
-
 
 }

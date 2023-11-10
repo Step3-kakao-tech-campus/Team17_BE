@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking._core.utils.exception;
+package com.kakaoseventeen.dogwalking._core.utils.exception.member;
 
 import lombok.Getter;
 

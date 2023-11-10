@@ -2,9 +2,8 @@ package com.kakaoseventeen.dogwalking.review.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.ReviewMessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.MemberIdNotExistException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.review.NotificationIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReceiveMemberIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReviewContentNotExistException;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
@@ -36,7 +35,7 @@ public class ReviewWriteService {
      * @param writeReviewReqDTO
      * @apiNote 리뷰 작성 요청을 받아 DB에 저장한다.
      */
-    public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO){
+    public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO) throws WalkNotExistException, ReceiveMemberIdNotExistException{
         // TODO - 주석제거
         // 객체 유효성 검사 Validator
         validator(writeReviewReqDTO);

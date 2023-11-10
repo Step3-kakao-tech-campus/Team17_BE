@@ -94,7 +94,7 @@ public class InitController {
                 .id(1L)
                 .breed("푸들")
                 .name("강아지이름1")
-                .sex("수컷")
+                .sex("MALE")
                 .size("대형견")
                 .specificity("알러지있음")
                 .image("1번 강아지 이미지")
@@ -106,7 +106,7 @@ public class InitController {
                 .id(2L)
                 .breed("말티즈")
                 .name("강아지이름2")
-                .sex("암컷")
+                .sex("FEMALE")
                 .size("소형견")
                 .specificity("알러지있음")
                 .image("2번 강아지 이미지")
@@ -265,8 +265,8 @@ public class InitController {
                 .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
                 .title("지원서 제목1")
                 .appMemberId(member1)
-                .certification("애견 보호사 2급")
-                .experience("강아지 유치원 2년 근무")
+                .certification("애견 보호사 1급")
+                .experience("강아지 유치원 1년 근무")
                 .build());
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
@@ -280,17 +280,25 @@ public class InitController {
         Application application3 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 3번 지원자")
                 .title("지원서 제목3")
-                .appMemberId(member1)
-                .certification("애견 보호사 2급")
-                .experience("강아지 유치원 2년 근무")
+                .appMemberId(member4)
+                .certification("애견 보호사 3급")
+                .experience("강아지 유치원 3년 근무")
                 .build());
 
         Application application4 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 4번 지원자")
                 .title("지원서 제목4")
                 .appMemberId(member2)
-                .certification("애견 보호사 2급")
-                .experience("강아지 유치원 2년 근무")
+                .certification("애견 보호사 4급")
+                .experience("강아지 유치원 4년 근무")
+                .build());
+
+        Application application5 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다. 5번 지원자")
+                .title("지원서 제목5")
+                .appMemberId(member3)
+                .certification("애견 보호사 5급")
+                .experience("강아지 유치원 5년 근무")
                 .build());
 
         matchingRepository.saveAndFlush(Match.builder()
@@ -300,17 +308,23 @@ public class InitController {
 
         matchingRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
+                .applicationId(application2)
+                .build());
+
+        matchingRepository.saveAndFlush(Match.builder()
+                .notificationId(notification1)
                 .applicationId(application3)
                 .build());
 
         matchingRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
-                .applicationId(application4)
+                .applicationId(application5)
                 .build());
+
 
         matchingRepository.saveAndFlush(Match.builder()
                 .notificationId(notification2)
-                .applicationId(application2)
+                .applicationId(application4)
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()

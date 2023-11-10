@@ -1,7 +1,6 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
-
-import com.kakaoseventeen.dogwalking._core.utils.exception.SecurityFilterException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.SecurityFilterException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 

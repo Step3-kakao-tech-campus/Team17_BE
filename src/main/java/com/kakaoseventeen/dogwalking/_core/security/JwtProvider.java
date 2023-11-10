@@ -3,14 +3,12 @@ package com.kakaoseventeen.dogwalking._core.security;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.dto.LoginRespDTO;
 import io.jsonwebtoken.*;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Base64;
@@ -22,7 +20,7 @@ import java.util.Date;
 public class JwtProvider {
 
     private static String SECRET;
-    public static final Long accessTokenValidTime = 1000L * 60 * 30; //30분
+    public static final Long accessTokenValidTime = 1000L * 60 * 1;
     public static final Long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 7;
 
     private final CustomUserDetailsService customUserDetailsService;
@@ -73,16 +71,16 @@ public class JwtProvider {
             // 만료 시간이 현재 시간 이후라면 토큰은 유효함
             return !claims.getBody().getExpiration().before(new Date());
         } catch (SecurityException e) {
-            log.info("Invalid JWT signature.");
+            log.error("Invalid JWT signature.");
             throw new JwtException("잘못된 JWT 형식입니다.");
         } catch (MalformedJwtException e) {
-            log.info("Invalid JWT token.");
+            log.error("Invalid JWT token.");
             throw new JwtException("유효하지 않은 토큰입니다.");
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token.");
+            log.error("Expired JWT token.");
             throw new JwtException("토큰 기한이 만료되었습니다.");
         } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT token.");
+            log.error("Unsupported JWT token.");
             throw new JwtException("지원하지 않는 JWT 토큰입니다.");
         }
     }

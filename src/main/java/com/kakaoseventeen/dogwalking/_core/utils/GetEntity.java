@@ -4,14 +4,7 @@ import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Comment;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

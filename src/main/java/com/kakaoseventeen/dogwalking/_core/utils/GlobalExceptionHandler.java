@@ -3,7 +3,11 @@ package com.kakaoseventeen.dogwalking._core.utils;
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMatchNotFoundException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.ChatRoomMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.*;
+import com.kakaoseventeen.dogwalking._core.utils.exception.notification.*;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReviewMemberNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.DuplicateNotificationWithWalkException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -124,5 +128,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ReviewMemberNotFoundException.class)
     public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ReviewMemberNotFoundException e){
         return ApiResponseGenerator.fail(ReviewMessageCode.REVIEW_MEMBER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotMyNotificationException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(NotMyNotificationException e){
+        return ApiResponseGenerator.fail(MessageCode.NOT_MY_NOTIFICATION.getValue(), HttpStatus.BAD_REQUEST);
     }
 }

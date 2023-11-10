@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-messaging'
 	implementation 'org.springframework.security:spring-security-rsocket'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' // AWS S3
+	implementation 'org.apache.httpcomponents.client5:httpclient5:5.1' // Apache for Proxy
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
