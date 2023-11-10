@@ -20,7 +20,7 @@ import java.util.Date;
 public class JwtProvider {
 
     private static String SECRET;
-    public static final Long accessTokenValidTime = 1000L * 60 * 30; //30분
+    public static final Long accessTokenValidTime = 1000L * 60 * 1;
     public static final Long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 7;
 
     private final CustomUserDetailsService customUserDetailsService;
