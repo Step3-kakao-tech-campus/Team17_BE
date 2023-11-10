@@ -61,7 +61,7 @@ public class ChatRoomReadService {
 
             return ChatListResDTO.builder()
                     .chatRoomId(chatRoom.getChatRoomId())
-                    .memberId(chatMessage.getSenderId().getId())
+                    .memberId(member.getId())
                     .memberNickname(chatMessage.getSenderId().getNickname())
                     .memberImage(chatMessage.getSenderId().getProfileImage())
                     .chatContent(chatMessage.getContent())
