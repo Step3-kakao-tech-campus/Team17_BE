@@ -54,13 +54,12 @@ public class MemberProfileRespDTO {
         if (!notifications.isEmpty()) {
             dto.setNotifications(notifications.stream()
                     .map(notification -> {
-                        Walk walk = notification.getWalk();
-                        WalkStatus walkStatus = (walk != null) ? walk.getWalkStatus() : null;
+                        Optional<Walk> walk = Optional.ofNullable(notification.getWalk());
+                        String walkStatus = walk.map(value -> value.getWalkStatus().toString()).orElse(null);
                         return new NotificationDTO(notification, walkStatus);
                     })
                     .collect(Collectors.toList()));
         }
-
 
         if (!dogs.isEmpty()) {
             dto.setDogs(dogs.stream().map(DogDTO::new).collect(Collectors.toList()));
@@ -105,12 +104,12 @@ public class MemberProfileRespDTO {
 
         private String walkStatus;
 
-        public NotificationDTO(Notification notification, WalkStatus walkStatus){
+        public NotificationDTO(Notification notification, String walkStatus){
             this.id = notification.getId();
             this.title = notification.getTitle();
             this.start = notification.getStartTime();
             this.end = notification.getEndTime();
-            this.walkStatus = (walkStatus.toString().isEmpty()) ? "" : walkStatus.toString();
+            this.walkStatus = walkStatus;
             this.dog = new InDogDTO(notification.getDog());
         }
     }
