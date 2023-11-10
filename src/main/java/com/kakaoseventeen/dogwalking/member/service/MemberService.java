@@ -183,10 +183,9 @@ public class MemberService {
         List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(member.getId());
 
         for (Notification notification : notifications){
-            log.info((notification.getWalk() == null) ? notification.getWalk().getWalkStatus().toString() : "null");
-            log.info((notification.getWalk().getWalkStatus() == null) ? notification.getWalk().toString() : "null");
+            log.info((notification.getWalk() != null) ? notification.getWalk().getWalkStatus().toString() : "null");
+            log.info((notification.getWalk().getWalkStatus() != null) ? notification.getWalk().toString() : "null");
         }
-
 
         List<Application> applications = applicationRepository.findApplicationByMemberId(member.getId());
 
