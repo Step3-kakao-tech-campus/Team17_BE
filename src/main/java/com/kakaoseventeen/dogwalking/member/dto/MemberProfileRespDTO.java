@@ -55,8 +55,10 @@ public class MemberProfileRespDTO {
             dto.setNotifications(notifications.stream()
                     .map(notification -> {
                         Optional<Walk> walk = Optional.ofNullable(notification.getWalk());
-                        String walkStatus = walk.map(value -> value.getWalkStatus().toString()).orElse(null);
-                        return new NotificationDTO(notification, walkStatus);
+                        if(walk.isPresent()) {
+                            return new NotificationDTO(notification, walk.get().getWalkStatus().toString());
+                        }
+                        return new NotificationDTO(notification, "");
                     })
                     .collect(Collectors.toList()));
         }
