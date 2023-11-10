@@ -132,7 +132,7 @@ public class ChatRoomReadServiceTest {
                 .build();
         walkRepository.save(walk);
 
-//        em.flush();
+        em.flush();
         em.clear();
     }
 

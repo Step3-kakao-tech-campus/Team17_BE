@@ -18,6 +18,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
+/**
+ * ChatRoomRepository Data JPA 쿼리 응답 테스트
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @DataJpaTest
 public class ChatRoomRepositoryTest {
 
@@ -34,14 +40,13 @@ public class ChatRoomRepositoryTest {
 
     @BeforeEach
     public void setUp(){
+
         Member member1 = Member.builder()
-                .id(1L)
                 .email("test1@naver.com")
                 .password("test1")
                 .nickname("test1")
                 .build();
         Member member2 = Member.builder()
-                .id(2L)
                 .email("test2@naver.com")
                 .password("test2")
                 .nickname("test2")

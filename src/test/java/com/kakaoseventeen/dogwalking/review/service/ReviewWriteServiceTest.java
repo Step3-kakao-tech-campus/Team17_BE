@@ -18,6 +18,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * 리뷰 작성하기 단위 테스트
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @DataJpaTest
 public class ReviewWriteServiceTest {
 
