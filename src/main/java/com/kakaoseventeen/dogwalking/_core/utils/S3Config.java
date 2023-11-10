@@ -39,7 +39,7 @@ public class S3Config {
     private int proxyPort;
 
     @Bean
-    @Profile("test")
+    @Profile({"test", "cloud"})
     public AmazonS3Client amazonS3Client() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey,secretKey);
         return (AmazonS3Client) AmazonS3ClientBuilder.standard()
@@ -49,7 +49,7 @@ public class S3Config {
     }
 
     @Bean
-    @Profile({"prod", "cloud"})
+    @Profile("prod")
     public AmazonS3 amazonS3ClientForDeploy() {
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
