@@ -26,9 +26,11 @@ public class ChatMessageWriteServiceImpl implements ChatMessageWriteService {
     public ChatResDTO save(ChatReqDTO chatReqDTO, Long roomId) {
 
         // TODO - 예외처리 수정할 것
-        Member sender = memberJpaRepository.findById(chatReqDTO.memberId()).orElseThrow(() -> new RuntimeException("사용자가 존재하지 않습니다."));
-        ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("해당 채팅방이 존재하지 않습니다."));
-
+        Member sender = memberJpaRepository.findById(chatReqDTO.memberId())
+                .orElseThrow(() -> new RuntimeException("사용자가 존재하지 않습니다."));
+        
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("해당 채팅방이 존재하지 않습니다."));
         ChatMessage chatMessage = ChatMessage.builder()
                 .chatRoomId(chatRoom)
                 .content(chatReqDTO.chatContent())

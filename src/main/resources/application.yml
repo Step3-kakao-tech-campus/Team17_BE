@@ -11,9 +11,9 @@ spring:
         show_sql: true
         format_sql: true
   datasource:
-    url: jdbc:h2:tcp://localhost/~/dog-walking
+    url: jdbc:h2:mem:dogWalking;mode=mysql
     username: sa
     driver-class-name: org.h2.Driver
 
 jwt:
-  secret: ${key}
+  secret: YXNkaGRha2pnaHpka2pnaHp4a2pnZmhranpkeHNoZnpqa2ZoYXNkaGRha2pnaHpka2pnaHp4a2pnZmhranpkeHNoZnpqa2Zo

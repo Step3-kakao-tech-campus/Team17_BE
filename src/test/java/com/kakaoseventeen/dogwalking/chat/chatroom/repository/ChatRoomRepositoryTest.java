@@ -1,6 +1,9 @@
 package com.kakaoseventeen.dogwalking.chat.chatroom.repository;
 
+import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
+import com.kakaoseventeen.dogwalking.chat.domain.MessageType;
+import com.kakaoseventeen.dogwalking.chat.repository.ChatMessageRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
@@ -26,6 +29,8 @@ public class ChatRoomRepositoryTest {
 
     @PersistenceContext
     private EntityManager em;
+    @Autowired
+    private ChatMessageRepository chatMessageRepository;
 
     @BeforeEach
     public void setUp(){
@@ -53,6 +58,14 @@ public class ChatRoomRepositoryTest {
                 .appMemberId(member1)
                 .build();
         chatRoomRepository.saveAll(List.of(chatRoom1, chatRoom2));
+
+        ChatMessage chatMessage = ChatMessage.builder()
+                .chatRoomId(chatRoom1)
+                .content("채팅 테스트1")
+                .senderId(member1)
+                .messageType(MessageType.CHAT)
+                .build();
+        chatMessageRepository.saveAndFlush(chatMessage);
 
         em.flush();
         em.clear();
@@ -88,5 +101,22 @@ public class ChatRoomRepositoryTest {
         Assertions.assertEquals("test2@naver.com", chatRooms.get(0).getAppMemberId().getEmail());
 
 
+    }
+
+    @DisplayName("채팅방 목록 조회 쿼리 테스트2")
+    @Test
+    public void findTop1ByChatRoomIdOrderByChatMessageIdDesc() {
+        // given
+        ChatRoom chatRoom = chatRoomRepository.findById(1L)
+                .orElseThrow(() -> new RuntimeException("채팅방이 존재하지 않음."));
+        String expectedString = "채팅 테스트1";
+        System.out.println("채팅방 이름: " + chatRoom.getChatRoomId());
+
+        // when
+        ChatMessage chatMessage = chatMessageRepository.findTop1ByChatRoomIdOrderByChatMessageIdDesc(chatRoom)
+                .orElseThrow(() -> new RuntimeException("채팅 메세지가 존재하지 않음."));
+
+        // then
+        Assertions.assertEquals(expectedString,chatMessage.getContent());
     }
 }
