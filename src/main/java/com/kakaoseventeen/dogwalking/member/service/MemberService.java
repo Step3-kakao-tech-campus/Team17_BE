@@ -56,7 +56,7 @@ public class MemberService {
      */
     @Transactional
     public LoginRespDTO login(LoginReqDTO loginReqDTO) throws RuntimeException{
-        //회원가입이 되어있는 유저인지 확인
+
         Member member = memberJpaRepository.findByEmail(loginReqDTO.getEmail()).orElseThrow(
                 () -> new MemberNotExistException(MEMBER_NOT_EXIST)
         );
@@ -68,20 +68,17 @@ public class MemberService {
 
         String email = member.getEmail();
 
-        //accessToken과 refreshToken을 발급받아서 response dto에 담는다.
         LoginRespDTO loginRespDTO = JwtProvider.createToken(member);
 
-        //refresh token 객체를 만든다.
         RefreshToken refreshToken = RefreshToken.builder()
                 .token(loginRespDTO.getRefreshToken())
                 .email(email)
                 .build();
 
-        //이미 로그인을 했었던 유저라면(db에 refresh token이 존재함) 기존 refresh token 삭제
         if (refreshTokenJpaRepository.existsByEmail(email)){
             refreshTokenJpaRepository.deleteByEmail(email);
         }
-        // 새로 발급한 refresh token 테이블에 저장
+
         refreshTokenJpaRepository.save(refreshToken);
 
         return loginRespDTO;

@@ -21,7 +21,15 @@ public class HomeController {
     private final HomeService homeService;
 
     /**
-     * 메인페이지에서 위도, 경도, 견종, 크기, 검색어를 통해 포스트를 가져오는 메서드
+     * 메인페이지에서 공고글을 불러오는 메서드
+     * @param customUserDetails 유저 정보
+     * @param cursorRequest 커서 정보
+     * @param latitude 위도
+     * @param longitude 경도
+     * @param big 강아지 사이즈
+     * @param breed 견종
+     * @param search 검색어
+     * @return
      */
     @GetMapping("/home")
     public ResponseEntity<?> getPosts(@AuthenticationPrincipal CustomUserDetails customUserDetails,

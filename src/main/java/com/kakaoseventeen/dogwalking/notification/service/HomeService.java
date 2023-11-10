@@ -23,7 +23,7 @@ public class HomeService {
     private final NotificationJpaRepository notificationJpaRepository;
 
     /**
-     * 메인페이지에서 위도, 경도, 견종, 크기, 검색어를 통해 포스트를 가져오는 메서드
+     * 메인페이지에서 공고글을 불러오는 메서드
      */
     public HomeRespDTO home(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, CustomUserDetails customUserDetails) {
         String image;
@@ -40,6 +40,9 @@ public class HomeService {
         return HomeRespDTO.of(cursorRequest.next(lastKey, 20), notifications, image);
     }
 
+    /**
+     * 메인페이지에서 위도, 경도, 견종, 크기, 검색어를 통해 포스트를 가져오는 메서드
+     */
     private List<Notification> findPosts(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search) {
 
         int pageSize = cursorRequest.hasSize() ? cursorRequest.getSize() : 20;
@@ -60,6 +63,9 @@ public class HomeService {
         }
     }
 
+    /**
+     * 검색어는 존재하지 않고 키가 존재할 경우의 메서드
+     */
     private List<Notification> getNotificationsWithKey(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
             return notificationJpaRepository.findAllHasNoneKey(lat, lng, cursorRequest.getKey(), pageable);
@@ -71,6 +77,9 @@ public class HomeService {
         return notificationJpaRepository.findAllHasSizeAndBreedKey(big, breed, lat, lng, cursorRequest.getKey(), pageable);
     }
 
+    /**
+     * 검색어는 존재하지 않고 키가 존재하지 않을 경우의 메서드
+     */
     private List<Notification> getNotificationsWithNoKey(Double lat, Double lng, List<String> big, List<String> breed, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
             return notificationJpaRepository.findAllHasNone(lat, lng, pageable);
@@ -82,6 +91,9 @@ public class HomeService {
         return notificationJpaRepository.findAllHasSizeAndBreed(lat, lng, big, breed, pageable);
     }
 
+    /**
+     * 검색어가 존재하고 키도 존재할 경우의 메서드
+     */
     private List<Notification> searchNotificationsWithKey(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
             return notificationJpaRepository.findAllHasNoneKeySearch(search, lat, lng, cursorRequest.getKey(), pageable);
@@ -93,6 +105,9 @@ public class HomeService {
         return notificationJpaRepository.findAllHasSizeAndBreedKeySearch(search, big, breed, lat, lng, cursorRequest.getKey(), pageable);
     }
 
+    /**
+     * 검색어가 존재하고 키는 존재하지 않을 경우의 메서드
+     */
     private List<Notification> searchNotificationsWithNoKey(Double lat, Double lng, List<String> big, List<String> breed, String search, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
             return notificationJpaRepository.findAllHasNoneSearch(search, lat, lng, pageable);
@@ -104,6 +119,9 @@ public class HomeService {
         return notificationJpaRepository.findAllHasSizeAndBreedSearch(search, lat, lng, big, breed, pageable);
     }
 
+    /**
+     * 마지막 공고글의 키를 가져오는 메서드
+     */
     private static Double getLastKey(List<Notification> notifications, Double curLat, Double curLng) {
         if (notifications.isEmpty()) {
             return CursorRequest.NONE_KEY;

@@ -52,15 +52,4 @@ public class Notification {
         this.coin = coin;
     }
 
-    public void update(UpdateNotificationReqDTO updateNotificationReqDTO, Dog dog){
-        this.title = updateNotificationReqDTO.getTitle();
-        this.dog = dog;
-        this.lat = updateNotificationReqDTO.getLat();
-        this.lng = updateNotificationReqDTO.getLng();
-        this.startTime = updateNotificationReqDTO.getStart();
-        this.endTime = updateNotificationReqDTO.getEnd();
-        this.significant = updateNotificationReqDTO.getSignificant();
-        this.coin = updateNotificationReqDTO.getCoin();
-    }
-
 }

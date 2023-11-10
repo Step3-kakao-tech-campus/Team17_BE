@@ -49,14 +49,4 @@ public class NotificationController {
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-
-    /**
-     * 공고글 수정하기 메서드
-     */
-    @PutMapping("/notification/{notificationId}")
-    public ResponseEntity<?> editNotification(@PathVariable Long notificationId, @Valid @RequestBody UpdateNotificationReqDTO requestDTO, @AuthenticationPrincipal CustomUserDetails userDetails, Errors errors){
-        notificationService.editNotification(notificationId, requestDTO, userDetails.getMember());
-        return ApiResponseGenerator.success(HttpStatus.OK);
-    }
-
 }
