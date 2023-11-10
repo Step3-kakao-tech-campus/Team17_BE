@@ -15,6 +15,7 @@ public enum MessageCode {
     MATCH_NOT_EXIST("해당 매칭이 존재하지 않습니다."),
 
     DOG_LIST_NOT_EXIST("해당 강아지가 존재하지 않습니다."),
+    NOT_MY_NOTIFICATION("본인 공고글이 아닙니다."),
     DOG_NOT_EXIST("등록된 강아지가 아닙니다."),
     MUNG_COIN_NOT_ENOUGH("멍코인이 부족합니다."),
     NOTIFICATION_FORBIDDEN("수정 권한이 없습니다."),
