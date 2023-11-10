@@ -82,29 +82,4 @@ public class NotificationService {
         notificationJpaRepository.save(notification);
     }
 
-    /**
-     * 공고글 수정하기 메서드
-     */
-    @Transactional
-    public void editNotification(Long id, UpdateNotificationReqDTO updateNotificationReqDTO, Member sessionMember) throws RuntimeException {
-        Notification notification = notificationJpaRepository.findById(id).orElseThrow(
-                ()-> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST)
-        );
-
-        List<Dog> dogList = dogJpaRepository.findDogsByMember(sessionMember.getId());
-        //dogList에 존재하는 id가 wrtieNotificationDTO와 일치하는지 확인
-        Dog dogOP = dogList.stream().filter(dog -> dog.getId() == updateNotificationReqDTO.getDogId()).findFirst().orElseThrow(
-                ()-> new DogNotExistException(MessageCode.DOG_NOT_EXIST)
-        );
-
-        if(notification.getDog().getMember().getId() != sessionMember.getId()){
-            throw new NotificationUpdateException(MessageCode.NOTIFICATION_FORBIDDEN);
-        }
-
-        if(sessionMember.getCoin().compareTo(updateNotificationReqDTO.getCoin())<0)
-            throw new CoinNotEnoughException(MessageCode.MUNG_COIN_NOT_ENOUGH);
-
-        notification.update(updateNotificationReqDTO, dogOP);
-    }
-
 }

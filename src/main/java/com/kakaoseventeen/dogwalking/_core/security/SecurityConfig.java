@@ -25,6 +25,7 @@ public class SecurityConfig {
 
 	private final JwtProvider jwtProvider;
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -39,6 +40,9 @@ public class SecurityConfig {
         }
     }
 
+    /**
+     * 시큐리티 필터 설정 메서드
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         //csrf disable
@@ -57,7 +61,6 @@ public class SecurityConfig {
         http.httpBasic(AbstractHttpConfigurer::disable);
         //커스텀 필터 적용
         http.apply(new CustomSecurityFilterManager());
-
 
 		//토큰을 활용하는 경우 아래 요청에 대해 '인가'에 대해서 사용.
         http.authorizeHttpRequests(authorize ->
@@ -90,6 +93,9 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * CORS 설정하는 메서드
+     */
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedHeader("*");

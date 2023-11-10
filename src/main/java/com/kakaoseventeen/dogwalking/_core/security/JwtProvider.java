@@ -30,11 +30,17 @@ public class JwtProvider {
         SECRET = secret;
     }
 
+    /**
+     * 키를 생성하는 메서드
+     */
     public static Key createKey() {
         byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET);
         return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS512.getJcaName());
     }
 
+    /**
+     * access token과 refresh token을 생성하는 메서드
+     */
     public static LoginRespDTO createToken(Member member) {
 
         Claims claims = Jwts.claims().setSubject(String.valueOf(member.getEmail()));
@@ -59,7 +65,9 @@ public class JwtProvider {
         return new LoginRespDTO(accessToken, refreshToken);
     }
 
-    // 헤더의 access 토큰의 유효성 + 만료일자 확인
+    /**
+     * 헤더의 access 토큰의 유효성 + 만료일자 확인하는 메서드
+     */
     public boolean isTokenValidate(String accessToken) {
         try {
             //JWT 토큰 파싱 및 검증을 시도
@@ -67,8 +75,6 @@ public class JwtProvider {
                     .setSigningKey(createKey())
                     .build()
                     .parseClaimsJws(accessToken);
-            // 토큰의 만료 시간을 현재 시간과 비교하여 유효성을 확인
-            // 만료 시간이 현재 시간 이후라면 토큰은 유효함
             return !claims.getBody().getExpiration().before(new Date());
         } catch (SecurityException e) {
             log.error("Invalid JWT signature.");
@@ -85,17 +91,16 @@ public class JwtProvider {
         }
     }
 
-    //JWT 토큰에서 인증 정보 조회
+    /**
+     * JWT 토큰에서 인증 정보 조회하는 메서드
+     */
     public Authentication getAuthentication(String token) {
         Jws<Claims> claims = Jwts.parserBuilder()
                 .setSigningKey(createKey())
                 .build()
                 .parseClaimsJws(token);
 
-        Long idLong = Long.parseLong(claims.getBody().get("id").toString());
-
         CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(claims.getBody().getSubject());
-        //인증용 객체
         return new UsernamePasswordAuthenticationToken(customUserDetails, token, customUserDetails.getAuthorities());
     }
 }

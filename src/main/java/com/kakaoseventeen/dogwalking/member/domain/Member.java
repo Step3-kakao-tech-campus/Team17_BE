@@ -44,6 +44,9 @@ public class Member {
         this.coin = coin;
     }
 
+    /**
+     * 프로필 수정하는 메서드
+     */
     public void updateProfile(String profileImage, String profileContent){
         if (profileImage != null) {
             this.profileImage = profileImage;
