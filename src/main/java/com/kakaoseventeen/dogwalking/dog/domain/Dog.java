@@ -61,6 +61,10 @@ public class Dog {
             this.name = dogReqDTO.getName();
         }
 
+        if (!dogReqDTO.getSex().isEmpty()){
+            this.sex = dogReqDTO.getSex();
+        }
+
         if (!dogReqDTO.getBreed().isEmpty()){
             this.breed = dogReqDTO.getBreed();
         }

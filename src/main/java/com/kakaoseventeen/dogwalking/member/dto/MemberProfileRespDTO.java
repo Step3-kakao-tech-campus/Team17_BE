@@ -5,6 +5,7 @@ import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.review.domain.Review;
+import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,12 +54,12 @@ public class MemberProfileRespDTO {
         if (!notifications.isEmpty()) {
             dto.setNotifications(notifications.stream()
                     .map(notification -> {
-                        WalkStatus walkStatus = notification.getWalk().getWalkStatus();
-                        return new NotificationDTO(notification, walkStatus != null ? walkStatus : /*원하는 기본값*/ null);
+                        Optional<Walk> walk = Optional.ofNullable(notification.getWalk());
+                        String walkStatus = walk.map(value -> value.getWalkStatus().toString()).orElse(null);
+                        return new NotificationDTO(notification, walkStatus);
                     })
                     .collect(Collectors.toList()));
         }
-
 
         if (!dogs.isEmpty()) {
             dto.setDogs(dogs.stream().map(DogDTO::new).collect(Collectors.toList()));
@@ -103,12 +104,12 @@ public class MemberProfileRespDTO {
 
         private String walkStatus;
 
-        public NotificationDTO(Notification notification, WalkStatus walkStatus){
+        public NotificationDTO(Notification notification, String walkStatus){
             this.id = notification.getId();
             this.title = notification.getTitle();
             this.start = notification.getStartTime();
             this.end = notification.getEndTime();
-            this.walkStatus = (walkStatus.toString().isEmpty()) ? "" : walkStatus.toString();
+            this.walkStatus = walkStatus;
             this.dog = new InDogDTO(notification.getDog());
         }
     }
