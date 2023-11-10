@@ -26,7 +26,7 @@ import java.net.InetSocketAddress;
 public class RestTemplateConfig {
 
     @Bean
-    @Profile({"prod", "cloud"})
+    @Profile("prod")
     public RestTemplate restTemplateForDeploy() {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("krmp-proxy.9rum.cc", 3128));
@@ -37,7 +37,7 @@ public class RestTemplateConfig {
 
 
     @Bean
-    @Profile("test")
+    @Profile({"test", "cloud"})
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
