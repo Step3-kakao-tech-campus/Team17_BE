@@ -21,11 +21,16 @@ spec:
               value: Asia/Seoul
             - name: DATABASE_URL
               value: jdbc:mariadb://mariadb:3306/krampoline
-            - name: AWS_ACCESSKEY
+            - name: BUCKET_NAME
               valueFrom:
                 secretKeyRef:
                   name: aws-secret
-                  key: accesskey
+                  key: bucketname
+            - name: AWS_ACCESSKEY # application.yml의 키
+              valueFrom:
+                secretKeyRef:
+                  name: aws-secret # secret.yml 이름
+                  key: accesskey # secret.yml에서의 키
             - name: AWS_SECRETKEY
               valueFrom:
                 secretKeyRef:
