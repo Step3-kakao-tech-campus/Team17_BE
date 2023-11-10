@@ -40,7 +40,6 @@ public class MemberProfileRespDTO {
 
     private List<ReviewDTO> reviews;
 
-
     public static MemberProfileRespDTO of(Member member, List<Notification> notifications, List<Dog> dogs, List<Application> applications, List<Review> reviews){
         MemberProfileRespDTO dto = MemberProfileRespDTO.builder()
                 .id(member.getId())

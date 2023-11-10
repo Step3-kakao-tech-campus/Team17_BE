@@ -20,6 +20,7 @@ import com.kakaoseventeen.dogwalking.review.repository.ReviewRepository;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
 import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -180,6 +181,12 @@ public class MemberService {
         List<Dog> dogs = dogJpaRepository.findDogsByMember(member.getId());
 
         List<Notification> notifications = notificationJpaRepository.findNotificationByMemberId(member.getId());
+
+        for (Notification notification : notifications){
+            log.info(notification.getWalk().getWalkStatus().toString());
+            log.info(notification.getWalk().toString());
+        }
+
 
         List<Application> applications = applicationRepository.findApplicationByMemberId(member.getId());
 
