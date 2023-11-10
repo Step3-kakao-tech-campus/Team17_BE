@@ -129,4 +129,9 @@ public class GlobalExceptionHandler {
     public ApiResponse<ApiResponse.CustomBody> handleIllegalArgumentException(ReviewMemberNotFoundException e){
         return ApiResponseGenerator.fail(ReviewMessageCode.REVIEW_MEMBER_NOT_FOUND.getValue(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(NotMyNotificationException.class)
+    public ApiResponse<ApiResponse.CustomBody> handleIllegalStateException(NotMyNotificationException e){
+        return ApiResponseGenerator.fail(MessageCode.NOT_MY_NOTIFICATION.getValue(), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -22,17 +22,20 @@ public class MatchRespDTO {
 
 	@Getter
     public static class MatchListDTO {
-        private Long id;
+        private Long matchId;
+        private Long notiMemberId;
         private String certification;
         private String experience;
         private MemberDTO member;
 
 
         public MatchListDTO(Match match, Application application){
-            this.id = match.getMatchId();
+            this.matchId = match.getMatchId();
+            this.notiMemberId = match.getNotificationId().getDog().getMember().getId();
             this.certification = application.getCertification();
             this.experience = application.getExperience();
 			this.member = new MemberDTO(
+                    application.getAppMemberId().getId(),
                     application.getAppMemberId().getNickname(),
                     application.getAppMemberId().getProfileImage()
             );
@@ -41,10 +44,12 @@ public class MatchRespDTO {
 
     @Getter
     public static class MemberDTO{
+        private Long appMemberId;
         private String username;
         private String image;
 
-		public MemberDTO(String username, String image) {
+		public MemberDTO(Long appMemberId, String username, String image) {
+            this.appMemberId = appMemberId;
             this.username = username;
             this.image = image;
         }
