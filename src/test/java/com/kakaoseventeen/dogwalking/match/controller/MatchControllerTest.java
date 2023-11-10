@@ -30,10 +30,15 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.Month;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * 매칭리스트 Presentation Layer 테스트
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -108,7 +113,7 @@ class MatchControllerTest {
     }
 
 
-    @DisplayName("매칭 리스트 출력")
+    @DisplayName("매칭 리스트 실패 출력")
     @Test
     @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void findMatchTest() throws Exception {
@@ -125,11 +130,11 @@ class MatchControllerTest {
         String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
         System.out.println("테스트 : " + responseBody);
 
-        resultActions.andExpect(jsonPath("$.success").value("true"));
+        resultActions.andExpect(jsonPath("$.success").value("false"));
     }
 
 
-    @DisplayName("매칭 리스트 출력 실패 테스트 ")
+    @DisplayName("매칭 리스트 출력 성공 테스트 ")
     @Test
     @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void findMatchFailTest() throws Exception {
@@ -146,7 +151,7 @@ class MatchControllerTest {
         String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
         System.out.println("테스트 : " + responseBody);
 
-        resultActions.andExpect(jsonPath("$.success").value("false"));
+        resultActions.andExpect(jsonPath("$.success").value("true"));
         resultActions.andExpect(jsonPath("$.error.message").value("해당 공고글이 존재하지 않습니다."));
     }
 

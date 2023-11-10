@@ -24,6 +24,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * 공고글 쿼리 테스트
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @DataJpaTest
 class NotificationJpaRepositoryTest {
 

@@ -7,6 +7,12 @@ import org.junit.jupiter.api.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 비밀번호 정규식 테스트
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 public class ValidatorTest {
     @DisplayName("비밀번호 길이 정규식 테스트")
     @Test

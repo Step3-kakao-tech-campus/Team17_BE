@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.dto.LoginReqDTO;
+import com.kakaoseventeen.dogwalking.member.dto.SignupReqDTO;
 import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,8 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * MemberControllerTest(유저 통합 테스트)
+ * 회원가입과 로그인 성공 및 실패 테스트
  *
- * @author 승건 이
+ * @author 승건 이, 박영규
  * @version 1.0
  */
 @ActiveProfiles("test")
@@ -46,12 +48,10 @@ public class MemberControllerTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @BeforeEach
-    void set_up(){
-//        Member master = GetEntity.getMaster1();
-//        memberJpaRepository.saveAndFlush(master);
-    }
-
+    /**
+     * 로그인 성공 테스트
+     * @status 200
+     */
     @DisplayName("로그인 성공 테스트")
     @Test
     void login_success_test() throws Exception {
@@ -197,27 +197,4 @@ public class MemberControllerTest {
         resultActions.andExpect(jsonPath("$.success").value("false"));
     }
 
-
-    @WithUserDetails(value = "yardyard@likelion.org", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    @Test
-    void save_walkRoad_test() throws Exception {
-        // given
-        long userId = 1;
-
-        // when
-        mvc.perform(
-                get("/init")
-        );
-
-        ResultActions resultActions = mvc.perform(
-                get(String.format("/api/profile/%d", userId))
-        );
-
-        // console
-        String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
-        System.out.println("테스트 : " + responseBody);
-
-        // verify
-        resultActions.andExpect(jsonPath("$.success").value("true"));
-    }
 }

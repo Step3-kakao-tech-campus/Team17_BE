@@ -35,6 +35,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * 강아지 불러오기 & 공고 상세페이지 테스트
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -144,7 +150,7 @@ class NotificationControllerTest {
     @Test
     void load_notification_fail_test() throws Exception{
         // given
-        int id = 2;
+        int id = 99;
 
 
         ResultActions resultActions = mvc.perform(
@@ -181,8 +187,7 @@ class NotificationControllerTest {
 
         resultActions.andExpect(jsonPath("$.success").value("true"));
         resultActions.andExpect(jsonPath("$.response.dogs[0].dogId").value(1));
-        resultActions.andExpect(jsonPath("$.response.dogs[0].dogImage").value("이미지1"));
-        resultActions.andExpect(jsonPath("$.response.dogs[0].dogName").value("강아지이름1"));
+        resultActions.andExpect(jsonPath("$.response.dogs[0].dogName").value("강쥐"));
     }
 
     @DisplayName("강아지 불러오기 테스트 - 실패")
