@@ -3,7 +3,7 @@ package com.kakaoseventeen.dogwalking.member.controller;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking._core.utils.exception.MemberNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.MemberNotExistException;
 import com.kakaoseventeen.dogwalking.member.dto.*;
 import com.kakaoseventeen.dogwalking.member.service.MemberService;
 import jakarta.validation.Valid;

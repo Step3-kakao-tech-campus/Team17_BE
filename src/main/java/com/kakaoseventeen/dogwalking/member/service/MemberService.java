@@ -5,6 +5,7 @@ import com.kakaoseventeen.dogwalking._core.security.JwtProvider;
 import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.S3Uploader;
 import com.kakaoseventeen.dogwalking._core.utils.exception.*;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.*;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
