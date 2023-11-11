@@ -1,5 +1,8 @@
 package com.kakaoseventeen.dogwalking.application.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.ApplicationMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.application.ApplicationNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.application.MatchNotFoundException;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.dto.GetAppMemberResDTO;
 import com.kakaoseventeen.dogwalking.application.dto.GetAppResDTO;
@@ -27,8 +30,12 @@ public class ApplicationReadService {
     public GetAppResDTO getApp(Long id) {
 
         // TODO - Custom 예외처리
-        Application application = applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("존재하지 않는 지원서 입니다."));
-        Match match = matchRepository.findByApplicationId(application).orElseThrow(() -> new RuntimeException("잘못된 요청 입니다."));
+
+        Application application = applicationRepository.findById(id)
+                .orElseThrow(() -> new ApplicationNotFoundException(ApplicationMessageCode.APPLICATION_NOT_FOUND));
+        Match match = matchRepository.findByApplicationId(application)
+                .orElseThrow(() -> new MatchNotFoundException(ApplicationMessageCode.MATCH_NOT_FOUND));
+
 
 
         return GetAppResDTO.builder()

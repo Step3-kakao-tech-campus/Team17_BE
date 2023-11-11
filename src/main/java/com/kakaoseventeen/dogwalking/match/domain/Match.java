@@ -32,4 +32,8 @@ public class Match {
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    public void updateIsSuccess(boolean isSuccess){
+        this.isSuccess=isSuccess;
+    }
 }
