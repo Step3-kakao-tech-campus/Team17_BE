@@ -16,17 +16,28 @@ import java.util.stream.Collectors;
 
 public class WalkResDTO {
 
+
+    @Getter @Setter
+    public static class WalkStatus {
+
+        private String walkStatus;
+
+        public WalkStatus(Walk walk) {
+            this.walkStatus = walk.getWalkStatus().toString();
+        }
+    }
+
     @Getter @Setter
     public static class StartWalk {
         private Long id;
 
-        private WalkStatus walkStatus;
+        private String walkStatus;
 
         private LocalDateTime startTime;
 
         public StartWalk(Walk walk) {
             this.id = walk.getId();
-            this.walkStatus = walk.getWalkStatus();
+            this.walkStatus = walk.getWalkStatus().toString();
             this.startTime = walk.getStartTime();
         }
     }
@@ -73,11 +84,11 @@ public class WalkResDTO {
 
             private Long id;
 
-            private WalkStatus walkStatus;
+            private String walkStatus;
 
             public WalkStatusDTO(Walk walk) {
                 this.id = walk.getId();
-                this.walkStatus = walk.getWalkStatus();
+                this.walkStatus = walk.getWalkStatus().toString();
             }
         }
     }

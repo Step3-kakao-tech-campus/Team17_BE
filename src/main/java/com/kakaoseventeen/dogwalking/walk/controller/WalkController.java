@@ -59,4 +59,13 @@ public class WalkController {
         WalkResDTO.FindNotEndWalksByUserId respDTO = walkService.findAllWalkStatusByUserId(customUserDetails);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
+
+    /**
+     * 리뷰 작성되지 않은 산책 조회 메서드
+     */
+    @GetMapping("walk/status/{matchingId}")
+    public ApiResponse<ApiResponse.CustomBody<WalkResDTO.WalkStatus>> walkStatus(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("matchingId") Long matchingId) throws MemberNotExistException, WalkNotExistException{
+        WalkResDTO.WalkStatus respDTO = walkService.walkStatus(customUserDetails, matchingId);
+        return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
+    }
 }

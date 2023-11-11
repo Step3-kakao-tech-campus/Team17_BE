@@ -20,6 +20,7 @@ import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,6 +108,15 @@ public class WalkService {
         List<Walk> walks = walkRepository.findWalkWhatNotEnd(member.getId());
 
         return new WalkResDTO.FindNotEndWalksByUserId(walks, member.getId());
+    }
+
+
+    @Transactional(readOnly = true)
+    public WalkResDTO.WalkStatus walkStatus(CustomUserDetails customUserDetails, Long matchId) throws MemberNotExistException {
+        
+        Walk walk = matchRepository.findWalkFromMatchById(matchId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+
+        return new WalkResDTO.WalkStatus(walk);
     }
 }
 
