@@ -20,6 +20,7 @@ import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,7 @@ import static com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode.MEMBER
  * @author 승건 이
  * @version 1.0
  */
+@Log4j
 @Service
 @RequiredArgsConstructor
 public class WalkService {
@@ -58,7 +60,7 @@ public class WalkService {
 
         Notification notification = match.getNotificationId();
 
-        if (notification.getWalk() == null) {
+        if (notification.getWalk() != null) {
             throw new DuplicateNotificationWithWalkException(MessageCode.DUPLICATE_NOTIFICATION);
         }
 
