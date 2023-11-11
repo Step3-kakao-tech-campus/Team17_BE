@@ -9,7 +9,7 @@ import com.kakaoseventeen.dogwalking._core.utils.exception.member.MemberNotExist
 import com.kakaoseventeen.dogwalking._core.utils.exception.payment.PaymentNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.DuplicateNotificationWithWalkException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
-import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
+import com.kakaoseventeen.dogwalking.walk.dto.WalkResDTO;
 import com.kakaoseventeen.dogwalking.walk.service.WalkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,8 +37,8 @@ public class WalkController {
      * 산책 시작하기 메서드
      */
     @PostMapping("walk/start/{matchingId}")
-    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.StartWalk>> startWalk(@PathVariable("matchingId") Long matchingId) throws WalkNotExistException {
-        WalkRespDTO.StartWalk respDTO = walkService.startWalk(matchingId);
+    public ApiResponse<ApiResponse.CustomBody<WalkResDTO.StartWalk>> startWalk(@PathVariable("matchingId") Long matchingId) throws WalkNotExistException {
+        WalkResDTO.StartWalk respDTO = walkService.startWalk(matchingId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
@@ -46,8 +46,8 @@ public class WalkController {
      * 산책 종료하기 메서드
      */
     @PostMapping("walk/end/{matchingId}")
-    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.EndWalk>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("matchingId") Long matchingId) throws MatchNotExistException, WalkNotExistException, PaymentNotExistException {
-        WalkRespDTO.EndWalk respDTO = walkService.terminateWalk(customUserDetails, matchingId);
+    public ApiResponse<ApiResponse.CustomBody<WalkResDTO.EndWalk>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable("matchingId") Long matchingId) throws MatchNotExistException, WalkNotExistException, PaymentNotExistException {
+        WalkResDTO.EndWalk respDTO = walkService.terminateWalk(customUserDetails, matchingId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 
@@ -55,8 +55,8 @@ public class WalkController {
      * 리뷰 작성되지 않은 산책 조회 메서드
      */
     @GetMapping("walk/notReviewed")
-    public ApiResponse<ApiResponse.CustomBody<WalkRespDTO.FindNotEndWalksByUserId>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails) throws MemberNotExistException, WalkNotExistException{
-        WalkRespDTO.FindNotEndWalksByUserId respDTO = walkService.findAllWalkStatusByUserId(customUserDetails);
+    public ApiResponse<ApiResponse.CustomBody<WalkResDTO.FindNotEndWalksByUserId>> endWalk(@AuthenticationPrincipal CustomUserDetails customUserDetails) throws MemberNotExistException, WalkNotExistException{
+        WalkResDTO.FindNotEndWalksByUserId respDTO = walkService.findAllWalkStatusByUserId(customUserDetails);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 }

@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.dto.LoginRespDTO;
+import com.kakaoseventeen.dogwalking.member.dto.response.LoginRespDTO;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

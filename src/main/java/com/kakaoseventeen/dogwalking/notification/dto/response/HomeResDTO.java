@@ -6,24 +6,30 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * HomeResDTO(메인페이지(홈) 응답 DTO)
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
-public class HomeRespDTO {
+public class HomeResDTO {
 
     private CursorRequest nextCursorRequest;
     private List<NotificationDTO> notifications;
     private String image;
 
-    public HomeRespDTO(CursorRequest nextCursorRequest, List<NotificationDTO> notifications, String image) {
+    public HomeResDTO(CursorRequest nextCursorRequest, List<NotificationDTO> notifications, String image) {
         this.nextCursorRequest = nextCursorRequest;
         this.notifications = notifications;
         this.image = image;
     }
 
-    public static HomeRespDTO of(CursorRequest nextCursorRequest, List<Notification> notifications, String image) {
+    public static HomeResDTO of(CursorRequest nextCursorRequest, List<Notification> notifications, String image) {
         List<NotificationDTO> notificationDTOs = notifications.stream()
                 .map(NotificationDTO::new)
                 .toList();
-        return new HomeRespDTO(nextCursorRequest, notificationDTOs, image);
+        return new HomeResDTO(nextCursorRequest, notificationDTOs, image);
     }
 
     @Getter

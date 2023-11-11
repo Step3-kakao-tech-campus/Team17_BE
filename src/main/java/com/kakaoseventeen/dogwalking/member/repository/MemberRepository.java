@@ -5,7 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface MemberJpaRepository extends JpaRepository<Member, Long> {
+/**
+ * Member(멤버) 레파지토리
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
 

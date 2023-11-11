@@ -7,8 +7,17 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface RefreshTokenJpaRepository extends JpaRepository<RefreshToken, Integer> {
+/**
+ * Refresh Token 레파지토리
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
+public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Integer> {
 
+    /**
+     * Database에 저장된 Refresh Token을 조회하는 쿼리
+     */
     @Query("select r from RefreshToken r where r.token=:refreshToken")
     Optional<RefreshToken> findByToken(@Param("refreshToken") String refreshToken);
 

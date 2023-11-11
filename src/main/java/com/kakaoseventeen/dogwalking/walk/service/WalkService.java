@@ -8,16 +8,16 @@ import com.kakaoseventeen.dogwalking._core.utils.exception.payment.PaymentNotExi
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.DuplicateNotificationWithWalkException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.payment.domain.Payment;
 import com.kakaoseventeen.dogwalking.payment.repository.PaymentRepository;
 import com.kakaoseventeen.dogwalking.payment.service.PaymentService;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
+import com.kakaoseventeen.dogwalking.walk.dto.WalkResDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,9 +39,9 @@ public class WalkService {
 
     private final WalkRepository walkRepository;
 
-    private final MemberJpaRepository memberJpaRepository;
+    private final MemberRepository memberRepository;
 
-    private final MatchingRepository matchingRepository;
+    private final MatchRepository matchRepository;
 
     private final PaymentRepository paymentRepository;
 
@@ -50,11 +50,11 @@ public class WalkService {
      */
     @Transactional
     public void saveWalk(CustomUserDetails customUserDetails, Long userId, Long matchingId) throws MatchNotExistException, DuplicateNotificationWithWalkException, MemberNotExistException {
-        Member master = memberJpaRepository.findById(customUserDetails.getMember().getId()).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
-        Member walker = memberJpaRepository.findById(userId).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
+        Member master = memberRepository.findById(customUserDetails.getMember().getId()).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
+        Member walker = memberRepository.findById(userId).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
 
 
-        Match match = matchingRepository.findMatchById(matchingId).orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST));
+        Match match = matchRepository.findMatchById(matchingId).orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST));
 
         Notification notification = match.getNotificationId();
 
@@ -69,23 +69,23 @@ public class WalkService {
      * 산책 시작하기 메서드
      */
     @Transactional
-    public WalkRespDTO.StartWalk startWalk(Long matchingId) throws WalkNotExistException {
-        Walk walk = matchingRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+    public WalkResDTO.StartWalk startWalk(Long matchingId) throws WalkNotExistException {
+        Walk walk = matchRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
         walk.startWalk();
 
-        return new WalkRespDTO.StartWalk(walk);
+        return new WalkResDTO.StartWalk(walk);
     }
 
     /**
      * 산책 종료하기 메서드
      */
     @Transactional
-    public WalkRespDTO.EndWalk terminateWalk(CustomUserDetails customUserDetails, Long matchingId) throws MatchNotExistException, WalkNotExistException, PaymentNotExistException {
-        Notification notification = matchingRepository.findMatchById(matchingId)
+    public WalkResDTO.EndWalk terminateWalk(CustomUserDetails customUserDetails, Long matchingId) throws MatchNotExistException, WalkNotExistException, PaymentNotExistException {
+        Notification notification = matchRepository.findMatchById(matchingId)
                 .orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST))
                 .getNotificationId();
 
-        Walk walk = matchingRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+        Walk walk = matchRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
 
         walk.endWalk();
 
@@ -94,19 +94,19 @@ public class WalkService {
 
         PaymentService.depositFromPayment(payment, walker);
 
-        return WalkRespDTO.EndWalk.of(customUserDetails.getMember(), walker, walk, notification);
+        return WalkResDTO.EndWalk.of(customUserDetails.getMember(), walker, walk, notification);
     }
 
     /**
      * 종료되고, 리뷰가 작성되지 않은 산책 반환 메서드
      */
     @Transactional(readOnly = true)
-    public WalkRespDTO.FindNotEndWalksByUserId findAllWalkStatusByUserId(CustomUserDetails customUserDetails) throws MemberNotExistException {
-        Member member = memberJpaRepository.findById(customUserDetails.getMember().getId()).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
+    public WalkResDTO.FindNotEndWalksByUserId findAllWalkStatusByUserId(CustomUserDetails customUserDetails) throws MemberNotExistException {
+        Member member = memberRepository.findById(customUserDetails.getMember().getId()).orElseThrow(() -> new MemberNotExistException(MEMBER_NOT_EXIST));
 
         List<Walk> walks = walkRepository.findWalkWhatNotEnd(member.getId());
 
-        return new WalkRespDTO.FindNotEndWalksByUserId(walks, member.getId());
+        return new WalkResDTO.FindNotEndWalksByUserId(walks, member.getId());
     }
 }
 

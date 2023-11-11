@@ -18,6 +18,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
+/**
+ * SecurityConfig -> Spring Security 설정 클래스
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Configuration

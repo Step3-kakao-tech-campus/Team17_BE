@@ -8,6 +8,12 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * Member(멤버) 엔티티
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity

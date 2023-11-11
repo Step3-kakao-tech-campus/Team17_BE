@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.member.dto;
+package com.kakaoseventeen.dogwalking.member.dto.response;
 
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
@@ -6,7 +6,6 @@ import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.review.domain.Review;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +16,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * MemberProfileResDTO : 프로필 조회 응답 DTO
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Getter @Setter @Builder
-public class MemberProfileRespDTO {
+public class MemberProfileResDTO {
 
     private Long id;
 
@@ -40,8 +45,8 @@ public class MemberProfileRespDTO {
 
     private List<ReviewDTO> reviews;
 
-    public static MemberProfileRespDTO of(Member member, List<Notification> notifications, List<Dog> dogs, List<Application> applications, List<Review> reviews){
-        MemberProfileRespDTO dto = MemberProfileRespDTO.builder()
+    public static MemberProfileResDTO of(Member member, List<Notification> notifications, List<Dog> dogs, List<Application> applications, List<Review> reviews){
+        MemberProfileResDTO dto = MemberProfileResDTO.builder()
                 .id(member.getId())
                 .nickname(member.getNickname())
                 .profileImage(member.getProfileImage())

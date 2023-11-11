@@ -7,12 +7,18 @@ import lombok.Getter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * MatchResDTO : 매칭 응답 DTO
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
-public class MatchRespDTO {
+public class MatchResDTO {
 
     private List<MatchListDTO> matchList;
 
-    public MatchRespDTO(List<Match> matchList) {
+    public MatchResDTO(List<Match> matchList) {
 		        this.matchList = matchList.stream()
                 .map(match -> new MatchListDTO(match, match.getApplicationId()))
                 .collect(Collectors.toList());

@@ -7,8 +7,8 @@ import com.kakaoseventeen.dogwalking._core.utils.exception.notification.DogNotEx
 import com.kakaoseventeen.dogwalking._core.utils.exception.ImageNotExistException;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.dto.DogReqDTO;
-import com.kakaoseventeen.dogwalking.dog.dto.DogRespDTO;
-import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.dto.DogResDTO;
+import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DogService {
 
-    private final DogJpaRepository dogJpaRepository;
+    private final DogRepository dogRepository;
 
     private final S3Uploader s3Uploader;
 
@@ -37,7 +37,7 @@ public class DogService {
      * 강아지 프로필 등록 메서드
      */
     @Transactional
-    public DogRespDTO.save saveDog(MultipartFile image, DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, IOException {
+    public DogResDTO.save saveDog(MultipartFile image, DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, IOException {
 
         if (image == null){
             throw new ImageNotExistException(MessageCode.IMAGE_NOT_EXIST);
@@ -50,16 +50,16 @@ public class DogService {
         Dog dog = Dog.of(dogReqDTO, member, dogImage);
 
 
-        return new DogRespDTO.save(dogJpaRepository.save(dog));
+        return new DogResDTO.save(dogRepository.save(dog));
     }
 
     /**
      * 강아지 프로필 수정 메서드
      */
     @Transactional
-    public DogRespDTO.save updateDog(Long dogId, DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, DogNotExistException, IOException {
+    public DogResDTO.save updateDog(Long dogId, DogReqDTO dogReqDTO, CustomUserDetails customUserDetails) throws ImageNotExistException, DogNotExistException, IOException {
 
-        Dog dog = dogJpaRepository.findById(dogId).orElseThrow(() -> new DogNotExistException(MessageCode.DOG_NOT_EXIST));
+        Dog dog = dogRepository.findById(dogId).orElseThrow(() -> new DogNotExistException(MessageCode.DOG_NOT_EXIST));
 
         if (!(dogReqDTO.getImage() == null)){
             String dogImage = s3Uploader.uploadFiles(customUserDetails.getMember().getId(), dogReqDTO.getImage(), "dogProfile");
@@ -68,7 +68,7 @@ public class DogService {
             dog.updateDog(dogReqDTO, "null");
         }
 
-        return new DogRespDTO.save(dog);
+        return new DogResDTO.save(dog);
     }
 
 
@@ -76,11 +76,11 @@ public class DogService {
      * 강아지 프로필 조회 메서드
      */
     @Transactional(readOnly = true)
-    public DogRespDTO.findById findByDogId(Long dogId) throws DogNotExistException {
-        Optional<Dog> dog = dogJpaRepository.findById(dogId);
+    public DogResDTO.findById findByDogId(Long dogId) throws DogNotExistException {
+        Optional<Dog> dog = dogRepository.findById(dogId);
 
         if (dog.isPresent()) {
-            return new DogRespDTO.findById(dog.get());
+            return new DogResDTO.findById(dog.get());
         }
         else {
             throw new DogNotExistException(MessageCode.DOG_NOT_EXIST);

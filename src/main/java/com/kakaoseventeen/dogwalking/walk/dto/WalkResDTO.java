@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class WalkRespDTO {
+public class WalkResDTO {
 
     @Getter @Setter
     public static class StartWalk {

@@ -1,14 +1,13 @@
 package com.kakaoseventeen.dogwalking.notification.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.dto.request.WriteNotificationReqDTO;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -29,7 +27,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -53,13 +50,13 @@ class NotificationControllerTest {
     private ObjectMapper om;
 
     @Autowired
-    MemberJpaRepository memberJpaRepository;
+    MemberRepository memberRepository;
 
     @Autowired
-    NotificationJpaRepository notificationJpaRepository;
+    NotificationRepository notificationRepository;
 
     @Autowired
-    DogJpaRepository dogJpaRepository;
+    DogRepository dogRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -67,7 +64,7 @@ class NotificationControllerTest {
 
     @BeforeEach
     void setUp() {
-        Member master1 = memberJpaRepository.save(Member.builder()
+        Member master1 = memberRepository.save(Member.builder()
                 .id(1L)
                 .nickname("닉네임1")
                 .email("mkwak1125@gmail.com")
@@ -79,7 +76,7 @@ class NotificationControllerTest {
 
 
 
-        Member master2 = memberJpaRepository.save(Member.builder()
+        Member master2 = memberRepository.save(Member.builder()
                 .id(2L)
                 .nickname("닉네임2")
                 .email("asfd@gmail.com")
@@ -91,8 +88,8 @@ class NotificationControllerTest {
                 .dogBowl(55)
                 .build());
 
-        memberJpaRepository.saveAndFlush(master1);
-        memberJpaRepository.saveAndFlush(master2);
+        memberRepository.saveAndFlush(master1);
+        memberRepository.saveAndFlush(master2);
 
 
         Dog dog1 = Dog.builder()
@@ -103,7 +100,7 @@ class NotificationControllerTest {
                 .size("대형견")
                 .member(master1)
                 .build();
-        dogJpaRepository.saveAndFlush(dog1);
+        dogRepository.saveAndFlush(dog1);
 
         Notification notification1 = Notification.builder()
                 .dog(dog1)
@@ -115,7 +112,7 @@ class NotificationControllerTest {
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 23, 36))
                 .significant("우리 아이는 착해용")
                 .build();
-        notificationJpaRepository.saveAndFlush(notification1);
+        notificationRepository.saveAndFlush(notification1);
 
     }
 

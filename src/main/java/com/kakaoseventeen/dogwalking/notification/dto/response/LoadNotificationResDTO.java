@@ -7,8 +7,14 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * LoadNotificationResDTO(공고글 불러오기 응답 DTO)
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
-public class LoadNotificationRespDTO {
+public class LoadNotificationResDTO {
     private Boolean isMine;
     private Long notificationId;
     private Long userId;
@@ -21,7 +27,7 @@ public class LoadNotificationRespDTO {
     private BigDecimal coin;
     private String significant;
 
-    public LoadNotificationRespDTO(Notification notification, Dog dog, Boolean isMine){
+    public LoadNotificationResDTO(Notification notification, Dog dog, Boolean isMine){
         this.isMine = isMine;
         this.notificationId = notification.getId();
         this.userId = dog.getMember().getId();

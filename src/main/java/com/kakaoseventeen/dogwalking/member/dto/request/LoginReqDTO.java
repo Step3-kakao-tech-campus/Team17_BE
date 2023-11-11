@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.member.dto;
+package com.kakaoseventeen.dogwalking.member.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -6,6 +6,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * LoginReqDTO : 로그인 요청 DTO
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 @Setter
 public class LoginReqDTO {
