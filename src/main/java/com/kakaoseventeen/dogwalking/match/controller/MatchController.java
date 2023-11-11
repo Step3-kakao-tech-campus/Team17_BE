@@ -2,7 +2,7 @@ package com.kakaoseventeen.dogwalking.match.controller;
 
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking.match.dto.MatchRespDTO;
+import com.kakaoseventeen.dogwalking.match.dto.MatchResDTO;
 import com.kakaoseventeen.dogwalking.match.service.MatchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,9 +20,12 @@ public class MatchController {
 
     private final MatchService matchService;
 
+    /**
+     * 공고글에 매칭된 지원자 리스트를 응답하는 메서드
+     */
     @GetMapping("/notification/{notificationId}/match")
     public ResponseEntity<?> findMatch(@PathVariable("notificationId") Long notificationId, @AuthenticationPrincipal CustomUserDetails customUserDetails) throws RuntimeException {
-        MatchRespDTO respDTO = matchService.match(notificationId, customUserDetails.getMember());
+        MatchResDTO respDTO = matchService.match(notificationId, customUserDetails.getMember());
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
 }

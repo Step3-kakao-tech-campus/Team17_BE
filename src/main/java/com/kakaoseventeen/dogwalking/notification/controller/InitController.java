@@ -3,13 +3,13 @@ package com.kakaoseventeen.dogwalking.notification.controller;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import com.kakaoseventeen.dogwalking.review.domain.Review;
 import com.kakaoseventeen.dogwalking.review.repository.ReviewRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
@@ -19,7 +19,6 @@ import com.kakaoseventeen.dogwalking.walkRoad.repository.WalkRoadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,22 +31,22 @@ import java.time.Month;
 @RequiredArgsConstructor
 public class InitController {
 
-    private final DogJpaRepository dogJpaRepository;
-    private final MemberJpaRepository memberJpaRepository;
-    private final NotificationJpaRepository notificationJpaRepository;
+    private final DogRepository dogRepository;
+    private final MemberRepository memberRepository;
+    private final NotificationRepository notificationRepository;
     private final ApplicationRepository applicationRepository;
     private final WalkRepository walkRepository;
-    private final MatchingRepository matchingRepository;
+    private final MatchRepository matchRepository;
     private final WalkRoadRepository walkRoadRepository;
     private final ReviewRepository reviewRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping("/init")
+    @GetMapping("/api/init")
     public ResponseEntity<?> init(){
 
 
-        Member member1 = memberJpaRepository.save(Member.builder()
+        Member member1 = memberRepository.save(Member.builder()
                 .id(1L)
                 .nickname("닉네임1")
                 .email("mkwak1125@gmail.com")
@@ -59,7 +58,7 @@ public class InitController {
 
 
 
-        Member member2 = memberJpaRepository.save(Member.builder()
+        Member member2 = memberRepository.save(Member.builder()
                 .id(2L)
                 .nickname("닉네임2")
                 .email("asfd@gmail.com")
@@ -71,7 +70,7 @@ public class InitController {
                 .dogBowl(55)
                 .build());
 
-        Member member3 = memberJpaRepository.save(Member.builder()
+        Member member3 = memberRepository.save(Member.builder()
                 .id(3L)
                 .nickname("닉네임3")
                 .email("yardyard@gmail.com")
@@ -80,7 +79,7 @@ public class InitController {
                 .coin(BigDecimal.valueOf(100000))
                 .build());
 
-        Member member4 = memberJpaRepository.save(Member.builder()
+        Member member4 = memberRepository.save(Member.builder()
                 .id(4L)
                 .nickname("닉네임4")
                 .email("yardyard@naver.com")
@@ -94,7 +93,7 @@ public class InitController {
                 .id(1L)
                 .breed("푸들")
                 .name("강아지이름1")
-                .sex("수컷")
+                .sex("MALE")
                 .size("대형견")
                 .specificity("알러지있음")
                 .image("1번 강아지 이미지")
@@ -106,7 +105,7 @@ public class InitController {
                 .id(2L)
                 .breed("말티즈")
                 .name("강아지이름2")
-                .sex("암컷")
+                .sex("FEMALE")
                 .size("소형견")
                 .specificity("알러지있음")
                 .image("2번 강아지 이미지")
@@ -163,12 +162,12 @@ public class InitController {
                 .member(member1)
                 .build();
 
-        dogJpaRepository.save(dog1);
-        dogJpaRepository.save(dog2);
-        dogJpaRepository.save(dog3);
-        dogJpaRepository.save(dog4);
-        dogJpaRepository.save(dog5);
-        dogJpaRepository.save(dog6);
+        dogRepository.save(dog1);
+        dogRepository.save(dog2);
+        dogRepository.save(dog3);
+        dogRepository.save(dog4);
+        dogRepository.save(dog5);
+        dogRepository.save(dog6);
 
         Notification notification1 = Notification.builder()
                 .dog(dog1)
@@ -248,13 +247,13 @@ public class InitController {
                 .significant("우리 아이는 착해용")
                 .build();
 
-        notificationJpaRepository.save(notification1);
-        notificationJpaRepository.save(notification2);
-        notificationJpaRepository.save(notification3);
-        notificationJpaRepository.save(notification4);
-        notificationJpaRepository.save(notification5);
-        notificationJpaRepository.save(notification6);
-        notificationJpaRepository.save(notification7);
+        notificationRepository.save(notification1);
+        notificationRepository.save(notification2);
+        notificationRepository.save(notification3);
+        notificationRepository.save(notification4);
+        notificationRepository.save(notification5);
+        notificationRepository.save(notification6);
+        notificationRepository.save(notification7);
 
         Walk walk1 = walkRepository.saveAndFlush(Walk.of(member1, member2, notification1));
 
@@ -265,8 +264,8 @@ public class InitController {
                 .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
                 .title("지원서 제목1")
                 .appMemberId(member1)
-                .certification("애견 보호사 2급")
-                .experience("강아지 유치원 2년 근무")
+                .certification("애견 보호사 1급")
+                .experience("강아지 유치원 1년 근무")
                 .build());
 
         Application application2 = applicationRepository.saveAndFlush(Application.builder()
@@ -280,37 +279,51 @@ public class InitController {
         Application application3 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 3번 지원자")
                 .title("지원서 제목3")
-                .appMemberId(member1)
-                .certification("애견 보호사 2급")
-                .experience("강아지 유치원 2년 근무")
+                .appMemberId(member4)
+                .certification("애견 보호사 3급")
+                .experience("강아지 유치원 3년 근무")
                 .build());
 
         Application application4 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 4번 지원자")
                 .title("지원서 제목4")
                 .appMemberId(member2)
-                .certification("애견 보호사 2급")
-                .experience("강아지 유치원 2년 근무")
+                .certification("애견 보호사 4급")
+                .experience("강아지 유치원 4년 근무")
                 .build());
 
-        matchingRepository.saveAndFlush(Match.builder()
+        Application application5 = applicationRepository.saveAndFlush(Application.builder()
+                .aboutMe("저에 관해서 소개를 하겠습니다. 5번 지원자")
+                .title("지원서 제목5")
+                .appMemberId(member3)
+                .certification("애견 보호사 5급")
+                .experience("강아지 유치원 5년 근무")
+                .build());
+
+        matchRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
                 .applicationId(application1)
                 .build());
 
-        matchingRepository.saveAndFlush(Match.builder()
+        matchRepository.saveAndFlush(Match.builder()
+                .notificationId(notification1)
+                .applicationId(application2)
+                .build());
+
+        matchRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
                 .applicationId(application3)
                 .build());
 
-        matchingRepository.saveAndFlush(Match.builder()
+        matchRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
-                .applicationId(application4)
+                .applicationId(application5)
                 .build());
 
-        matchingRepository.saveAndFlush(Match.builder()
+
+        matchRepository.saveAndFlush(Match.builder()
                 .notificationId(notification2)
-                .applicationId(application2)
+                .applicationId(application4)
                 .build());
 
         reviewRepository.saveAndFlush(Review.builder()

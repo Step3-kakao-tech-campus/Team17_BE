@@ -1,5 +1,7 @@
 package com.kakaoseventeen.dogwalking.chat.service;
 
+import com.kakaoseventeen.dogwalking._core.utils.ChatMessageCode;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.ChatRoomNotFoundException;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatMessageResDTO;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
@@ -21,15 +24,17 @@ public class ChatMessageReadService {
 
     public List<ChatMessageResDTO> getMessage(Long chatRoomId){
 
-        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow(() -> new RuntimeException("일치하는 채팅방이 존재하지 않습니다."));
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
+                .orElseThrow(() -> new ChatRoomNotFoundException(ChatMessageCode.CHATROOM_NOT_FOUND));
         List<ChatMessage> chatMessages = chatMessageRepository.findChatMessageByChatRoomId(chatRoom);
 
         return chatMessages.stream()
                 .map(chatMessage -> ChatMessageResDTO.builder()
-                            .messageType(chatMessage.getMessageType())
-                            .memberId(chatMessage.getSenderId().getId())
-                            .content(chatMessage.getContent())
-                            .build()
+                        .messageType(chatMessage.getMessageType())
+                        .memberId(chatMessage.getSenderId().getId())
+                        .content(chatMessage.getContent())
+                        .createdAt(chatMessage.getCreatedAt().toEpochSecond(ZoneOffset.UTC))
+                        .build()
                 ).toList();
 
 

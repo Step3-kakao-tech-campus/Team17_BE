@@ -5,10 +5,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
+/**
+ * Member(멤버) 엔티티
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -45,11 +50,14 @@ public class Member {
         this.coin = coin;
     }
 
+    /**
+     * 프로필 수정하는 메서드
+     */
     public void updateProfile(String profileImage, String profileContent){
         if (profileImage != null) {
             this.profileImage = profileImage;
         }
-        if (!profileContent.isEmpty()) {
+        if (profileContent != null && !profileContent.isEmpty()) {
             this.profileContent = profileContent;
         }
     }

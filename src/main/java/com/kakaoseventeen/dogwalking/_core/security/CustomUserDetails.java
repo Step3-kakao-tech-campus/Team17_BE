@@ -8,7 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-//Spring Security에서 사용자의 정보를 담는 인터페이스
+/**
+ * Spring Security에서 사용하는 UserDetails를 구현한 클래스
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @RequiredArgsConstructor
 @Getter
 public class CustomUserDetails implements UserDetails {
@@ -25,7 +30,6 @@ public class CustomUserDetails implements UserDetails {
         return member.getPassword();
     }
 
-    //이메일을 넘겨줌
     @Override
     public String getUsername() {
         return member.getEmail();

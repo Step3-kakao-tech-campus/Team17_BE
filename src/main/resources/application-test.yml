@@ -1,20 +1,19 @@
 spring:
-  config.activate.on-profile: test
-  datasource:
-    hikari:
-      driver-class-name: org.h2.Driver
-      jdbc-url: jdbc:h2:mem:dogWalking;
-      username: sa
-      password:
+  h2:
+    console:
+      enabled: true
+      #path:
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
+      ddl-auto: create
     properties:
       hibernate:
+        show_sql: true
         format_sql: true
-logging:
-  level:
-    org.hibernate: info
-    org.springframework: info
+  datasource:
+    url: jdbc:h2:mem:dogWalking;mode=mysql
+    username: sa
+    driver-class-name: org.h2.Driver
+
+jwt:
+  secret: YXNkaGRha2pnaHpka2pnaHp4a2pnZmhranpkeHNoZnpqa2ZoYXNkaGRha2pnaHpka2pnaHp4a2pnZmhranpkeHNoZnpqa2Zo

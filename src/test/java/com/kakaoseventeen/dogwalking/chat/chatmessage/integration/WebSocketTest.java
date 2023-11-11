@@ -37,6 +37,12 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 
+/**
+ * STOMP 통신 테스트
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // local Server Random port Setting
 public class WebSocketTest {
@@ -48,7 +54,7 @@ public class WebSocketTest {
 
     private StompSession session;
 
-    private static final String SUBSCRIPTION_TOPIC = "/queue/chat-sub";
+    private static final String SUBSCRIPTION_TOPIC = "/api/topic/chat-sub";
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketTest.class);
 
     @Autowired
@@ -56,7 +62,7 @@ public class WebSocketTest {
 
     @BeforeEach
     public void setup() throws InterruptedException, ExecutionException, TimeoutException {
-        final String URL = "ws://localhost:" + port + "/chat-connect";
+        final String URL = "ws://localhost:" + port + "/api/connect";
         LOGGER.info("port : {}",port);
 
         final List<Transport> transportList = Collections.singletonList(new WebSocketTransport(new StandardWebSocketClient()));
@@ -65,24 +71,24 @@ public class WebSocketTest {
 
         receivedMessages = new LinkedBlockingDeque<>();
         session = stompClient.connectAsync(URL, new MySessionHandler()).get(5, SECONDS);
-        LOGGER.info(" -----연결 성공!------");
+        LOGGER.info(" * 연결 완료 * ");
         await().until(this::isSubscribed);
     }
 
     @Test
     public void stompTest() throws Exception {
-        final String message = "myMessage"; // payload에 담긴 메세지
+        final String message = "testMessage"; // payload에 담긴 메세지
         messagingTemplate.convertAndSend(SUBSCRIPTION_TOPIC, message);
         final String response = receivedMessages.poll(5, SECONDS);
         Assertions.assertEquals(message, response);
-        LOGGER.info("-----테스트 성공------");
+        LOGGER.info(" * 테스트 완료 * ");
     }
 
     @AfterEach
     public void reset() throws InterruptedException {
         session.disconnect();
         await().until(() -> !session.isConnected());
-        LOGGER.info("-----연결 종료!------");
+        LOGGER.info(" * 연결 종료 * ");
     }
 
     private boolean isSubscribed() {

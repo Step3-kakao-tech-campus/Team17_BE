@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class NotificationIdNotExistException extends IllegalArgumentException{
+
     private ReviewMessageCode messageCode;
 
     public NotificationIdNotExistException(ReviewMessageCode messageCode){

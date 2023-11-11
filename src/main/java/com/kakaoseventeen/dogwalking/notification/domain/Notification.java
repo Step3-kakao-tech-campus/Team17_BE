@@ -1,7 +1,6 @@
 package com.kakaoseventeen.dogwalking.notification.domain;
 
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.notification.dto.request.UpdateNotificationReqDTO;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,6 +11,12 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Notification(공고글) 엔티티
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -50,17 +55,6 @@ public class Notification {
         this.endTime = endTime;
         this.significant = significant;
         this.coin = coin;
-    }
-
-    public void update(UpdateNotificationReqDTO updateNotificationReqDTO, Dog dog){
-        this.title = updateNotificationReqDTO.getTitle();
-        this.dog = dog;
-        this.lat = updateNotificationReqDTO.getLat();
-        this.lng = updateNotificationReqDTO.getLng();
-        this.startTime = updateNotificationReqDTO.getStart();
-        this.endTime = updateNotificationReqDTO.getEnd();
-        this.significant = updateNotificationReqDTO.getSignificant();
-        this.coin = updateNotificationReqDTO.getCoin();
     }
 
 }
