@@ -19,9 +19,9 @@ public class ChatRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chatRoomId;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member notiMemberId;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member appMemberId;
 
     @CreatedDate
