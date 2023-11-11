@@ -3,7 +3,6 @@ package com.kakaoseventeen.dogwalking.walk.dto;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

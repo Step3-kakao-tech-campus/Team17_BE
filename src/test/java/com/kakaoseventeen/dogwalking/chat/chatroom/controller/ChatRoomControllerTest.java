@@ -9,7 +9,6 @@ import com.kakaoseventeen.dogwalking.chat.controller.ChatRoomController;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatRoomReqDTO;
 import com.kakaoseventeen.dogwalking.chat.service.ChatRoomReadService;
 import com.kakaoseventeen.dogwalking.chat.service.ChatRoomWriteService;
-import com.kakaoseventeen.dogwalking.match.domain.Match;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
