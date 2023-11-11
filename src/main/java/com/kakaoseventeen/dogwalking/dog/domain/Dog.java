@@ -7,6 +7,12 @@ import lombok.*;
 
 import java.util.Objects;
 
+/**
+ * Dog(강아지) 엔티티
+ *
+ * @author 곽민주, 승건 이
+ * @version 1.0
+ */
 @Getter
 @Entity
 @Table(name="dog_tb")

@@ -25,11 +25,11 @@ public class ApplicationReadService {
     private final MatchRepository matchRepository;
     private final MemberRepository memberRepository;
 
-
+    /**
+     * 지원서 조회 메서드
+     */
     @Transactional(readOnly = true)
     public GetAppResDTO getApp(Long id) {
-
-        // TODO - Custom 예외처리
 
         Application application = applicationRepository.findById(id)
                 .orElseThrow(() -> new ApplicationNotFoundException(ApplicationMessageCode.APPLICATION_NOT_FOUND));
@@ -49,6 +49,9 @@ public class ApplicationReadService {
                 .build();
     }
 
+    /**
+     * 지원서 불러오기 메서드
+     */
     @Transactional(readOnly = true)
     public GetAppMemberResDTO getAppMember() {
         Member member = memberRepository.findByEmail(getEmail())
@@ -60,6 +63,9 @@ public class ApplicationReadService {
                 .build();
     }
 
+    /**
+     * 유저 이메일 가져오는 메서드
+     */
     private String getEmail(){
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String email = loggedInUser.getName();

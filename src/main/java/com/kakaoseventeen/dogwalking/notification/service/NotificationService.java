@@ -18,6 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * NotificationService(공고글) 서비스
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

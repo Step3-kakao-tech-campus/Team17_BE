@@ -20,6 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
+/**
+ * ReviewWriteService(리뷰 작성) 서비스
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -67,6 +73,9 @@ public class ReviewWriteService {
 
     }
 
+    /**
+     * DTO를 객체로 변환하는 메서드
+     */
     private Review dtoToReview(WriteReviewReqDTO writeReviewReqDTO, Member memeber, Member receiveMember, boolean isReceiverDogOwner) {
         return Review.builder()
                 .reviewerId(memeber)
@@ -82,6 +91,9 @@ public class ReviewWriteService {
 
     }
 
+    /**
+     * 유효성 검사 메서드
+     */
     // TODO - 추후 클래스로 분리할 것
     private void validator(WriteReviewReqDTO writeReviewReqDTO) {
 

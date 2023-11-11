@@ -9,11 +9,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * ReviewReadService(리뷰 조회) 서비스
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class ReviewReadService {
 
     private final MemberRepository memberRepository;
+
 
     @Transactional(readOnly = true)
     public GetReviewResDTO getReviewPreview(Long memberId){

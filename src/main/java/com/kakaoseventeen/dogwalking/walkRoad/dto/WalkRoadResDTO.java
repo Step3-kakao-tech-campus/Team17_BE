@@ -7,6 +7,12 @@ import lombok.Setter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * WalkRoadResDTO : 산책로 관련 응답 DTO
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 public class WalkRoadResDTO {
 
     @Getter @Setter

@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
+    /**
+     * 유저 아이디로 지원서를 조회하는 쿼리
+     */
     @Query("select a " +
             "from Application a " +
             "where a.appMemberId.id =:userId")

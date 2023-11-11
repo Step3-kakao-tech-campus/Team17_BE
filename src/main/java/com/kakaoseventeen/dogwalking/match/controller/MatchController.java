@@ -20,6 +20,9 @@ public class MatchController {
 
     private final MatchService matchService;
 
+    /**
+     * 공고글에 매칭된 지원자 리스트를 응답하는 메서드
+     */
     @GetMapping("/notification/{notificationId}/match")
     public ResponseEntity<?> findMatch(@PathVariable("notificationId") Long notificationId, @AuthenticationPrincipal CustomUserDetails customUserDetails) throws RuntimeException {
         MatchResDTO respDTO = matchService.match(notificationId, customUserDetails.getMember());

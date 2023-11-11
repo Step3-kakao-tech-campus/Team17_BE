@@ -6,6 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * Review(리뷰) 레파지토리
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     @Query("select r " +

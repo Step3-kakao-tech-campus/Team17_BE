@@ -7,6 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
 
+/**
+ * Notification(공고글) 레파지토리
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
     /**

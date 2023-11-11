@@ -1,4 +1,4 @@
-package com.kakaoseventeen.dogwalking.member.dto;
+package com.kakaoseventeen.dogwalking.member.dto.response;
 
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
@@ -16,6 +16,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * MemberProfileResDTO : 프로필 조회 응답 DTO
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Getter @Setter @Builder
 public class MemberProfileResDTO {
 

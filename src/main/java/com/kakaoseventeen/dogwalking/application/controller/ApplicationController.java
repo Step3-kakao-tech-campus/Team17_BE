@@ -21,6 +21,9 @@ public class ApplicationController {
     private final ApplicationWriteService applicationWriteService;
     private final ApplicationReadService applicationReadService;
 
+    /**
+     * 지원서 조회 메서드
+     */
     @GetMapping("/application/{applicationId}")
     public ApiResponse<ApiResponse.CustomBody<GetAppResDTO>> getApp(@PathVariable Long applicationId){
 
@@ -29,12 +32,18 @@ public class ApplicationController {
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
 
+    /**
+     * 지원서 작성 메서드
+     */
     @PostMapping("/application")
     public ResponseEntity<?> createApp(@RequestBody CreateAppReqDTO createAppReqDTO){
         applicationWriteService.createApp(createAppReqDTO);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
+    /**
+     * 지원서 불러오기 메서드
+     */
     @GetMapping("/application")
     public ApiResponse<ApiResponse.CustomBody<GetAppMemberResDTO>> getAppMember(){
 

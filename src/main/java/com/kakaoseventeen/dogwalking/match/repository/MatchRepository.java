@@ -10,6 +10,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Match(매칭) 레파지토리
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 public interface MatchRepository extends JpaRepository<Match, Long> {
 
     /**
@@ -33,6 +39,9 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     Optional<Walk> findWalkFromMatchById(Long matchId);
 
 
+    /**
+     * NotificationId를 통해서 Match 엔티티와 연관된 Application 엔티티, Notification 엔티티를 join fetch로 가져오는 쿼리
+     */
     @Query("select m " +
             "from Match m " +
             "join fetch m.notificationId " +

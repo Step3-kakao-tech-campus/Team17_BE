@@ -10,6 +10,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * PaymentResDTO(결제 정보 조회 응답) DTO
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Getter
 @Setter
 @Builder
