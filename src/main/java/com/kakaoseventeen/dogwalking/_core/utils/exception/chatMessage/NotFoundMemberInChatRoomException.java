@@ -1,7 +1,9 @@
 package com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage;
 
 import com.kakaoseventeen.dogwalking._core.utils.ChatMessageCode;
+import lombok.Getter;
 
+@Getter
 public class NotFoundMemberInChatRoomException extends IllegalArgumentException{
 
     private ChatMessageCode chatMessageCode;
