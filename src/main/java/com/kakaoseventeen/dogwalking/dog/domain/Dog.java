@@ -57,15 +57,15 @@ public class Dog {
             this.image = imageUrl;
         }
 
-        if (!dogReqDTO.getName().isEmpty()){
+        if (dogReqDTO.getName() != null && !dogReqDTO.getName().isEmpty()){
             this.name = dogReqDTO.getName();
         }
 
-        if (!dogReqDTO.getSex().isEmpty()){
+        if (dogReqDTO.getSex() != null && !dogReqDTO.getSex().isEmpty()){
             this.sex = dogReqDTO.getSex();
         }
 
-        if (!dogReqDTO.getBreed().isEmpty()){
+        if (dogReqDTO.getBreed() != null && !dogReqDTO.getBreed().isEmpty()){
             this.breed = dogReqDTO.getBreed();
         }
 
@@ -73,11 +73,11 @@ public class Dog {
             this.age = Integer.parseInt(dogReqDTO.getAge());
         }
 
-        if (!dogReqDTO.getSize().isEmpty()){
+        if (dogReqDTO.getSize() != null && !dogReqDTO.getSize().isEmpty()){
             this.size = dogReqDTO.getSize();
         }
 
-        if (!dogReqDTO.getSpecificity().isEmpty()){
+        if (dogReqDTO.getSpecificity() != null && !dogReqDTO.getSpecificity().isEmpty()){
             this.specificity = dogReqDTO.getSpecificity();
         }
     }
