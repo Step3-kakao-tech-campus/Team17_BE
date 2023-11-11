@@ -7,9 +7,9 @@ import com.kakaoseventeen.dogwalking.chat.domain.ChatRoom;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatRoomReqDTO;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,17 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChatRoomWriteService {
 
     private final ChatRoomRepository chatRoomRepository;
-    private final MemberJpaRepository memberJpaRepository;
-    private final MatchingRepository matchingRepository;
+    private final MemberRepository memberRepository;
+    private final MatchRepository matchRepository;
 
     @Transactional
     public void save(ChatRoomReqDTO chatRoomReqDTO){
 
-        Member appMember = memberJpaRepository.findById(chatRoomReqDTO.appMemberId())
+        Member appMember = memberRepository.findById(chatRoomReqDTO.appMemberId())
                 .orElseThrow(() -> new ChatRoomMemberNotFoundException(ChatRoomMessageCode.MEMBER_NOT_FOUND));
-        Member notiMember = memberJpaRepository.findById(chatRoomReqDTO.notiMemberId())
+        Member notiMember = memberRepository.findById(chatRoomReqDTO.notiMemberId())
                 .orElseThrow(() -> new ChatRoomMemberNotFoundException(ChatRoomMessageCode.MEMBER_NOT_FOUND));
-        Match match = matchingRepository.findById(chatRoomReqDTO.matchId())
+        Match match = matchRepository.findById(chatRoomReqDTO.matchId())
                 .orElseThrow(() ->new ChatRoomMatchNotFoundException(ChatRoomMessageCode.MATCH_NOT_FOUND));
 
         match.updateIsSuccess(true);

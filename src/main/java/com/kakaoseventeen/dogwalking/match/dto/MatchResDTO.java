@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class MatchRespDTO {
+public class MatchResDTO {
 
     private List<MatchListDTO> matchList;
 
-    public MatchRespDTO(List<Match> matchList) {
+    public MatchResDTO(List<Match> matchList) {
 		        this.matchList = matchList.stream()
                 .map(match -> new MatchListDTO(match, match.getApplicationId()))
                 .collect(Collectors.toList());

@@ -7,11 +7,11 @@ import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.dto.CreateAppReqDTO;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,14 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class ApplicationWriteService {
 
     private final ApplicationRepository applicationRepository;
-    private final MatchingRepository matchingRepository;
-    private final MemberJpaRepository memberJpaRepository;
-    private final NotificationJpaRepository notificationJpaRepository;
+    private final MatchRepository matchRepository;
+    private final MemberRepository memberRepository;
+    private final NotificationRepository notificationRepository;
 
     @Transactional
     public void createApp(CreateAppReqDTO createAppReqDTO){
 
-        Member member = memberJpaRepository.findByEmail(getEmail())
+        Member member = memberRepository.findByEmail(getEmail())
                 .orElseThrow(() -> new ApplicationMemberNotFoundException(ApplicationMessageCode.MEMBER_NOT_FOUND));
 
         Application application = getApplication(createAppReqDTO, member);
@@ -38,12 +38,12 @@ public class ApplicationWriteService {
 
         applicationRepository.save(application);
 
-        Notification notification = notificationJpaRepository.findById(createAppReqDTO.notificationId())
+        Notification notification = notificationRepository.findById(createAppReqDTO.notificationId())
                 .orElseThrow(() -> new NotificationNotFoundException(ApplicationMessageCode.NOTIFICATION_NOT_FOUND));
 
         Match match = getMatch(application, notification);
 
-        matchingRepository.save(match);
+        matchRepository.save(match);
 
 
     }

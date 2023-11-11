@@ -10,7 +10,7 @@ import lombok.Setter;
  * @author 승건 이
  * @version 1.0
  */
-public class DogRespDTO {
+public class DogResDTO {
 
     @Getter
     @Setter

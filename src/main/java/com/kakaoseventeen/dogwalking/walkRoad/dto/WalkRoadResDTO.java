@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WalkRoadRespDTO {
+public class WalkRoadResDTO {
 
     @Getter @Setter
     public static class SaveWalkResp{

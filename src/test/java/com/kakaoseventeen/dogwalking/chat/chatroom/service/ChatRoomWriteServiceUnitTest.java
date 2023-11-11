@@ -5,9 +5,9 @@ import com.kakaoseventeen.dogwalking.chat.dto.ChatRoomReqDTO;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.chat.service.ChatRoomWriteService;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,13 +31,13 @@ import static org.mockito.ArgumentMatchers.eq;
 public class ChatRoomWriteServiceUnitTest {
 
     @Mock
-    MemberJpaRepository memberJpaRepository;
+    MemberRepository memberRepository;
 
     @Mock
     ChatRoomRepository chatRoomRepository;
 
     @Mock
-    MatchingRepository matchingRepository;
+    MatchRepository matchRepository;
 
     @BeforeEach
     void setUp(){
@@ -80,11 +80,11 @@ public class ChatRoomWriteServiceUnitTest {
 
 
         // when
-        Mockito.when(memberJpaRepository.findById(eq(appMemberId))).thenReturn(Optional.of(appMember));
-        Mockito.when(memberJpaRepository.findById(eq(notiMemberId))).thenReturn(Optional.of(notiMember));
+        Mockito.when(memberRepository.findById(eq(appMemberId))).thenReturn(Optional.of(appMember));
+        Mockito.when(memberRepository.findById(eq(notiMemberId))).thenReturn(Optional.of(notiMember));
         Mockito.when(chatRoomRepository.save(any(ChatRoom.class))).thenReturn(chatRoom);
-        Mockito.when(matchingRepository.findById(any(Long.class))).thenReturn(Optional.of(match));
-        ChatRoomWriteService chatRoomWriteService = new ChatRoomWriteService(chatRoomRepository, memberJpaRepository, matchingRepository);
+        Mockito.when(matchRepository.findById(any(Long.class))).thenReturn(Optional.of(match));
+        ChatRoomWriteService chatRoomWriteService = new ChatRoomWriteService(chatRoomRepository, memberRepository, matchRepository);
 
         chatRoomWriteService.save(chatRoomReqDTO);
 

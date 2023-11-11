@@ -9,11 +9,11 @@ import com.kakaoseventeen.dogwalking.chat.repository.ChatMessageRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.chat.service.ChatRoomReadService;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.domain.WalkStatus;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
@@ -47,13 +47,13 @@ public class ChatRoomReadServiceTest {
     @Autowired
     private ChatMessageRepository chatMessageRepository;
     @Autowired
-    private MemberJpaRepository memberJpaRepository;
+    private MemberRepository memberRepository;
     @Autowired
     private WalkRepository walkRepository;
     @Autowired
-    private DogJpaRepository dogJpaRepository;
+    private DogRepository dogRepository;
     @Autowired
-    private NotificationJpaRepository notificationJpaRepository;
+    private NotificationRepository notificationRepository;
     @Autowired
     private ChatRoomReadService chatRoomReadService;
 
@@ -76,7 +76,7 @@ public class ChatRoomReadServiceTest {
                 .email("test2@naver.com")
                 .password("test2")
                 .build();
-        memberJpaRepository.saveAll(List.of(member1, member2));
+        memberRepository.saveAll(List.of(member1, member2));
 
         // chatRoom
         ChatRoom chatRoom1 = ChatRoom.builder()
@@ -108,7 +108,7 @@ public class ChatRoomReadServiceTest {
                 .breed("breed")
                 .sex("sex")
                 .build();
-        dogJpaRepository.save(dog);
+        dogRepository.save(dog);
 
         // Notification
         Notification notification = Notification.builder()
@@ -121,7 +121,7 @@ public class ChatRoomReadServiceTest {
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59)))
                 .build();
-        notificationJpaRepository.save(notification);
+        notificationRepository.save(notification);
 
         // walk
         Walk walk = Walk.builder()

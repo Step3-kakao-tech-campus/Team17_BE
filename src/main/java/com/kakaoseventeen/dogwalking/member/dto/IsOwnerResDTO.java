@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class IsOwnerRespDTO {
+public class IsOwnerResDTO {
     private boolean isOwner;
 
-    public IsOwnerRespDTO(boolean isOwner){
+    public IsOwnerResDTO(boolean isOwner){
         this.isOwner = isOwner;
     }
 }

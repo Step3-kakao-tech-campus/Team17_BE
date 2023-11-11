@@ -10,7 +10,7 @@ import com.kakaoseventeen.dogwalking.chat.dto.ChatListResDTO;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatMessageRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class ChatRoomReadService {
 
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
-    private final MemberJpaRepository memberJpaRepository;
+    private final MemberRepository memberRepository;
     private final WalkRepository walkRepository;
 
     private String getEmail(){
@@ -48,7 +48,7 @@ public class ChatRoomReadService {
      */
     public List<ChatListResDTO> getChatList() {
 
-        Member member = memberJpaRepository.findByEmail(getEmail())
+        Member member = memberRepository.findByEmail(getEmail())
                 .orElseThrow(() -> new InvalidMemberException(ChatRoomMessageCode.INVALID_MEMBER));
 
         List<ChatRoom> chatRooms = chatRoomRepository.findChatRoomsByAppMemberIdOrNotiMemberId(member, member);

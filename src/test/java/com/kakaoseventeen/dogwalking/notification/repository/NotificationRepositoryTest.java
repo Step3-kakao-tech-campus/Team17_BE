@@ -1,16 +1,14 @@
 package com.kakaoseventeen.dogwalking.notification.repository;
 
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.service.HomeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -31,19 +29,19 @@ import static org.mockito.Mockito.when;
  * @version 1.0
  */
 @DataJpaTest
-class NotificationJpaRepositoryTest {
+class NotificationRepositoryTest {
 
     @Autowired
-    NotificationJpaRepository notificationJpaRepository;
+    NotificationRepository notificationRepository;
 
     @Autowired
-    DogJpaRepository DogJpaRepository;
+    DogRepository DogRepository;
 
     @Autowired
-    MemberJpaRepository memberJpaRepository;
+    MemberRepository memberRepository;
 
     @Autowired
-    DogJpaRepository dogJpaRepository;
+    DogRepository dogRepository;
 
 
 
@@ -202,21 +200,21 @@ class NotificationJpaRepositoryTest {
 
 
 
-        memberJpaRepository.save(member1);
-        memberJpaRepository.save(member2);
-        dogJpaRepository.save(dog1);
-        dogJpaRepository.save(dog2);
-        dogJpaRepository.save(dog3);
-        dogJpaRepository.save(dog4);
-        dogJpaRepository.save(dog5);
-        dogJpaRepository.save(dog6);
-        notificationJpaRepository.save(notification1);
-        notificationJpaRepository.save(notification2);
-        notificationJpaRepository.save(notification3);
-        notificationJpaRepository.save(notification4);
-        notificationJpaRepository.save(notification5);
-        notificationJpaRepository.save(notification6);
-        notificationJpaRepository.save(notification7);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        dogRepository.save(dog1);
+        dogRepository.save(dog2);
+        dogRepository.save(dog3);
+        dogRepository.save(dog4);
+        dogRepository.save(dog5);
+        dogRepository.save(dog6);
+        notificationRepository.save(notification1);
+        notificationRepository.save(notification2);
+        notificationRepository.save(notification3);
+        notificationRepository.save(notification4);
+        notificationRepository.save(notification5);
+        notificationRepository.save(notification6);
+        notificationRepository.save(notification7);
 
     }
 
@@ -239,7 +237,7 @@ class NotificationJpaRepositoryTest {
         when(pageable.getSort()).thenReturn(Sort.unsorted());
 
         // Mock Repository 및 데이터 생성
-        NotificationJpaRepository repository = mock(NotificationJpaRepository.class);
+        NotificationRepository repository = mock(NotificationRepository.class);
         List<Notification> fakeResults = new ArrayList<>();
 
 
@@ -291,7 +289,7 @@ class NotificationJpaRepositoryTest {
         when(pageable.getSort()).thenReturn(Sort.unsorted());
 
         // Mock Repository 및 데이터 생성
-        NotificationJpaRepository repository = mock(NotificationJpaRepository.class);
+        NotificationRepository repository = mock(NotificationRepository.class);
         List<Notification> fakeResults = new ArrayList<>();
 
 

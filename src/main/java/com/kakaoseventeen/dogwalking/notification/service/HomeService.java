@@ -4,8 +4,8 @@ package com.kakaoseventeen.dogwalking.notification.service;
 import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.CursorRequest;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.dto.response.HomeRespDTO;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.dto.response.HomeResDTO;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -20,12 +20,12 @@ import java.util.List;
 @Service
 public class HomeService {
 
-    private final NotificationJpaRepository notificationJpaRepository;
+    private final NotificationRepository notificationRepository;
 
     /**
      * 메인페이지에서 공고글을 불러오는 메서드
      */
-    public HomeRespDTO home(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, CustomUserDetails customUserDetails) {
+    public HomeResDTO home(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, CustomUserDetails customUserDetails) {
         String image;
         if(customUserDetails == null){
             image = null;
@@ -37,7 +37,7 @@ public class HomeService {
 
         Double lastKey = getLastKey(notifications,lat,lng);
 
-        return HomeRespDTO.of(cursorRequest.next(lastKey, 20), notifications, image);
+        return HomeResDTO.of(cursorRequest.next(lastKey, 20), notifications, image);
     }
 
     /**
@@ -68,13 +68,13 @@ public class HomeService {
      */
     private List<Notification> getNotificationsWithKey(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
-            return notificationJpaRepository.findAllHasNoneKey(lat, lng, cursorRequest.getKey(), pageable);
+            return notificationRepository.findAllHasNoneKey(lat, lng, cursorRequest.getKey(), pageable);
         if (big.isEmpty())
-            return notificationJpaRepository.findAllHasBreedKey(breed, lat, lng, cursorRequest.getKey(), pageable);
+            return notificationRepository.findAllHasBreedKey(breed, lat, lng, cursorRequest.getKey(), pageable);
         if (breed.isEmpty())
-            return notificationJpaRepository.findAllHasSizeKey(big, lat, lng, cursorRequest.getKey(), pageable);
+            return notificationRepository.findAllHasSizeKey(big, lat, lng, cursorRequest.getKey(), pageable);
 
-        return notificationJpaRepository.findAllHasSizeAndBreedKey(big, breed, lat, lng, cursorRequest.getKey(), pageable);
+        return notificationRepository.findAllHasSizeAndBreedKey(big, breed, lat, lng, cursorRequest.getKey(), pageable);
     }
 
     /**
@@ -82,13 +82,13 @@ public class HomeService {
      */
     private List<Notification> getNotificationsWithNoKey(Double lat, Double lng, List<String> big, List<String> breed, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
-            return notificationJpaRepository.findAllHasNone(lat, lng, pageable);
+            return notificationRepository.findAllHasNone(lat, lng, pageable);
         if (big.isEmpty())
-            return notificationJpaRepository.findAllHasBreed(lat, lng, breed, pageable);
+            return notificationRepository.findAllHasBreed(lat, lng, breed, pageable);
         if (breed.isEmpty())
-            return notificationJpaRepository.findAllHasSize(lat, lng, big, pageable);
+            return notificationRepository.findAllHasSize(lat, lng, big, pageable);
 
-        return notificationJpaRepository.findAllHasSizeAndBreed(lat, lng, big, breed, pageable);
+        return notificationRepository.findAllHasSizeAndBreed(lat, lng, big, breed, pageable);
     }
 
     /**
@@ -96,13 +96,13 @@ public class HomeService {
      */
     private List<Notification> searchNotificationsWithKey(CursorRequest cursorRequest, Double lat, Double lng, List<String> big, List<String> breed, String search, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
-            return notificationJpaRepository.findAllHasNoneKeySearch(search, lat, lng, cursorRequest.getKey(), pageable);
+            return notificationRepository.findAllHasNoneKeySearch(search, lat, lng, cursorRequest.getKey(), pageable);
         if (big.isEmpty())
-            return notificationJpaRepository.findAllHasBreedKeySearch(search, breed, lat, lng, cursorRequest.getKey(), pageable);
+            return notificationRepository.findAllHasBreedKeySearch(search, breed, lat, lng, cursorRequest.getKey(), pageable);
         if (breed.isEmpty())
-            return notificationJpaRepository.findAllHasSizeKeySearch(search, big, lat, lng, cursorRequest.getKey(), pageable);
+            return notificationRepository.findAllHasSizeKeySearch(search, big, lat, lng, cursorRequest.getKey(), pageable);
 
-        return notificationJpaRepository.findAllHasSizeAndBreedKeySearch(search, big, breed, lat, lng, cursorRequest.getKey(), pageable);
+        return notificationRepository.findAllHasSizeAndBreedKeySearch(search, big, breed, lat, lng, cursorRequest.getKey(), pageable);
     }
 
     /**
@@ -110,13 +110,13 @@ public class HomeService {
      */
     private List<Notification> searchNotificationsWithNoKey(Double lat, Double lng, List<String> big, List<String> breed, String search, Pageable pageable) {
         if (big.isEmpty() && breed.isEmpty())
-            return notificationJpaRepository.findAllHasNoneSearch(search, lat, lng, pageable);
+            return notificationRepository.findAllHasNoneSearch(search, lat, lng, pageable);
         if (big.isEmpty())
-            return notificationJpaRepository.findAllHasBreedSearch(search, lat, lng, breed, pageable);
+            return notificationRepository.findAllHasBreedSearch(search, lat, lng, breed, pageable);
         if (breed.isEmpty())
-            return notificationJpaRepository.findAllHasSizeSearch(search, lat, lng, big, pageable);
+            return notificationRepository.findAllHasSizeSearch(search, lat, lng, big, pageable);
 
-        return notificationJpaRepository.findAllHasSizeAndBreedSearch(search, lat, lng, big, breed, pageable);
+        return notificationRepository.findAllHasSizeAndBreedSearch(search, lat, lng, big, breed, pageable);
     }
 
     /**
