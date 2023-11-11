@@ -9,7 +9,8 @@ public record ChatListResDTO(
         String memberImage,
         String chatContent,
         String walkType,
-        Long matchId
+        Long matchId,
+        boolean isDogOwner
 ) {
     @Builder
     public ChatListResDTO{

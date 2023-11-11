@@ -2,7 +2,7 @@ spring:
   config.activate.on-profile: prod
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         show_sql: true
@@ -11,20 +11,20 @@ spring:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
           implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://${DB_url}:${DB_port}/${DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
-    username: ${DB_name}
-    password: ${DB_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
 cloud:
   aws:
     s3:
-      bucket: ${Bucket_name}
+      bucket: ${BUCKET_NAME}
     stack.auto: false
     region.static: ap-northeast-2
     credentials:
-      accessKey: ${Access_key}
-      secretKey: ${Secret_key}
+      accessKey: ${AWS_ACCESSKEY}
+      secretKey: ${AWS_SECRETKEY}
 
 jwt:
   secret: thisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkeythisismysecretkey

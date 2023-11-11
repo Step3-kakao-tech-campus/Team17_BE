@@ -1,11 +1,11 @@
 package com.kakaoseventeen.dogwalking.token.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.RefreshTokenExpiredException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.RefreshTokenNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.RefreshTokenExpiredException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.RefreshTokenNotExistException;
 import com.kakaoseventeen.dogwalking.token.domain.RefreshToken;
-import com.kakaoseventeen.dogwalking.token.dto.RefreshRespDTO;
-import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenJpaRepository;
+import com.kakaoseventeen.dogwalking.token.dto.RefreshTokenResDTO;
+import com.kakaoseventeen.dogwalking.token.repository.RefreshTokenRepository;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,13 +17,19 @@ import java.util.Date;
 import static com.kakaoseventeen.dogwalking._core.security.JwtProvider.accessTokenValidTime;
 import static com.kakaoseventeen.dogwalking._core.security.JwtProvider.createKey;
 
+/**
+ * Refresh Token 서비스
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class RefreshTokenService {
 
-    private final RefreshTokenJpaRepository refreshTokenJpaRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     /**
      * Refresh Token의 유효기간이 만료되었는지 검증
@@ -54,10 +60,10 @@ public class RefreshTokenService {
     /**
      * 새로운 Access Token 발급 메서드
      */
-    public RefreshRespDTO refresh(String refreshToken) throws RuntimeException {
+    public RefreshTokenResDTO refresh(String refreshToken) throws RuntimeException {
 
         //클라이언트에게 받은 refresh token값 db에서 찾기
-        RefreshToken refreshTokenDB = refreshTokenJpaRepository.findByToken(refreshToken).orElseThrow(
+        RefreshToken refreshTokenDB = refreshTokenRepository.findByToken(refreshToken).orElseThrow(
                 () -> new RefreshTokenNotExistException(MemberMessageCode.REFRESH_TOKEN_NOT_EXIST)
         );
 
@@ -74,7 +80,7 @@ public class RefreshTokenService {
             //refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성
             if (isNotExpired(claims)) {
                 String accessToken = recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("id"));
-                return new RefreshRespDTO(accessToken);
+                return new RefreshTokenResDTO(accessToken);
             }
         } catch (Exception e) {
             log.warn("토큰이 만료되었습니다");

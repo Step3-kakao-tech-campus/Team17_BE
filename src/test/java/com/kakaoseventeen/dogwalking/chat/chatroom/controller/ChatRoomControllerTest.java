@@ -7,7 +7,9 @@ import com.kakaoseventeen.dogwalking._core.security.SecurityConfig;
 import com.kakaoseventeen.dogwalking._core.utils.GlobalExceptionHandler;
 import com.kakaoseventeen.dogwalking.chat.controller.ChatRoomController;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatRoomReqDTO;
+import com.kakaoseventeen.dogwalking.chat.service.ChatRoomReadService;
 import com.kakaoseventeen.dogwalking.chat.service.ChatRoomWriteService;
+import com.kakaoseventeen.dogwalking.match.domain.Match;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,6 +45,8 @@ public class ChatRoomControllerTest {
 
     @MockBean
     ChatRoomWriteService chatRoomWriteService;
+    @MockBean
+    ChatRoomReadService chatRoomReadService;
 
     @Autowired
     MockMvc mockMvc;
@@ -60,7 +64,8 @@ public class ChatRoomControllerTest {
         // given
         ChatRoomReqDTO chatRoomReqDTO = ChatRoomReqDTO.builder()
                 .appMemberId(1L)
-                .notiMemberId(1L)
+                .notiMemberId(2L)
+                .matchId(1L)
                 .build();
 
         String requestBody = om.writeValueAsString(chatRoomReqDTO);

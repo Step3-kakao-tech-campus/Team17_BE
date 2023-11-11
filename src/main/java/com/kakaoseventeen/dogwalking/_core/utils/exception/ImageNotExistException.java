@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class ImageNotExistException extends RuntimeException {
+
     public final MessageCode messageCode;
 
     public ImageNotExistException(MessageCode messageCode) {

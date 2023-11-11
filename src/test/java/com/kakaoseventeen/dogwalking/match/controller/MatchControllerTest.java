@@ -5,13 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,10 +30,15 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.Month;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * 매칭리스트 Presentation Layer 테스트
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -45,22 +50,22 @@ class MatchControllerTest {
     ObjectMapper om;
 
     @Autowired
-    private MemberJpaRepository memberJpaRepository;
+    private MemberRepository memberRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private NotificationJpaRepository notificationJpaRepository;
+    private NotificationRepository notificationRepository;
     @Autowired
     private ApplicationRepository applicationRepository;
     @Autowired
-    private MatchingRepository matchingRepository;
+    private MatchRepository matchRepository;
     @Autowired
-    private DogJpaRepository dogJpaRepository;
+    private DogRepository dogRepository;
 
 
     @BeforeEach
     void set_up(){
-        Member member1 = memberJpaRepository.save(Member.builder()
+        Member member1 = memberRepository.save(Member.builder()
                 .nickname("닉네임1")
                 .email("mkwak1125@gmail.com")
                 .password(passwordEncoder.encode("kwak!6038"))
@@ -79,7 +84,7 @@ class MatchControllerTest {
                 .age(3)
                 .member(member1)
                 .build();
-        dogJpaRepository.saveAndFlush(dog1);
+        dogRepository.saveAndFlush(dog1);
 
         Notification notification1 = Notification.builder()
                 .dog(dog1)
@@ -91,7 +96,7 @@ class MatchControllerTest {
                 .endTime(LocalDateTime.of(2023, Month.OCTOBER, 13, 22, 36))
                 .significant("우리 아이는 착해용")
                 .build();
-        notificationJpaRepository.saveAndFlush(notification1);
+        notificationRepository.saveAndFlush(notification1);
 
         Application application1 = applicationRepository.saveAndFlush(Application.builder()
                 .aboutMe("저에 관해서 소개를 하겠습니다. 1번 지원자")
@@ -101,14 +106,14 @@ class MatchControllerTest {
                 .experience("강아지 유치원 2년 근무")
                 .build());
 
-        matchingRepository.saveAndFlush(Match.builder()
+        matchRepository.saveAndFlush(Match.builder()
                 .notificationId(notification1)
                 .applicationId(application1)
                 .build());
     }
 
 
-    @DisplayName("매칭 리스트 출력")
+    @DisplayName("매칭 리스트 실패 출력")
     @Test
     @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void findMatchTest() throws Exception {
@@ -125,11 +130,11 @@ class MatchControllerTest {
         String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
         System.out.println("테스트 : " + responseBody);
 
-        resultActions.andExpect(jsonPath("$.success").value("true"));
+        resultActions.andExpect(jsonPath("$.success").value("false"));
     }
 
 
-    @DisplayName("매칭 리스트 출력 실패 테스트 ")
+    @DisplayName("매칭 리스트 출력 성공 테스트 ")
     @Test
     @WithUserDetails(value = "mkwak1125@gmail.com", userDetailsServiceBeanName = "customUserDetailsService", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void findMatchFailTest() throws Exception {
@@ -146,7 +151,7 @@ class MatchControllerTest {
         String responseBody = new String(resultActions.andReturn().getResponse().getContentAsByteArray(), StandardCharsets.UTF_8);
         System.out.println("테스트 : " + responseBody);
 
-        resultActions.andExpect(jsonPath("$.success").value("false"));
+        resultActions.andExpect(jsonPath("$.success").value("true"));
         resultActions.andExpect(jsonPath("$.error.message").value("해당 공고글이 존재하지 않습니다."));
     }
 

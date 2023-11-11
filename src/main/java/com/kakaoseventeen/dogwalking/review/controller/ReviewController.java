@@ -2,7 +2,7 @@ package com.kakaoseventeen.dogwalking.review.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReceiveMemberIdNotExistException;
 import com.kakaoseventeen.dogwalking.review.dto.GetReviewResDTO;
 import com.kakaoseventeen.dogwalking.review.dto.WriteReviewReqDTO;
@@ -21,6 +21,9 @@ public class ReviewController {
     private final ReviewWriteService reviewWriteService;
     private final ReviewReadService reviewReadService;
 
+    /**
+     * 리뷰 작성 메서드
+     */
     @PostMapping("/review/{walkId}")
     public ResponseEntity<?> writeReview(@PathVariable("walkId") Long walkId, @RequestBody WriteReviewReqDTO writeReviewReqDTO) throws WalkNotExistException, ReceiveMemberIdNotExistException {
 
@@ -30,6 +33,9 @@ public class ReviewController {
 
     }
 
+    /**
+     * 리뷰 조회 메서드
+     */
     @GetMapping("/review/{memberId}")
     public ApiResponse<ApiResponse.CustomBody<GetReviewResDTO>> getReview(@PathVariable Long memberId){
 

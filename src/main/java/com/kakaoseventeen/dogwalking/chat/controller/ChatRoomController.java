@@ -19,6 +19,9 @@ public class ChatRoomController {
     private final ChatRoomWriteService chatRoomWriteService;
     private final ChatRoomReadService chatRoomReadService;
 
+    /**
+     * 채팅방 생성 메서드
+     */
     @PostMapping("/api/chatroom/create")
     public ApiResponse<?> createChatRoom(@RequestBody ChatRoomReqDTO chatRoomReqDTO){
         chatRoomWriteService.save(chatRoomReqDTO);
@@ -26,6 +29,9 @@ public class ChatRoomController {
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
+    /**
+     * 채팅 목록 조회 메서드
+     */
     @GetMapping("/api/chat/list")
     public ApiResponse<ApiResponse.CustomBody<List<ChatListResDTO>>> getChatList(){
         List<ChatListResDTO> response = chatRoomReadService.getChatList();

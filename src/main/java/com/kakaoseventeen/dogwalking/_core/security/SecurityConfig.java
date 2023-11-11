@@ -1,6 +1,6 @@
 package com.kakaoseventeen.dogwalking._core.security;
 
-import com.kakaoseventeen.dogwalking._core.utils.exception.SecurityFilterException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.member.SecurityFilterException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -18,12 +18,20 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
+/**
+ * SecurityConfig -> Spring Security 설정 클래스
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
 
 	private final JwtProvider jwtProvider;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,6 +47,9 @@ public class SecurityConfig {
         }
     }
 
+    /**
+     * 시큐리티 필터 설정 메서드
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         //csrf disable
@@ -58,7 +69,6 @@ public class SecurityConfig {
         //커스텀 필터 적용
         http.apply(new CustomSecurityFilterManager());
 
-
 		//토큰을 활용하는 경우 아래 요청에 대해 '인가'에 대해서 사용.
         http.authorizeHttpRequests(authorize ->
                 authorize
@@ -67,7 +77,6 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/api/walkRoad/**"),
                                 new AntPathRequestMatcher("/api/profile/**"),
                                 new AntPathRequestMatcher("/api/payment/**"),
-                                new AntPathRequestMatcher("/chat-connect/**"),
                                 new AntPathRequestMatcher("/api/application/**"),
                                 new AntPathRequestMatcher("/api/review/**")
                                 )
@@ -91,6 +100,9 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * CORS 설정하는 메서드
+     */
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedHeader("*");

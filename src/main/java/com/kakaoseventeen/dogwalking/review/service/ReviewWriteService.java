@@ -2,14 +2,13 @@ package com.kakaoseventeen.dogwalking.review.service;
 
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.ReviewMessageCode;
-import com.kakaoseventeen.dogwalking._core.utils.exception.WalkNotExistException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.MemberIdNotExistException;
-import com.kakaoseventeen.dogwalking._core.utils.exception.review.NotificationIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReceiveMemberIdNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.review.ReviewContentNotExistException;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import com.kakaoseventeen.dogwalking.review.domain.Review;
 import com.kakaoseventeen.dogwalking.review.dto.WriteReviewReqDTO;
 import com.kakaoseventeen.dogwalking.review.repository.ReviewRepository;
@@ -21,6 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
+/**
+ * ReviewWriteService(리뷰 작성) 서비스
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -28,46 +33,42 @@ public class ReviewWriteService {
 
     private final WalkRepository walkRepository;
     private final ReviewRepository reviewRepository;
-    private final MemberJpaRepository memberJpaRepository;
-    private final NotificationJpaRepository notificationJpaRepository;
+    private final MemberRepository memberRepository;
+    private final NotificationRepository notificationRepository;
 
     /**
      *
-     * @param writeReviewReqDTO
+     * @param writeReviewReqDTO 리뷰작성 요청에 따른 RequestBody값
      * @apiNote 리뷰 작성 요청을 받아 DB에 저장한다.
      */
     public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO) throws WalkNotExistException, ReceiveMemberIdNotExistException{
-        // TODO - 주석제거
-        // 객체 유효성 검사 Validator
+
         validator(writeReviewReqDTO);
 
         Walk walk = walkRepository.findById(walkId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
         walk.isReviewdToTrue();
 
-        // 리뷰 받는 사람이 견주인지 확인
-        // Notification -> Dog -> Member
-        Member dogOwner = notificationJpaRepository.mfindMember(writeReviewReqDTO.notificationId()).getDog().getMember();
-                //.orElseThrow(
-                //() -> new NotificationIdNotExistException(ReviewMessageCode.NOTIFICATION_ID_NOT_EXIST)
-        //);
+        Member dogOwner = notificationRepository.mfindMember(writeReviewReqDTO.notificationId()).getDog().getMember();
+
         boolean isReceiverDogOwner = Objects.equals(dogOwner.getId(), writeReviewReqDTO.receiveMemberId());
 
-        // 리뷰하는 사람, 리뷰 받는 사람 조회
-        Member receiveMember = memberJpaRepository.findById(writeReviewReqDTO.receiveMemberId()).orElseThrow(
+        Member receiveMember = memberRepository.findById(writeReviewReqDTO.receiveMemberId()).orElseThrow(
                 () -> new ReceiveMemberIdNotExistException(ReviewMessageCode.RECEIVE_MEMBER_ID_NOT_EXIST)
         );
-        // TODO - Security에서 이미 검증하는 것이라면 삭제할 예정
-        Member member = memberJpaRepository.findById(writeReviewReqDTO.memberId()).orElseThrow(
+
+        Member member = memberRepository.findById(writeReviewReqDTO.memberId()).orElseThrow(
                 () -> new MemberIdNotExistException(ReviewMessageCode.MEMBER_ID_NOT_EXIST)
         );
-        // DTO를 Review Entity로 변환
+
         Review review = dtoToReview(writeReviewReqDTO, member, receiveMember, isReceiverDogOwner);
 
-        // 변환된 리뷰 엔티티 저장
         reviewRepository.save(review);
 
     }
 
+    /**
+     * DTO를 객체로 변환하는 메서드
+     */
     private Review dtoToReview(WriteReviewReqDTO writeReviewReqDTO, Member memeber, Member receiveMember, boolean isReceiverDogOwner) {
         return Review.builder()
                 .reviewerId(memeber)
@@ -83,10 +84,11 @@ public class ReviewWriteService {
 
     }
 
-    // TODO - 추후 클래스로 분리할 것
+    /**
+     * 유효성 검사 메서드
+     */
     private void validator(WriteReviewReqDTO writeReviewReqDTO) {
 
-        // reviewContent가 비어있는가
         if(writeReviewReqDTO.reviewContent().isEmpty()){
             throw new ReviewContentNotExistException(ReviewMessageCode.REVIEW_CONTENT_NOT_EXIST);
         }
