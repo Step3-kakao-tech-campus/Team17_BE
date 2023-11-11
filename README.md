@@ -3,7 +3,7 @@
 
 
 ## 목차
-- [프로젝트 소개](#프로젝트 소개)
+- [프로젝트 소개, 기획의도](#프로젝트 소개-기획의도)
 - [팀원](#팀원)
 - [배포된 인스턴스 주소](#배포된-인스턴스-주소)
 - [ERD](#ERD)
@@ -12,7 +12,7 @@
 - [사용 기술](#사용-기술)
 - [서비스 주요 기능](#서비스-주요-기능)
 
-## 프로젝트 소개
+## 프로젝트 소개, 기획의도
 
 강아지에게 산책은 필수적이며, 항상 지속적으로 관심을 가져야 하는 활동입니다.
 
@@ -85,8 +85,11 @@ java -jar dog-walking-0.0.1-SNAPSHOT.jar
 - Spring Framework
 - Spring Boot Starter
 - Spring Data JPA
+- JPA
 - Spring Security
-- 
+- Websocket
+- Spring Message
+- Stomp
 - jjwt
 - Lombok
 - H2 Database
