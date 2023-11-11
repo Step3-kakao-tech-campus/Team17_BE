@@ -55,7 +55,7 @@ public class ReviewWriteService {
         Member receiveMember = memberRepository.findById(writeReviewReqDTO.receiveMemberId()).orElseThrow(
                 () -> new ReceiveMemberIdNotExistException(ReviewMessageCode.RECEIVE_MEMBER_ID_NOT_EXIST)
         );
-        // TODO - Security에서 이미 검증하는 것이라면 삭제할 예정
+
         Member member = memberRepository.findById(writeReviewReqDTO.memberId()).orElseThrow(
                 () -> new MemberIdNotExistException(ReviewMessageCode.MEMBER_ID_NOT_EXIST)
         );
