@@ -4,8 +4,8 @@ import com.kakaoseventeen.dogwalking._core.utils.ApplicationMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.application.ApplicationNotFoundException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.application.MatchNotFoundException;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
-import com.kakaoseventeen.dogwalking.application.dto.GetAppMemberResDTO;
-import com.kakaoseventeen.dogwalking.application.dto.GetAppResDTO;
+import com.kakaoseventeen.dogwalking.application.dto.response.GetAppMemberResDTO;
+import com.kakaoseventeen.dogwalking.application.dto.response.GetAppResDTO;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
@@ -17,6 +17,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * ApplicationReadService (지원서 조회 서비스)
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class ApplicationReadService {
