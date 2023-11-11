@@ -51,7 +51,7 @@ public class Member {
         if (profileImage != null) {
             this.profileImage = profileImage;
         }
-        if (!profileContent.isEmpty()) {
+        if (profileContent != null && !profileContent.isEmpty()) {
             this.profileContent = profileContent;
         }
     }
