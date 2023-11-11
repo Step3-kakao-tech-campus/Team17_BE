@@ -7,6 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * Application (지원서) 레파지토리
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
     /**

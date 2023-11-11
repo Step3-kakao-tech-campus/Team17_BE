@@ -4,7 +4,7 @@ import com.kakaoseventeen.dogwalking._core.utils.ApplicationMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.application.ApplicationMemberNotFoundException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.application.NotificationNotFoundException;
 import com.kakaoseventeen.dogwalking.application.domain.Application;
-import com.kakaoseventeen.dogwalking.application.dto.CreateAppReqDTO;
+import com.kakaoseventeen.dogwalking.application.dto.request.CreateAppReqDTO;
 import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepository;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
 import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
@@ -18,6 +18,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * ApplicationWriteService (지원서 작성 서비스)
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class ApplicationWriteService {

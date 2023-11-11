@@ -7,6 +7,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Dog(반려견) 레파지토리
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 public interface DogRepository extends JpaRepository<Dog, Long> {
 
     /**

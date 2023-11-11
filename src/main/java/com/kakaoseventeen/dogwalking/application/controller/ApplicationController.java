@@ -3,9 +3,9 @@ package com.kakaoseventeen.dogwalking.application.controller;
 
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
-import com.kakaoseventeen.dogwalking.application.dto.CreateAppReqDTO;
-import com.kakaoseventeen.dogwalking.application.dto.GetAppMemberResDTO;
-import com.kakaoseventeen.dogwalking.application.dto.GetAppResDTO;
+import com.kakaoseventeen.dogwalking.application.dto.request.CreateAppReqDTO;
+import com.kakaoseventeen.dogwalking.application.dto.response.GetAppMemberResDTO;
+import com.kakaoseventeen.dogwalking.application.dto.response.GetAppResDTO;
 import com.kakaoseventeen.dogwalking.application.service.ApplicationReadService;
 import com.kakaoseventeen.dogwalking.application.service.ApplicationWriteService;
 import lombok.RequiredArgsConstructor;
