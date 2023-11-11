@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.chat.service;
 import com.kakaoseventeen.dogwalking._core.utils.ChatMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.ChatRoomNotFoundException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.MemberIdNotFoundException;
+import com.kakaoseventeen.dogwalking._core.utils.exception.chatMessage.NotFoundMemberInChatRoomException;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatReqDTO;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatResDTO;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
@@ -15,6 +16,8 @@ import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,9 @@ public class ChatMessageWriteServiceImpl implements ChatMessageWriteService {
         
         ChatRoom chatRoom = chatRoomRepository.findById(roomId)
                 .orElseThrow(() -> new ChatRoomNotFoundException(ChatMessageCode.CHATROOM_NOT_FOUND));
+
+        validSender(sender, chatRoom);
+
         ChatMessage chatMessage = ChatMessage.builder()
                 .chatRoomId(chatRoom)
                 .content(chatReqDTO.chatContent())
@@ -49,5 +55,13 @@ public class ChatMessageWriteServiceImpl implements ChatMessageWriteService {
                 .messageType(chatReqDTO.messageType())
                 .contentTime(chatMessage.getCreatedAt())
                 .build();
+    }
+
+    private void validSender(Member sender, ChatRoom chatRoom) {
+        if(!Objects.equals(chatRoom.getNotiMemberId().getId(), sender.getId()) && !Objects.equals(chatRoom.getAppMemberId().getId(), sender.getId())){
+            throw new NotFoundMemberInChatRoomException(ChatMessageCode.NOT_FOUND_MEMBER_IN_CHAT_ROOM);
+        }
+
+
     }
 }

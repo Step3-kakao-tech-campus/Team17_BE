@@ -32,6 +32,7 @@ public class ChatRoomWriteService {
         Match match = matchingRepository.findById(chatRoomReqDTO.matchId())
                 .orElseThrow(() ->new ChatRoomMatchNotFoundException(ChatRoomMessageCode.MATCH_NOT_FOUND));
 
+        match.updateIsSuccess(true);
         ChatRoom chatRoom = getChatRoom(appMember, notiMember, match);
 
         chatRoomRepository.save(chatRoom);
