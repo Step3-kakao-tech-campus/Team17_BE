@@ -68,15 +68,22 @@ public class ChatRoomReadService {
                     .getAppMemberId()
                     .getId();
             log.info("조회한 지원자 ID : {}",applicationMemberId);
-            boolean isDogOwner = !Objects.equals(applicationMemberId, chatRoom.getAppMemberId().getId());
+            boolean isDogOwner = !Objects.equals(applicationMemberId, member.getId());
 
-            Optional<ChatMessage> chatMessage = chatMessageRepository.findTop1ByChatRoomIdOrderByChatMessageIdDesc(chatRoom);
             String memberNickname = null;
             String memberImage = null;
+            if(isDogOwner){
+                memberNickname=chatRoom.getAppMemberId().getNickname();
+                memberImage=chatRoom.getAppMemberId().getProfileImage();
+            }else {
+                memberNickname=chatRoom.getNotiMemberId().getNickname();
+                memberImage=chatRoom.getNotiMemberId().getProfileImage();
+            }
+
+            // 채팅내역
+            Optional<ChatMessage> chatMessage = chatMessageRepository.findTop1ByChatRoomIdOrderByChatMessageIdDesc(chatRoom);
             String chatContent = "채팅 내역이 존재하지 않습니다.";
             if(chatMessage.isPresent()){
-                memberNickname=chatMessage.get().getSenderId().getNickname();
-                memberImage = chatMessage.get().getSenderId().getProfileImage();
                 chatContent = chatMessage.get().getContent();
             }
 
