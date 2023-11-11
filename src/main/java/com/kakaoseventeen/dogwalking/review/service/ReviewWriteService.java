@@ -38,26 +38,20 @@ public class ReviewWriteService {
 
     /**
      *
-     * @param writeReviewReqDTO
+     * @param writeReviewReqDTO 리뷰작성 요청에 따른 RequestBody값
      * @apiNote 리뷰 작성 요청을 받아 DB에 저장한다.
      */
     public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO) throws WalkNotExistException, ReceiveMemberIdNotExistException{
-        // TODO - 주석제거
-        // 객체 유효성 검사 Validator
+
         validator(writeReviewReqDTO);
 
         Walk walk = walkRepository.findById(walkId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
         walk.isReviewdToTrue();
 
-        // 리뷰 받는 사람이 견주인지 확인
-        // Notification -> Dog -> Member
         Member dogOwner = notificationRepository.mfindMember(writeReviewReqDTO.notificationId()).getDog().getMember();
-                //.orElseThrow(
-                //() -> new NotificationIdNotExistException(ReviewMessageCode.NOTIFICATION_ID_NOT_EXIST)
-        //);
+
         boolean isReceiverDogOwner = Objects.equals(dogOwner.getId(), writeReviewReqDTO.receiveMemberId());
 
-        // 리뷰하는 사람, 리뷰 받는 사람 조회
         Member receiveMember = memberRepository.findById(writeReviewReqDTO.receiveMemberId()).orElseThrow(
                 () -> new ReceiveMemberIdNotExistException(ReviewMessageCode.RECEIVE_MEMBER_ID_NOT_EXIST)
         );
@@ -65,10 +59,9 @@ public class ReviewWriteService {
         Member member = memberRepository.findById(writeReviewReqDTO.memberId()).orElseThrow(
                 () -> new MemberIdNotExistException(ReviewMessageCode.MEMBER_ID_NOT_EXIST)
         );
-        // DTO를 Review Entity로 변환
+
         Review review = dtoToReview(writeReviewReqDTO, member, receiveMember, isReceiverDogOwner);
 
-        // 변환된 리뷰 엔티티 저장
         reviewRepository.save(review);
 
     }
@@ -94,10 +87,8 @@ public class ReviewWriteService {
     /**
      * 유효성 검사 메서드
      */
-    // TODO - 추후 클래스로 분리할 것
     private void validator(WriteReviewReqDTO writeReviewReqDTO) {
 
-        // reviewContent가 비어있는가
         if(writeReviewReqDTO.reviewContent().isEmpty()){
             throw new ReviewContentNotExistException(ReviewMessageCode.REVIEW_CONTENT_NOT_EXIST);
         }
