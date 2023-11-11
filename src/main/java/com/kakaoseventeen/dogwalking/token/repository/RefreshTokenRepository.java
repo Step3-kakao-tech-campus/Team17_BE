@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface RefreshTokenJpaRepository extends JpaRepository<RefreshToken, Integer> {
+public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Integer> {
 
     @Query("select r from RefreshToken r where r.token=:refreshToken")
     Optional<RefreshToken> findByToken(@Param("refreshToken") String refreshToken);

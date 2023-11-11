@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking._core.utils.dummyData;
 
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostConstructor {
 
-    private final MemberJpaRepository memberJpaRepository;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
@@ -29,7 +29,7 @@ public class PostConstructor {
                 .email("test2@naver.com")
                 .password(passwordEncoder.encode("test1234!"))
                 .build();
-        memberJpaRepository.saveAll(List.of(member1, member2));
+        memberRepository.saveAll(List.of(member1, member2));
 
 
     }

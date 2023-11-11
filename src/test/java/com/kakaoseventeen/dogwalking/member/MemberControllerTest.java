@@ -1,11 +1,8 @@
 package com.kakaoseventeen.dogwalking.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.member.dto.LoginReqDTO;
-import com.kakaoseventeen.dogwalking.member.dto.SignupReqDTO;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
-import org.junit.jupiter.api.BeforeEach;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.TestExecutionEvent;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -43,7 +38,7 @@ public class MemberControllerTest {
     private ObjectMapper om;
 
     @Autowired
-    MemberJpaRepository memberJpaRepository;
+    MemberRepository memberRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

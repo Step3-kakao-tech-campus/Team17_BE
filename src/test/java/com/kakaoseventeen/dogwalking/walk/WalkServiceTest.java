@@ -1,19 +1,16 @@
 package com.kakaoseventeen.dogwalking.walk;
 
-import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.GetEntity;
-import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.walk.domain.Walk;
-import com.kakaoseventeen.dogwalking.walk.dto.WalkRespDTO;
+import com.kakaoseventeen.dogwalking.walk.dto.WalkResDTO;
 import com.kakaoseventeen.dogwalking.walk.repository.WalkRepository;
 import com.kakaoseventeen.dogwalking.walk.service.WalkService;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -47,10 +44,10 @@ public class WalkServiceTest {
     private WalkRepository walkRepository;
 
     @Mock
-    private MemberJpaRepository memberJpaRepository;
+    private MemberRepository memberRepository;
 
     @Mock
-    private MatchingRepository matchingRepository;
+    private MatchRepository matchRepository;
 
 
 
@@ -65,11 +62,11 @@ public class WalkServiceTest {
         Walk walk = Walk.of(walker, master, notification);
 
         // mocking
-        given(matchingRepository.findWalkFromMatchById(any()))
+        given(matchRepository.findWalkFromMatchById(any()))
                 .willReturn(Optional.ofNullable(walk));
 
         // when
-        WalkRespDTO.StartWalk walkOP = walkService.startWalk(1L);
+        WalkResDTO.StartWalk walkOP = walkService.startWalk(1L);
 
         // then
         Assertions.assertNotNull(walkOP.getStartTime());

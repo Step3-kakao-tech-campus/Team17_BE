@@ -11,7 +11,7 @@ import com.kakaoseventeen.dogwalking.chat.domain.MessageType;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatMessageRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChatMessageWriteServiceImpl implements ChatMessageWriteService {
 
     private final ChatMessageRepository chatMessageRepository;
-    private final MemberJpaRepository memberJpaRepository;
+    private final MemberRepository memberRepository;
     private final ChatRoomRepository chatRoomRepository;
 
     @Override
     @Transactional
     public ChatResDTO save(ChatReqDTO chatReqDTO, Long roomId) {
 
-        Member sender = memberJpaRepository.findById(chatReqDTO.memberId())
+        Member sender = memberRepository.findById(chatReqDTO.memberId())
                 .orElseThrow(() -> new MemberIdNotFoundException(ChatMessageCode.MEMBER_ID_NOT_FOUND));
         
         ChatRoom chatRoom = chatRoomRepository.findById(roomId)

@@ -5,10 +5,10 @@ import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.MatchNotExistException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.notification.NotificationException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import com.kakaoseventeen.dogwalking.payment.domain.Payment;
 import com.kakaoseventeen.dogwalking.payment.dto.PaymentResDTO;
 import com.kakaoseventeen.dogwalking.payment.repository.PaymentRepository;
@@ -28,20 +28,20 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
 
-    private final MatchingRepository matchingRepository;
+    private final MatchRepository matchRepository;
 
     private final WalkRepository walkRepository;
 
-    private final NotificationJpaRepository notificationJpaRepository;
+    private final NotificationRepository notificationRepository;
 
     @Transactional(readOnly = true)
     public PaymentResDTO getPaymentInfo(CustomUserDetails customUserDetails, Long matchingId) throws MatchNotExistException, WalkNotExistException{
         // notification 가져오기
-        Notification notification = matchingRepository.findMatchById(matchingId)
+        Notification notification = matchRepository.findMatchById(matchingId)
                 .orElseThrow(() -> new MatchNotExistException(MessageCode.MATCH_NOT_EXIST)).getNotificationId();
 
         // walk 가져오기
-        Walk walk = matchingRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
+        Walk walk = matchRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
 
         // notification, walk, member 엔티티들을 dto.of()을 통해 생성 후 response
         return PaymentResDTO.of(customUserDetails.getMember(), walk, notification);
@@ -50,7 +50,7 @@ public class PaymentService {
     @Transactional
     public void savePayment(CustomUserDetails customUserDetails, Long notificationId, Long walkId) throws NotificationException, WalkNotExistException {
         // notification 가져오기
-        Notification notification = notificationJpaRepository.findById(notificationId).orElseThrow(() -> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST));
+        Notification notification = notificationRepository.findById(notificationId).orElseThrow(() -> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST));
 
         // walk 가져오기
         Walk walk = walkRepository.findById(walkId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));

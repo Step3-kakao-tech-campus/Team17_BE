@@ -5,11 +5,11 @@ import com.kakaoseventeen.dogwalking._core.utils.exception.MatchNotExistExceptio
 import com.kakaoseventeen.dogwalking._core.utils.exception.notification.NotMyNotificationException;
 import com.kakaoseventeen.dogwalking._core.utils.exception.notification.NotificationException;
 import com.kakaoseventeen.dogwalking.match.domain.Match;
-import com.kakaoseventeen.dogwalking.match.dto.MatchRespDTO;
-import com.kakaoseventeen.dogwalking.match.repository.MatchingRepository;
+import com.kakaoseventeen.dogwalking.match.dto.MatchResDTO;
+import com.kakaoseventeen.dogwalking.match.repository.MatchRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,12 +23,12 @@ import java.util.List;
 @Service
 public class MatchService {
 
-    private final MatchingRepository matchingRepository;
-    private final NotificationJpaRepository notificationJpaRepository;
+    private final MatchRepository matchRepository;
+    private final NotificationRepository notificationRepository;
 
-    public MatchRespDTO match(Long notificationId, Member sessionMember) throws RuntimeException {
+    public MatchResDTO match(Long notificationId, Member sessionMember) throws RuntimeException {
 
-        Notification notification = notificationJpaRepository.findById(notificationId).orElseThrow(
+        Notification notification = notificationRepository.findById(notificationId).orElseThrow(
                 ()-> new NotificationException(MessageCode.NOTIFICATION_NOT_EXIST)
         );
 
@@ -37,13 +37,13 @@ public class MatchService {
         }
 
 
-        List<Match> matchList = matchingRepository.mfindMatchByNotificationId(notificationId);
+        List<Match> matchList = matchRepository.mfindMatchByNotificationId(notificationId);
 
         if(matchList.isEmpty()) {
             throw new MatchNotExistException(MessageCode.MATCH_NOT_EXIST);
         }
 
-        return new MatchRespDTO(matchList);
+        return new MatchResDTO(matchList);
 
     }
 }

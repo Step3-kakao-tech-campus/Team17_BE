@@ -6,7 +6,7 @@ import com.kakaoseventeen.dogwalking.chat.domain.MessageType;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatMessageRepository;
 import com.kakaoseventeen.dogwalking.chat.repository.ChatRoomRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +30,7 @@ public class ChatRoomRepositoryTest {
     @Autowired
     ChatRoomRepository chatRoomRepository;
     @Autowired
-    MemberJpaRepository memberJpaRepository;
+    MemberRepository memberRepository;
 
 
     @PersistenceContext
@@ -51,7 +51,7 @@ public class ChatRoomRepositoryTest {
                 .password("test2")
                 .nickname("test2")
                 .build();
-        memberJpaRepository.saveAll(List.of(member1, member2));
+        memberRepository.saveAll(List.of(member1, member2));
 
         ChatRoom chatRoom1 = ChatRoom.builder()
                 .notiMemberId(member1)

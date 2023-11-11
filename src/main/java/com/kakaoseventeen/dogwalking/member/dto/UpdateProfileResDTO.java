@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class UpdateProfileRespDTO {
+public class UpdateProfileResDTO {
 
     private String profileImage;
 
     private String profileContent;
 
-    public UpdateProfileRespDTO(Member member){
+    public UpdateProfileResDTO(Member member){
         this.profileContent = member.getProfileContent();
         this.profileImage = member.getProfileImage();
     }

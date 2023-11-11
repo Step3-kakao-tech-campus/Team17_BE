@@ -1,11 +1,11 @@
 package com.kakaoseventeen.dogwalking.review.service;
 
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
-import com.kakaoseventeen.dogwalking.dog.repository.DogJpaRepository;
+import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.repository.MemberJpaRepository;
+import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
-import com.kakaoseventeen.dogwalking.notification.repository.NotificationJpaRepository;
+import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Assertions;
@@ -32,11 +32,11 @@ public class ReviewWriteServiceTest {
 
 
     @Autowired
-    NotificationJpaRepository notificationJpaRepository;
+    NotificationRepository notificationRepository;
     @Autowired
-    MemberJpaRepository memberJpaRepository;
+    MemberRepository memberRepository;
     @Autowired
-    DogJpaRepository dogJpaRepository;
+    DogRepository dogRepository;
 
     @BeforeEach
     public void setUp(){
@@ -45,7 +45,7 @@ public class ReviewWriteServiceTest {
                 .email("test@naver.com")
                 .password("testPassword")
                 .build();
-        memberJpaRepository.save(member);
+        memberRepository.save(member);
 
         Dog dog = Dog.builder()
                 .name("테스트 개이름")
@@ -54,7 +54,7 @@ public class ReviewWriteServiceTest {
                 .size("testSize")
                 .member(member)
                 .build();
-        dogJpaRepository.save(dog);
+        dogRepository.save(dog);
 
         Notification notification = Notification.builder()
                 .dog(dog)
@@ -66,7 +66,7 @@ public class ReviewWriteServiceTest {
                 .significant("testSig")
                 .coin(BigDecimal.ONE)
                 .build();
-        notificationJpaRepository.save(notification);
+        notificationRepository.save(notification);
         em.flush();
         em.clear();
     }
@@ -78,7 +78,7 @@ public class ReviewWriteServiceTest {
         Long notiId = 1L;
 
         // when
-        Member member = notificationJpaRepository.mfindMember(notiId).getDog().getMember();
+        Member member = notificationRepository.mfindMember(notiId).getDog().getMember();
 
         // then
         Assertions.assertEquals("테스트닉네임",member.getNickname());
