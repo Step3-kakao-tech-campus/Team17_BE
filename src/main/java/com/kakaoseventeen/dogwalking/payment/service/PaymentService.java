@@ -19,7 +19,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+/**
+ * PaymentService(결제) 서비스
+ *
+ * @author 승건 이
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
@@ -34,6 +39,9 @@ public class PaymentService {
 
     private final NotificationRepository notificationRepository;
 
+    /**
+     * 결제 정보 조회 메서드
+     */
     @Transactional(readOnly = true)
     public PaymentResDTO getPaymentInfo(CustomUserDetails customUserDetails, Long matchingId) throws MatchNotExistException, WalkNotExistException{
         // notification 가져오기
@@ -47,6 +55,9 @@ public class PaymentService {
         return PaymentResDTO.of(customUserDetails.getMember(), walk, notification);
     }
 
+    /**
+     * 결제 하기 메서드
+     */
     @Transactional
     public void savePayment(CustomUserDetails customUserDetails, Long notificationId, Long walkId) throws NotificationException, WalkNotExistException {
         // notification 가져오기

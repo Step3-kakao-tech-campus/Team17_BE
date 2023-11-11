@@ -1,7 +1,7 @@
 package com.kakaoseventeen.dogwalking.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakaoseventeen.dogwalking.member.dto.LoginReqDTO;
+import com.kakaoseventeen.dogwalking.member.dto.request.LoginReqDTO;
 import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

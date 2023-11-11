@@ -7,6 +7,12 @@ import lombok.Getter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * MatchResDTO : 매칭 응답 DTO
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 public class MatchResDTO {
 

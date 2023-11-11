@@ -17,6 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * MatchService(매칭) 서비스
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -26,6 +32,9 @@ public class MatchService {
     private final MatchRepository matchRepository;
     private final NotificationRepository notificationRepository;
 
+    /**
+     * 공고글에 매칭된 지원자 리스트를 응답하는 메서드
+     */
     public MatchResDTO match(Long notificationId, Member sessionMember) throws RuntimeException {
 
         Notification notification = notificationRepository.findById(notificationId).orElseThrow(

@@ -5,6 +5,12 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * LoadDogResDTO(강아지 불러오기 응답 DTO)
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 public class LoadDogResDTO {
 

@@ -40,6 +40,9 @@ public class WalkRoadService {
         return new WalkRoadResDTO.SaveWalkResp(walkRoad);
     }
 
+    /**
+     * 산책 경로 조회 메서드
+     */
     @Transactional(readOnly = true)
     public WalkRoadResDTO.FindByWalkId findAllByWalkId(Long matchId) throws WalkNotExistException {
         Walk walk = matchRepository.findWalkFromMatchById(matchId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));

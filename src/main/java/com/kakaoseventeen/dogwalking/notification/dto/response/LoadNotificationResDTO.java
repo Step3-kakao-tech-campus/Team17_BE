@@ -7,6 +7,12 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * LoadNotificationResDTO(공고글 불러오기 응답 DTO)
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 public class LoadNotificationResDTO {
     private Boolean isMine;

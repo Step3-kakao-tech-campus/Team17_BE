@@ -2,6 +2,12 @@ package com.kakaoseventeen.dogwalking._core.utils;
 
 import lombok.Getter;
 
+/**
+ * ChatRoomMessageCode : 에러의 메세지 내용들을 제공하는 enum 클래스
+ *
+ * @author 박영규
+ * @version 1.0
+ */
 @Getter
 public enum ChatRoomMessageCode {
 

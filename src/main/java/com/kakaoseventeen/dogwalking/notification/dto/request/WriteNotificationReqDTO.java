@@ -12,6 +12,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * WriteNotificationReqDTO(공고글 작성 요청 DTO)
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Getter
 @Setter
 public class WriteNotificationReqDTO {

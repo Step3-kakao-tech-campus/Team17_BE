@@ -22,6 +22,9 @@ public class ChatRoomWriteService {
     private final MemberRepository memberRepository;
     private final MatchRepository matchRepository;
 
+    /**
+     * 채팅방 생성 메서드
+     */
     @Transactional
     public void save(ChatRoomReqDTO chatRoomReqDTO){
 

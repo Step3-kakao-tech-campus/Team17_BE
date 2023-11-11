@@ -27,6 +27,9 @@ public class ApplicationWriteService {
     private final MemberRepository memberRepository;
     private final NotificationRepository notificationRepository;
 
+    /**
+     * 지원서 작성 메서드
+     */
     @Transactional
     public void createApp(CreateAppReqDTO createAppReqDTO){
 

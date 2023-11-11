@@ -10,7 +10,12 @@ import com.kakaoseventeen.dogwalking.application.repository.ApplicationRepositor
 import com.kakaoseventeen.dogwalking.dog.domain.Dog;
 import com.kakaoseventeen.dogwalking.dog.repository.DogRepository;
 import com.kakaoseventeen.dogwalking.member.domain.Member;
-import com.kakaoseventeen.dogwalking.member.dto.*;
+import com.kakaoseventeen.dogwalking.member.dto.request.LoginReqDTO;
+import com.kakaoseventeen.dogwalking.member.dto.request.SignupReqDTO;
+import com.kakaoseventeen.dogwalking.member.dto.response.IsOwnerResDTO;
+import com.kakaoseventeen.dogwalking.member.dto.response.LoginRespDTO;
+import com.kakaoseventeen.dogwalking.member.dto.response.MemberProfileResDTO;
+import com.kakaoseventeen.dogwalking.member.dto.response.UpdateProfileResDTO;
 import com.kakaoseventeen.dogwalking.member.repository.MemberRepository;
 import com.kakaoseventeen.dogwalking.notification.domain.Notification;
 import com.kakaoseventeen.dogwalking.notification.repository.NotificationRepository;
@@ -30,6 +35,12 @@ import java.util.List;
 
 import static com.kakaoseventeen.dogwalking._core.utils.MemberMessageCode.MEMBER_NOT_EXIST;
 
+/**
+ * MemberService(멤버) 서비스
+ *
+ * @author 곽민주, 박영규, 이승건
+ * @version 1.0
+ */
 @Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

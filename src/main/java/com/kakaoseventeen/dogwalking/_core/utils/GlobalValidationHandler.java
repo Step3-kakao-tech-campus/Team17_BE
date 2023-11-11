@@ -8,6 +8,12 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
+/**
+ * GlobalValidationHandler : 유효성 검사 에러 핸들링을 위한 클래스
+ *
+ * @author 곽민주
+ * @version 1.0
+ */
 @Aspect
 @Component
 public class GlobalValidationHandler {
