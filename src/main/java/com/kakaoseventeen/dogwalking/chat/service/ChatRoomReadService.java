@@ -1,4 +1,5 @@
 package com.kakaoseventeen.dogwalking.chat.service;
+import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ChatRoomMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.chatroom.InvalidMemberException;
 import com.kakaoseventeen.dogwalking.chat.domain.ChatMessage;
@@ -41,7 +42,7 @@ public class ChatRoomReadService {
      *
      * @return List of ChatListResDTO
      */
-    public List<ChatListResDTO> getChatList() {
+    public List<ChatListResDTO> getChatList(CustomUserDetails customUserDetails) {
 
         Member member = memberRepository.findByEmail(getEmail())
                 .orElseThrow(() -> new InvalidMemberException(ChatRoomMessageCode.INVALID_MEMBER));
@@ -92,10 +93,19 @@ public class ChatRoomReadService {
                 chatContent = chatMessage.get().getContent();
             }
 
+            // 현재 사용자 Id
+            Long memberId = customUserDetails.getMember().getId();
+
+            // memberId에 상대방 Id를 넘겨야 한다.
+            if (chatRoom.getAppMemberId().getId() == memberId){
+                memberId = chatRoom.getNotiMemberId().getId();
+            } else {
+                memberId = chatRoom.getAppMemberId().getId();
+            }
 
             return ChatListResDTO.builder()
                     .chatRoomId(chatRoom.getChatRoomId())
-                    .memberId(member.getId())
+                    .memberId(memberId)
                     .memberNickname(memberNickname)
                     .memberImage(memberImage)
                     .chatContent(chatContent)
