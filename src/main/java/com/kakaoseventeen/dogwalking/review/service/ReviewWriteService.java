@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.review.service;
 
+import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.MessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.ReviewMessageCode;
 import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
@@ -41,12 +42,16 @@ public class ReviewWriteService {
      * @param writeReviewReqDTO 리뷰작성 요청에 따른 RequestBody값
      * @apiNote 리뷰 작성 요청을 받아 DB에 저장한다.
      */
-    public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO) throws WalkNotExistException, ReceiveMemberIdNotExistException{
+    public void writeReview(Long walkId, WriteReviewReqDTO writeReviewReqDTO, CustomUserDetails customUserDetails) throws WalkNotExistException, ReceiveMemberIdNotExistException{
 
         validator(writeReviewReqDTO);
 
         Walk walk = walkRepository.findById(walkId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
-        walk.isReviewdToTrue();
+
+        // 만약 유저가 견주이면 true로 활성화
+        if (Objects.equals(walk.getMaster().getId(), customUserDetails.getMember().getId())){
+            walk.isReviewdToTrue();
+        }
 
         Member dogOwner = notificationRepository.mfindMember(writeReviewReqDTO.notificationId()).getDog().getMember();
 
