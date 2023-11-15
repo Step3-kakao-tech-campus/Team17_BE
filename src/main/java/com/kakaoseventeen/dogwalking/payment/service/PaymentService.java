@@ -73,9 +73,6 @@ public class PaymentService {
         // notification, walk, Payment.of()을 통해 생성 후 DB 저장
         Payment payment = paymentRepository.save(Payment.of(walk, notification.getCoin()));
 
-        // 결제가 성공 되었으니 결제 활성화, walk.activateWalk() 호출
-        walk.activateWalk();
-
         // 결제가 완료 되었으니, 견주의 코인에서 Payment tmpCoin 만큼 제해야한다.
         Member master = customUserDetails.getMember();
 

@@ -15,14 +15,16 @@ import java.util.stream.Collectors;
 
 public class WalkResDTO {
 
+    private WalkResDTO(){
+    }
 
     @Getter @Setter
     public static class WalkStatus {
 
-        private String walkStatus;
+        private String walkStatusField;
 
         public WalkStatus(Walk walk) {
-            this.walkStatus = walk.getWalkStatus().toString();
+            this.walkStatusField = walk.getWalkStatus().toString();
         }
     }
 
@@ -75,7 +77,7 @@ public class WalkResDTO {
         private List<WalkStatusDTO> walkStatusDTOS;
 
         public FindByUserId (List<Walk> walks){
-            this.walkStatusDTOS = walks.stream().map(WalkStatusDTO::new).collect(Collectors.toList());
+            this.walkStatusDTOS = walks.stream().map(WalkStatusDTO::new).toList();
         }
 
         @Getter @Setter
@@ -99,7 +101,7 @@ public class WalkResDTO {
         private List<NotReviewedWalkDTO> walkStatusDTOS;
 
         public FindNotEndWalksByUserId (List<Walk> walks, Long memberId){
-            this.walkStatusDTOS = walks.stream().map(walk -> new NotReviewedWalkDTO(walk, memberId)).collect(Collectors.toList());
+            this.walkStatusDTOS = walks.stream().map(walk -> new NotReviewedWalkDTO(walk, memberId)).toList();
         }
 
         @Getter @Setter
