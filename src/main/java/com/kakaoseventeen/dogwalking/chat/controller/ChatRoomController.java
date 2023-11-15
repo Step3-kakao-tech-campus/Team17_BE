@@ -1,5 +1,6 @@
 package com.kakaoseventeen.dogwalking.chat.controller;
 
+import com.kakaoseventeen.dogwalking._core.security.CustomUserDetails;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 import com.kakaoseventeen.dogwalking.chat.dto.ChatListResDTO;
@@ -8,6 +9,7 @@ import com.kakaoseventeen.dogwalking.chat.service.ChatRoomReadService;
 import com.kakaoseventeen.dogwalking.chat.service.ChatRoomWriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +35,8 @@ public class ChatRoomController {
      * 채팅 목록 조회 메서드
      */
     @GetMapping("/api/chat/list")
-    public ApiResponse<ApiResponse.CustomBody<List<ChatListResDTO>>> getChatList(){
-        List<ChatListResDTO> response = chatRoomReadService.getChatList();
+    public ApiResponse<ApiResponse.CustomBody<List<ChatListResDTO>>> getChatList(@AuthenticationPrincipal CustomUserDetails customUserDetails){
+        List<ChatListResDTO> response = chatRoomReadService.getChatList(customUserDetails);
 
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
