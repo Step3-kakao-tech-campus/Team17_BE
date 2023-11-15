@@ -71,7 +71,9 @@ public class WalkService {
     @Transactional
     public WalkResDTO.StartWalk startWalk(Long matchingId) throws WalkNotExistException {
         Walk walk = matchRepository.findWalkFromMatchById(matchingId).orElseThrow(() -> new WalkNotExistException(MessageCode.WALK_NOT_EXIST));
-        walk.startWalk();
+
+        // 결제가 성공 되었으니 결제 활성화, walk.activateWalk() 호출
+        walk.activateWalk();
 
         return new WalkResDTO.StartWalk(walk);
     }

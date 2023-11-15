@@ -70,6 +70,7 @@ public class Walk {
      */
     public void activateWalk(){
         this.walkStatus = WalkStatus.ACTIVATE;
+        this.startTime = LocalDateTime.now();
     }
 
     /**

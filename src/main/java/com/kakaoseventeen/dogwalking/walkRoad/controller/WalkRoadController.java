@@ -3,6 +3,7 @@ package com.kakaoseventeen.dogwalking.walkRoad.controller;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponse;
 import com.kakaoseventeen.dogwalking._core.utils.ApiResponseGenerator;
 
+import com.kakaoseventeen.dogwalking._core.utils.exception.walk.WalkNotExistException;
 import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadReqDTO;
 import com.kakaoseventeen.dogwalking.walkRoad.dto.WalkRoadResDTO;
 import com.kakaoseventeen.dogwalking.walkRoad.service.WalkRoadService;
@@ -21,7 +22,7 @@ public class WalkRoadController {
      * 산책 경로 저장 메서드
      */
     @PostMapping("/walkRoad/{matchId}")
-    public ApiResponse<ApiResponse.CustomBody<WalkRoadResDTO.SaveWalkResp>> saveWalkRoad(@RequestBody WalkRoadReqDTO walkRoadReqDTO, @PathVariable("matchId") Long matchId) throws RuntimeException {
+    public ApiResponse<ApiResponse.CustomBody<WalkRoadResDTO.SaveWalkResp>> saveWalkRoad(@RequestBody WalkRoadReqDTO walkRoadReqDTO, @PathVariable("matchId") Long matchId) throws WalkNotExistException {
         WalkRoadResDTO.SaveWalkResp respDTO = walkRoadService.saveWalkRoad(walkRoadReqDTO, matchId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }
@@ -31,7 +32,7 @@ public class WalkRoadController {
      * 산책 경로 조회 메서드
      */
     @GetMapping("/walkRoad/{matchId}")
-    public ApiResponse<ApiResponse.CustomBody<WalkRoadResDTO.FindByWalkId>> findAllByWalkId(@PathVariable("matchId") Long matchId) throws RuntimeException {
+    public ApiResponse<ApiResponse.CustomBody<WalkRoadResDTO.FindByWalkId>> findAllByWalkId(@PathVariable("matchId") Long matchId) throws WalkNotExistException {
         WalkRoadResDTO.FindByWalkId respDTO = walkRoadService.findAllByWalkId(matchId);
         return ApiResponseGenerator.success(respDTO, HttpStatus.OK);
     }

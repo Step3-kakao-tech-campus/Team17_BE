@@ -54,7 +54,9 @@ public class ChatRoomReadService {
 
         List<ChatListResDTO> chatListResDTOS = chatRooms.stream().map(chatRoom -> {
             String walkType = null;
-            Optional<Walk> walk = walkRepository.findWalkByMaster(chatRoom.getNotiMemberId());
+
+            Optional<Walk> walk = walkRepository.findWalkByNotification(chatRoom.getMatchId().getNotificationId());
+            log.info("산책이 있는가?: {}",walk.isPresent());
 
             if(walk.isPresent()){
                 walkType = walk.get().getWalkStatus().toString();
